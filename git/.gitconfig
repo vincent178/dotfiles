@@ -3,9 +3,16 @@
 	email = vincent.007.cn@gmail.com
 [credential]
 	helper = osxkeychain
+[color]
+  ui = true
+[color "diff"]
+  whitespace = red reverse
 [core]
   editor = vim
   autocrlf = false
 	excludesfile = ~/.gitignore
+  whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 [push]
   default = current
+
+
