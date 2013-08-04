@@ -1,0 +1,11 @@
+[user]
+	name = vincent178
+	email = vincent.007.cn@gmail.com
+[credential]
+	helper = osxkeychain
+[core]
+  editor = vim
+  autocrlf = false
+	excludesfile = ~/.gitignore
+[push]
+  default = current
