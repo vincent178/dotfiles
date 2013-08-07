@@ -34,6 +34,8 @@ ZSH_THEME="hl-gray"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git)
 
+alias python="/usr/local/bin/python2.7"
+
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
@@ -42,5 +44,3 @@ export PATH=/usr/local/share/npm/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bi
 
 PATH=$HOME/.rvm/bin:$PATH # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
-export ABC="dsc"
