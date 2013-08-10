@@ -34,7 +34,7 @@ ZSH_THEME="hl-gray"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git)
 
-alias python="/usr/local/bin/python2.7"
+# alias tmux="TERM=screen-256color-bce tmux"
 
 source $ZSH/oh-my-zsh.sh
 

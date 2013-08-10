@@ -31,7 +31,7 @@ Bundle 'msanders/snipmate.vim'
 Bundle 'slim-template/vim-slim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'Yggdroot/indentLine'
-Bundle 'mattn/zencoding-vim'
+Bundle 'mattn/emmet-vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'ervandew/supertab'
@@ -84,6 +84,9 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " Use System Clipboard
 set clipboard=unnamed
+
+" Output using 256 colors
+set t_Co=256
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
