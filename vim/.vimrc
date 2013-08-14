@@ -26,6 +26,7 @@ Bundle 'tpope/vim-cucumber'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-dispatch'
+Bundle 'tpope/vim-classpath'
 
 Bundle 'mileszs/ack.vim'
 Bundle 'msanders/snipmate.vim'
@@ -42,6 +43,7 @@ Bundle 'thoughtbot/vim-rspec'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'juvenn/mustache.vim'
 Bundle 'godlygeek/tabular'
+
 
 " Color theme for vim
 Bundle 'jnurmine/Zenburn'
