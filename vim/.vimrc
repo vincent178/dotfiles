@@ -7,7 +7,6 @@ filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-
 Bundle 'gmarik/vundle'
 
 " My Bundles here:
@@ -43,12 +42,14 @@ Bundle 'thoughtbot/vim-rspec'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'juvenn/mustache.vim'
 Bundle 'godlygeek/tabular'
+Bundle 'derekwyatt/vim-scala'
 
 
 " Color theme for vim
 Bundle 'jnurmine/Zenburn'
 Bundle 'jpo/vim-railscasts-theme'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'wesgibbs/vim-irblack'
 
 filetype plugin indent on
 
@@ -136,9 +137,16 @@ inoremap <C-F> <Right>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Different indentaion based of filetype
+filetype plugin indent on
+
 set tabstop=2  
 set softtabstop=2
 set shiftwidth=2
+
+autocmd FileType c setlocal sw=4 sts=4 et
+autocmd FileType python setlocal sw=4 sts=4 et
 
 " Use spaces instead of tabs
 set expandtab
