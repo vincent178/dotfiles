@@ -10,8 +10,6 @@ git clone https://github.com/vincent178/dotfiles.git
 
 # copy all dotfiles
 for file in `find dotfiles | grep "dotfiles/[a-zA-Z]*/\."`; do
-	${file}
-	echo ${file##*/}
 	ln -nfs ${file} ~/.${basename}
 done
 
