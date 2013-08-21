@@ -12,7 +12,7 @@ git clone https://github.com/vincent178/dotfiles.git
 cd ~/dotfiles
 for file in `find . | grep "\./[a-zA-Z]*/\."`; do
   echo ${file}
-  cp ${file} ~/
+  ln -nfs ${file} ~/${file}
 done
 cd ~
 
