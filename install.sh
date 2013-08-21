@@ -11,7 +11,8 @@ git clone https://github.com/vincent178/dotfiles.git
 # copy all dotfiles
 cd ~/dotfiles
 for file in `find . | grep "\./[a-zA-Z]*/\."`; do
-  echo ${file##*/}
+  basename = ${file##*/}
+  ln -nfs ${file} ~/.${basename}
 done
 cd ~
 
