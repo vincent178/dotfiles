@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Install vundle 
-git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+[ -d ~/.vim/bundle/vundle ] || git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
 # Clone Repo
 cd ~
-git clone https://github.com/vincent178/dotfiles.git 
+[ -d ~/dotfiles ] || git clone https://github.com/vincent178/dotfiles.git 
 
 
 # copy all dotfiles
