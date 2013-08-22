@@ -10,7 +10,7 @@ cd ~
 
 # copy all dotfiles
 for file in `find dotfiles | grep "dotfiles/[a-zA-Z]*/\."`; do
-	ln -nfs ${file} ~/.${basename}
+	cp ${file} ~/.${basename}
 done
 
 echo "**************************************************"
