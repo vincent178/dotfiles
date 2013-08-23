@@ -8,12 +8,14 @@ cd ~
 if [ -d ~/dotfiles ]; then
   cd dotfiles
   git pull origin master
+  cd ~
 else
   git clone https://github.com/vincent178/dotfiles.git
 fi
 
 
 # copy all dotfiles
+cd ~
 for file in `find dotfiles | grep "dotfiles/[a-zA-Z]*/\."`; do
 	ln -nfs ${file} ~/.${basename}
 done
