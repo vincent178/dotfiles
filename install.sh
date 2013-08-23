@@ -5,12 +5,17 @@
 
 # Clone Repo
 cd ~
-[ -d ~/dotfiles ] || git clone https://github.com/vincent178/dotfiles.git 
+if [ -d ~/dotfiles ]; then
+  cd dotfiles
+  git pull origin master
+else
+  git clone https://github.com/vincent178/dotfiles.git
+fi
 
 
 # copy all dotfiles
 for file in `find dotfiles | grep "dotfiles/[a-zA-Z]*/\."`; do
-	cp ${file} ~/.${basename}
+	ln -nfs ${file} ~/.${basename}
 done
 
 echo "**************************************************"
