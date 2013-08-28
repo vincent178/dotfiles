@@ -43,6 +43,7 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'juvenn/mustache.vim'
 Bundle 'godlygeek/tabular'
 Bundle 'derekwyatt/vim-scala'
+Bundle 'm2ym/rsense'
 
 
 " Color theme for vim
