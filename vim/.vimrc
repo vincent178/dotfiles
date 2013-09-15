@@ -26,6 +26,7 @@ Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-dispatch'
 Bundle 'tpope/vim-classpath'
+Bundle 'tpope/vim-rvm'
 
 Bundle 'mileszs/ack.vim'
 Bundle 'msanders/snipmate.vim'
