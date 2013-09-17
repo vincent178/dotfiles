@@ -45,3 +45,7 @@ export PATH=/usr/local/share/npm/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bi
 
 PATH=$HOME/.rvm/bin:$PATH # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+
+export oss_access_key_id='V6WodykJLjo3tZPF'
+export oss_secret_access_key='khGM39o0SiFSgd0qIQrBarVuznvlv9'

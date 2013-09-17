@@ -18,6 +18,7 @@ xcuserdata
 profile
 *.moved-aside
 DerivedData
+*.framework
 
 
 # OSX Noise
