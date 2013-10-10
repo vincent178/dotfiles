@@ -89,11 +89,6 @@ filetype indent on
 " Use ag instead of ack
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
-" Use System Clipboard
-if $TMUX == ''
-  set clipboard+=unnamed
-endif
-
 " Output using 256 colors
 set t_Co=256
 
