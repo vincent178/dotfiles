@@ -101,8 +101,10 @@ set pastetoggle=<F2>
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-colorscheme zenburn
+colors zenburn
 
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set termencoding=utf-8
 set encoding=utf-8
 set guifont=Menlo:h14       
 
