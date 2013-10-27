@@ -36,7 +36,7 @@ plugins=(git)
 
 # alias tmux="TERM=screen-256color-bce tmux"
 alias bower='noglob bower'
-alias vim='mvim'
+alias vim='vi'
 
 source $ZSH/oh-my-zsh.sh
 
