@@ -103,7 +103,7 @@ set pastetoggle=<F2>
 
 colors zenburn
 
-set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936,gbk,cp936 
 set termencoding=utf-8
 set encoding=utf-8
 set guifont=Menlo:h14       
