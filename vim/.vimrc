@@ -45,7 +45,6 @@ Bundle 'juvenn/mustache.vim'
 Bundle 'godlygeek/tabular'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'm2ym/rsense'
-Bundle 'jiangmiao/auto-pairs'
 
 
 " Color theme for vim
@@ -106,7 +105,7 @@ colors zenburn
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936,gbk,cp936 
 set termencoding=utf-8
 set encoding=utf-8
-set guifont=Menlo:h14       
+set guifont=Menlo:h15      
 
 " Enable syntax highlighting
 syntax enable
