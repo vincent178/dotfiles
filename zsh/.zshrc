@@ -37,6 +37,9 @@ plugins=(git)
 # alias tmux="TERM=screen-256color-bce tmux"
 alias bower='noglob bower'
 alias vim='vi'
+alias dp='cd ~ && cd Dropbox/Projects/'
+alias dpr='cd ~ && cd Dropbox/Projects/rails/'
+alias dpx='cd ~ && cd Dropbox/Projects/xcode/'
 
 source $ZSH/oh-my-zsh.sh
 
