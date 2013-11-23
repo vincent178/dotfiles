@@ -45,6 +45,7 @@ Bundle 'juvenn/mustache.vim'
 Bundle 'godlygeek/tabular'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'm2ym/rsense'
+Bundle 'jiangmiao/auto-pairs'
 
 
 " Color theme for vim

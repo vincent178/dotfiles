@@ -1,0 +1,14 @@
+# Abstract positions
+alias full move screenOriginX;screenOriginY screenSizeX;screenSizeY
+alias lefthalf move screenOriginX;screenOriginY screenSizeX/2;screenSizeY
+alias righthalf move screenOriginX+screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY
+
+bind =:ctrl;cmd  ${righthalf}
+bind -:ctrl;cmd  ${lefthalf}
+bind 0:ctrl;cmd  ${full}
+
+bind g:ctrl;cmd focus 'Google Chrome'
+bind t:ctrl;cmd focus 'iTerm'
+bind i:ctrl;cmd focus 'Xcode'
+bind v:ctrl;cmd focus 'Sublime Text 2'
+
