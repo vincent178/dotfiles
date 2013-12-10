@@ -38,6 +38,7 @@ plugins=(git)
 alias bower='noglob bower'
 alias vim='vi'
 alias dp='cd ~ && cd Dropbox/Projects/'
+alias dpo='cd ~ && cd Dropbox/Projects/outsource'
 alias dpr='cd ~ && cd Dropbox/Projects/rails/'
 alias dpx='cd ~ && cd Dropbox/Projects/xcode/'
 
