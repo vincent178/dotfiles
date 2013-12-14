@@ -40,7 +40,7 @@ alias vim='vi'
 alias dp='cd ~ && cd Dropbox/Projects/'
 alias dpo='cd ~ && cd Dropbox/Projects/outsource'
 alias dpr='cd ~ && cd Dropbox/Projects/rails/'
-alias dpx='cd ~ && cd Dropbox/Projects/xcode/'
+alias dpi='cd ~ && cd Dropbox/Projects/iOS/'
 alias cb='cd ~ && cd Careerbuilder'
 
 source $ZSH/oh-my-zsh.sh
