@@ -42,14 +42,15 @@ alias dpo='cd ~ && cd Dropbox/Projects/outsource'
 alias dpr='cd ~ && cd Dropbox/Projects/rails/'
 alias dpi='cd ~ && cd Dropbox/Projects/iOS/'
 alias cb='cd ~ && cd Careerbuilder'
+alias gcc='gcc-4.7'
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 # npm brew
-export PATH=/usr/local/share/npm/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin
+export PATH=/usr/local/share/npm/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:$PATH
 
-PATH=$HOME/.rvm/bin:$PATH # Add RVM to PATH for scripting
+#PATH=$HOME/.rvm/bin:$PATH # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 
