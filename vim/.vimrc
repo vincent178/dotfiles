@@ -46,6 +46,7 @@ Bundle 'godlygeek/tabular'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'm2ym/rsense'
 Bundle 'jiangmiao/auto-pairs'
+Bundle 'junegunn/goyo.vim'
 
 
 " Color theme for vim
