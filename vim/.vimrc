@@ -28,6 +28,8 @@ Bundle 'tpope/vim-dispatch'
 Bundle 'tpope/vim-classpath'
 Bundle 'tpope/vim-rvm'
 
+Bundle 'Valloric/YouCompleteMe'
+
 Bundle 'mileszs/ack.vim'
 Bundle 'msanders/snipmate.vim'
 Bundle 'slim-template/vim-slim'
@@ -36,17 +38,17 @@ Bundle 'Yggdroot/indentLine'
 Bundle 'mattn/emmet-vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'Lokaltog/vim-powerline'
-Bundle 'ervandew/supertab'
-Bundle 'vim-scripts/vimwiki'
+"Bundle 'ervandew/supertab'
+"Bundle 'vim-scripts/vimwiki'
 Bundle 'pangloss/vim-javascript'
 Bundle 'thoughtbot/vim-rspec'
 Bundle 'kchmck/vim-coffee-script'
-Bundle 'juvenn/mustache.vim'
+"Bundle 'juvenn/mustache.vim'
 Bundle 'godlygeek/tabular'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'm2ym/rsense'
 Bundle 'jiangmiao/auto-pairs'
-Bundle 'junegunn/goyo.vim'
+"Bundle 'junegunn/goyo.vim'
 
 
 " Color theme for vim
@@ -107,7 +109,7 @@ colors zenburn
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936,gbk,cp936 
 set termencoding=utf-8
 set encoding=utf-8
-set guifont=Menlo:h15      
+set guifont=Menlo:h13      
 
 " Enable syntax highlighting
 syntax enable

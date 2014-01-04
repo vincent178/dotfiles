@@ -36,7 +36,8 @@ plugins=(git)
 
 # alias tmux="TERM=screen-256color-bce tmux"
 alias bower='noglob bower'
-alias vim='vi'
+alias vim='mvim'
+alias vi='/usr/local/bin/vim'
 alias dp='cd ~ && cd Dropbox/Projects/'
 alias dpo='cd ~ && cd Dropbox/Projects/outsource'
 alias dpr='cd ~ && cd Dropbox/Projects/rails/'
