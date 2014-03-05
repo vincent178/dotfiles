@@ -49,6 +49,7 @@ Bundle 'godlygeek/tabular'
 Bundle 'm2ym/rsense'
 Bundle 'jiangmiao/auto-pairs'
 "Bundle 'junegunn/goyo.vim'
+Bundle 'christoomey/vim-tmux-navigator'
 
 
 " Color theme for vim
