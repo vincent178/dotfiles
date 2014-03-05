@@ -1,6 +1,6 @@
 [user]
-       name = vincent178
-       email = vincent.007.cn@gmail.com
+	name = vincent178
+	email = vincent.007.cn@gmail.com
 [credential]
        helper = osxkeychain
 [color]
@@ -10,9 +10,15 @@
 [core]
   editor = vim
   autocrlf = false
-	excludesfile = ~/.gitignore
+	excludesfile = /Users/lhuang/.gitignore
   whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 [push]
   default = current
 
 
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

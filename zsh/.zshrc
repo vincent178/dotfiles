@@ -48,12 +48,16 @@ alias gcc='gcc-4.7'
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-# npm brew
-export PATH=/usr/local/share/npm/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:$PATH
+# npm bre
 
 #PATH=$HOME/.rvm/bin:$PATH # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+rvm get stable --auto-dotfiles
+
+export PATH=/usr/local/share/npm/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:$PATH
+
 
 
 export oss_access_key_id='V6WodykJLjo3tZPF'
 export oss_secret_access_key='khGM39o0SiFSgd0qIQrBarVuznvlv9'
+export ACCESSTOKEN='HYYU2EhLGRR27p6tUmbH'
