@@ -29,6 +29,7 @@ Bundle 'tpope/vim-classpath'
 Bundle 'tpope/vim-rvm'
 
 "Bundle 'Valloric/YouCompleteMe'
+Bundle 'Shougo/neocomplcache.vim'
 
 Bundle 'mileszs/ack.vim'
 Bundle 'msanders/snipmate.vim'
@@ -46,7 +47,7 @@ Bundle 'kchmck/vim-coffee-script'
 "Bundle 'juvenn/mustache.vim'
 Bundle 'godlygeek/tabular'
 "Bundle 'derekwyatt/vim-scala'
-Bundle 'm2ym/rsense'
+"Bundle 'm2ym/rsense'
 Bundle 'jiangmiao/auto-pairs'
 "Bundle 'junegunn/goyo.vim'
 Bundle 'christoomey/vim-tmux-navigator'
@@ -78,6 +79,9 @@ set imsearch=0
 set noswapfile
 set incsearch
 
+" Share Sys Clipboard with VIM
+set clipboard=unnamed
+
 " Automatic Saving
 autocmd BufLeave,FocusLost * silent! wall
 
@@ -100,6 +104,9 @@ set t_Co=256
 nnoremap <F2> :set invpaste paste?<CR>
 imap <F2> <C-O>:set invpaste paste?<CR>
 set pastetoggle=<F2>
+
+" Run neocomplete at startup
+let g:neocomplcache_enable_at_startup = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
