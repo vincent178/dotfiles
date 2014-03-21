@@ -6,7 +6,7 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-
+  
 Bundle 'gmarik/vundle'
 
 " My Bundles here:
@@ -28,28 +28,33 @@ Bundle 'tpope/vim-dispatch'
 Bundle 'tpope/vim-classpath'
 Bundle 'tpope/vim-rvm'
 
-"Bundle 'Valloric/YouCompleteMe'
+" Bundle 'Valloric/YouCompleteMe'
 Bundle 'Shougo/neocomplcache.vim'
+
+" Language Syntax
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'elixir-lang/vim-elixir'
+Bundle 'slim-template/vim-slim'
+Bundle 'pangloss/vim-javascript'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'juvenn/mustache.vim'
+Bundle 'derekwyatt/vim-scala'
+Bundle 'digitaltoad/vim-jade'
+
 
 Bundle 'mileszs/ack.vim'
 Bundle 'msanders/snipmate.vim'
-Bundle 'slim-template/vim-slim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'Yggdroot/indentLine'
 Bundle 'mattn/emmet-vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'ervandew/supertab'
-"Bundle 'vim-scripts/vimwiki'
-Bundle 'pangloss/vim-javascript'
 Bundle 'thoughtbot/vim-rspec'
-Bundle 'kchmck/vim-coffee-script'
-"Bundle 'juvenn/mustache.vim'
+Bundle 'jgdavey/tslime.vim'
 Bundle 'godlygeek/tabular'
-"Bundle 'derekwyatt/vim-scala'
-"Bundle 'm2ym/rsense'
+Bundle 'm2ym/rsense'
 Bundle 'jiangmiao/auto-pairs'
-"Bundle 'junegunn/goyo.vim'
 Bundle 'christoomey/vim-tmux-navigator'
 
 
@@ -58,6 +63,7 @@ Bundle 'jnurmine/Zenburn'
 Bundle 'jpo/vim-railscasts-theme'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'wesgibbs/vim-irblack'
+Bundle 'tomasr/molokai'
 
 filetype plugin indent on
 
@@ -108,11 +114,13 @@ set pastetoggle=<F2>
 " Run neocomplete at startup
 let g:neocomplcache_enable_at_startup = 1
 
+autocmd FileType ruby compiler ruby
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-colors zenburn
+colors molokai
 
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936,gbk,cp936 
 set termencoding=utf-8
@@ -131,7 +139,7 @@ syntax on
 nnoremap <silent> <F8> :NERDTreeToggle<CR>
 
 " Bind C-t for Clear all cache and open CtrlP
-nnoremap <silent> <C-t> :ClearAllCtrlPCache<CR>\|:CtrlP<CR>
+nnoremap <silent> <C-p> :ClearAllCtrlPCache<CR>\|:CtrlP<CR>
 
 " Smart way to move between windows
 map <C-j> <C-W>j
@@ -144,6 +152,15 @@ inoremap <C-A> <Home>
 inoremap <C-E> <End>
 inoremap <C-B> <Left>
 inoremap <C-F> <Right>
+
+" Use Send_to_Tmux to Run the Selected specs.
+let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
+
+" vim-rspec mappings
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
  
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
