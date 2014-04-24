@@ -56,6 +56,7 @@ Bundle 'godlygeek/tabular'
 Bundle 'm2ym/rsense'
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'christoomey/vim-tmux-navigator'
+Bundle 'janx/vim-rubytest'
 
 
 " Color theme for vim
@@ -159,8 +160,10 @@ let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
 " vim-rspec mappings
 map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
+
+" vim-test mappings
+map <Leader>r <Plug>RubyTestRun
  
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related

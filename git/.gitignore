@@ -20,6 +20,8 @@ profile
 DerivedData
 *.framework
 
+vendor/bundle/*
+
 
 # OSX Noise
 .DS_Store
