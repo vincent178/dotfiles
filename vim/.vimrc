@@ -40,6 +40,7 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'juvenn/mustache.vim'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'digitaltoad/vim-jade'
+Bundle 'StanAngeloff/php.vim'
 
 
 Bundle 'mileszs/ack.vim'
