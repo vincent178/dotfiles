@@ -41,6 +41,8 @@ Bundle 'juvenn/mustache.vim'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'StanAngeloff/php.vim'
+Bundle 'fatih/vim-go'
+
 
 
 Bundle 'mileszs/ack.vim'
