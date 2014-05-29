@@ -41,7 +41,7 @@ Bundle 'juvenn/mustache.vim'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'StanAngeloff/php.vim'
-Bundle 'fatih/vim-go'
+" Bundle 'fatih/vim-go'
 
 
 
@@ -60,6 +60,8 @@ Bundle 'm2ym/rsense'
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'janx/vim-rubytest'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'ngmy/vim-rubocop'
 
 
 " Color theme for vim
@@ -117,6 +119,8 @@ set pastetoggle=<F2>
 
 " Run neocomplete at startup
 let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
 
 autocmd FileType ruby compiler ruby
 

@@ -62,7 +62,4 @@ pickle-email-*.html
 config/initializers/secret_token.rb
 mech.log
 
-/config/database.yml
-public/ckeditor_assets/
-
 tags
