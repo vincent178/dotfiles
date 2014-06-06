@@ -185,6 +185,10 @@ set shiftwidth=2
 
 autocmd FileType c setlocal sw=4 sts=4 et
 autocmd FileType python setlocal sw=4 sts=4 et
+autocmd FileType javascript setlocal sw=4 sts=4 et
+autocmd FileType css setlocal sw=4 sts=4 et
+autocmd FileType scss setlocal sw=4 sts=4 et
+autocmd FileType sass setlocal sw=4 sts=4 et
 
 " Use spaces instead of tabs
 set expandtab
