@@ -63,6 +63,7 @@ Bundle 'janx/vim-rubytest'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'ngmy/vim-rubocop'
 Bundle 'joonty/vdebug.git'
+Bundle 'fholgado/minibufexpl.vim'
 
 
 " Color theme for vim
@@ -91,6 +92,10 @@ set iminsert=0
 set imsearch=0
 set noswapfile
 set incsearch
+
+if has("mouse")
+  set mouse=a
+endif
 
 " Share Sys Clipboard with VIM
 " set clipboard=unnamed
@@ -161,6 +166,11 @@ inoremap <C-A> <Home>
 inoremap <C-E> <End>
 inoremap <C-B> <Left>
 inoremap <C-F> <Right>
+
+" MiniBufExpore
+map <Leader>e :MBEOpen<cr>
+map <Leader>c :MBEClose<cr>
+map <Leader>t :MBEToggle<cr>
 
 " Use Send_to_Tmux to Run the Selected specs.
 let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
