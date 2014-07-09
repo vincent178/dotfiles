@@ -98,7 +98,7 @@ if has("mouse")
 endif
 
 " Share Sys Clipboard with VIM
-" set clipboard=unnamed
+set clipboard=unnamed
 
 " Automatic Saving
 autocmd BufLeave,FocusLost * silent! wall
