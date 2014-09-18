@@ -73,11 +73,10 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'wesgibbs/vim-irblack'
 Bundle 'tomasr/molokai'
 
-filetype plugin indent on
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Set to auto read when a file is changed from the outside
 set autoread
 set background=dark
@@ -97,9 +96,6 @@ if has("mouse")
   set mouse=a
 endif
 
-" Share Sys Clipboard with VIM
-set clipboard=unnamed
-
 " Automatic Saving
 autocmd BufLeave,FocusLost * silent! wall
 
@@ -110,25 +106,9 @@ set backspace=2
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
-" filetype plugin indent on    
-
-" Use ag instead of ack
-let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " Output using 256 colors
 set t_Co=256
-
-" Paste toggle
-nnoremap <F2> :set invpaste paste?<CR>
-imap <F2> <C-O>:set invpaste paste?<CR>
-set pastetoggle=<F2>
-
-" Run neocomplete at startup
-let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-
-autocmd FileType ruby compiler ruby
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -149,6 +129,11 @@ syntax on
 " => Key mapping
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Copy and paste into system clipboard
+vnoremap <F3> "+y
+nnoremap <F3> "+y
+nnoremap <F4> "+p
+
 " Bind F8 for NerdTree
 nnoremap <silent> <F8> :NERDTreeToggle<CR>
 
@@ -166,11 +151,6 @@ inoremap <C-A> <Home>
 inoremap <C-E> <End>
 inoremap <C-B> <Left>
 inoremap <C-F> <Right>
-
-" MiniBufExpore
-map <Leader>e :MBEOpen<cr>
-map <Leader>c :MBEClose<cr>
-map <Leader>t :MBEToggle<cr>
 
 " Use Send_to_Tmux to Run the Selected specs.
 let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
@@ -211,6 +191,24 @@ set autoindent
 set smartindent 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Function customazation
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Use ag instead of ack
+"let g:ackprg = 'ag --nogroup --nocolor --column'
+
+" Paste toggle
+nnoremap <F2> :set invpaste paste?<CR>
+imap <F2> <C-O>:set invpaste paste?<CR>
+set pastetoggle=<F2>
+
+" Run neocomplete at startup
+let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Powerline configration
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:Powerline_symbols = 'fancy'
@@ -238,4 +236,3 @@ map <D-7> 7gt
 map <D-8> 8gt
 map <D-9> 9gt
 map <D-0> :tablast<CR>
-
