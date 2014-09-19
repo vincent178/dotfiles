@@ -160,6 +160,9 @@ map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
 
+" Close buffer in minibufexpl 
+map <Leader>c :MBEbd<CR>
+
 " vim-test mappings
 map <Leader>r <Plug>RubyTestRun
  
@@ -208,9 +211,7 @@ let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Powerline configration
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Powerline configration
 let g:Powerline_symbols = 'fancy'
 set laststatus=2
 let g:Powerline_dividers_override = ['','','','|']
