@@ -91,6 +91,7 @@ set iminsert=0
 set imsearch=0
 set noswapfile
 set incsearch
+set hlsearch
 
 if has("mouse")
   set mouse=a
@@ -133,6 +134,9 @@ syntax on
 vnoremap <F3> "+y
 nnoremap <F3> "+y
 nnoremap <F4> "+p
+
+" Bind // for unhighlight search term
+nmap <silent> // :silent noh<CR>
 
 " Bind F8 for NerdTree
 nnoremap <silent> <F8> :NERDTreeToggle<CR>
