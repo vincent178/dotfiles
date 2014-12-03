@@ -30,8 +30,8 @@ def check_in_correct_folder
   end
 end
 
-def link_file_to_dotfile(real_file, dest)
-  FileUtils.ln_sf(real_file, dest)
+def link_file_to_dotfile(src, dest)
+  FileUtils.ln_sf(src, dest)
 end
 
 check_in_correct_folder
