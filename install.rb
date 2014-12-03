@@ -1,20 +1,5 @@
 #!/usr/bin/env ruby
 
-# register the dotfile here
-# first will go find the file with the same directory
-# second find the run file in the directory
-# if there is no run file
-#   copy directly
-# else 
-#   run run file 
-#
-
-require 'pry'
-require 'pry-nav'
-
-puts "Hello world"
-
-
 dot_factory = {
   "gemrc"        => ".gemrc",
   "gitconfig"    => ".gitconfig",
