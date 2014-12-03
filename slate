@@ -13,8 +13,8 @@ bind -:ctrl;cmd     ${lefthalf}
 bind 0:ctrl;cmd     ${full}
 
 # focus on common app
-bind g:ctrl;cmd focus 'Google Chrome'
-bind t:ctrl;cmd focus 'iTerm'
+bind 1:alt focus 'iTerm' 
+bind 2:alt focus 'Google Chrome'
 bind i:ctrl;cmd focus 'Xcode'
 
 # resize window 

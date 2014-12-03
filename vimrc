@@ -164,6 +164,11 @@ noremap <Leader>q :q<cr>
 noremap <Leader>w :w<cr>
 noremap <Leader>wq :wq<cr>
 
+noremap <Leader>es :EvervimSetup<cr>
+noremap <Leader>el :EvervimNotebookList<cr>
+noremap <Leader>ef :EvervimSearchByQuery<cr>
+noremap <Leader>ec :EvervimCreateNote<cr>
+
  
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
