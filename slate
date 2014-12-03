@@ -1,0 +1,23 @@
+# Abstract positions
+alias full      move screenOriginX;screenOriginY screenSizeX;screenSizeY
+alias lefthalf  move screenOriginX;screenOriginY screenSizeX/2;screenSizeY
+alias righthalf move screenOriginX+screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY
+alias topleft     corner top-left resize:screenSizeX/2;screenSizeY/2
+alias topright    corner top-right resize:screenSizeX/2;screenSizeY/2
+alias bottomleft  corner bottom-left resize:screenSizeX/2;screenSizeY/2
+alias bottomright corner bottom-right resize:screenSizeX/2;screenSizeY/2
+
+# split window
+bind =:ctrl;cmd     ${righthalf}
+bind -:ctrl;cmd     ${lefthalf}
+bind 0:ctrl;cmd     ${full}
+
+# focus on common app
+bind g:ctrl;cmd focus 'Google Chrome'
+bind t:ctrl;cmd focus 'iTerm'
+bind i:ctrl;cmd focus 'Xcode'
+
+# resize window 
+bind left:ctrl;cmd     resize -10% +0
+bind right:ctrl;cmd     resize +10% +0
+
