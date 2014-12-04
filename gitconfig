@@ -1,3 +1,5 @@
 [user]
 	name = Vincent Huang
 	email = vincent.007.cn@gmail.com
+[push]
+	default = simple
