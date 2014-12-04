@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require 'fileutils'
+
 dot_factory = {
   "gemrc"        => ".gemrc",
   "gitconfig"    => ".gitconfig",
