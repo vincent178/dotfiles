@@ -7,7 +7,9 @@ ZSH_THEME="robbyrussell"
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
-[[ -s "$HOME/.secureinfo" ]] && source "$HOME/.secureinfo" 
+
+# custom configuration
+[[ -s "$HOME/.custom" ]] && source "$HOME/.custom"
 
 # alias
 alias ws='cd ~/Documents/workspace/'
