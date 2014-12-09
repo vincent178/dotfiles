@@ -8,7 +8,8 @@ dot_factory = {
   "slate"        => ".slate",
   "tmux.conf"    => ".tmux.conf",
   "vimrc"        => ".vimrc",
-  "zshrc"        => ".zshrc"
+  "zshrc"        => ".zshrc",
+  "gitignore"    => ".gitignore"
 }
 
 
