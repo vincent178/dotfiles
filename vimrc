@@ -6,7 +6,7 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-  
+
 Bundle 'gmarik/vundle'
 
 " My Bundles here:
@@ -28,27 +28,20 @@ Bundle 'tpope/vim-dispatch'
 Bundle 'tpope/vim-classpath'
 Bundle 'tpope/vim-rvm'
 
-Bundle 'Valloric/YouCompleteMe'
-" Bundle 'Shougo/neocomplcache.vim'
+" Bundle 'Valloric/YouCompleteMe'
+Bundle 'Shougo/neocomplcache.vim'
 
 " Language Syntax
 Bundle 'vim-ruby/vim-ruby'
-Bundle 'elixir-lang/vim-elixir'
-Bundle 'slim-template/vim-slim'
 Bundle 'pangloss/vim-javascript'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'juvenn/mustache.vim'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'digitaltoad/vim-jade'
-Bundle 'StanAngeloff/php.vim'
-Bundle 'elzr/vim-json'
 Bundle 'Blackrush/vim-gocode'
 
 
 Bundle 'mileszs/ack.vim'
 Bundle 'msanders/snipmate.vim'
 Bundle 'kien/ctrlp.vim'
-Bundle 'Yggdroot/indentLine'
 Bundle 'mattn/emmet-vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'Lokaltog/vim-powerline'

@@ -30,7 +30,7 @@ config/secrets.yml
 # if using bower-rails ignore default bower_components path bower.json files
 /vendor/assets/bower_components
 *.bowerrc
-bower.json
+# bower.json
 
 
 
@@ -63,3 +63,6 @@ build/Release
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git-
 node_modules
+
+# Bower dependency
+bower_components
