@@ -204,6 +204,8 @@ let g:neocomplcache_enable_at_startup = 1
 " Use smartcase.
 let g:neocomplcache_enable_smart_case = 1
 
+" NERDTree show hidden files at startup
+let NERDTreeShowHidden=1
 
 " Powerline configration
 let g:Powerline_symbols = 'fancy'
