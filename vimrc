@@ -52,6 +52,7 @@ Bundle 'm2ym/rsense'
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'kakkyz81/evervim'
+Bundle 'dgryski/vim-godef'
 
 
 " Color theme for vim
