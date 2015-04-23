@@ -1,66 +1,45 @@
-" call pathogen#infect()
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 
+" Vimrc file used by Vincent, created at 2015.04.24
+" Please contact me if you have any problem
+" Email address hl007@outlook.com
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vbundle
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set nocompatible              
+filetype off                  
 
-Bundle 'gmarik/vundle'
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-" My Bundles here:
+Plugin 'gmarik/Vundle.vim'
 
-Bundle 'tpope/vim-unimpaired'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-speeddating'
-Bundle 'tpope/vim-bundler'
-Bundle 'tpope/vim-ragtag'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-cucumber'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-dispatch'
-Bundle 'tpope/vim-classpath'
-Bundle 'tpope/vim-rvm'
+Plugin 'Valloric/YouCompleteMe'
 
-" Bundle 'Valloric/YouCompleteMe'
-Bundle 'Shougo/neocomplcache.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'juvenn/mustache.vim'
 
-" Language Syntax
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'pangloss/vim-javascript'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'juvenn/mustache.vim'
-Bundle 'Blackrush/vim-gocode'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-commentary'
+Plugin 'mileszs/ack.vim'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'kien/ctrlp.vim'
+Plugin 'mattn/emmet-vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Lokaltog/vim-powerline'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'jgdavey/tslime.vim'
+Plugin 'jnurmine/Zenburn'
 
 
-Bundle 'mileszs/ack.vim'
-Bundle 'msanders/snipmate.vim'
-Bundle 'kien/ctrlp.vim'
-Bundle 'mattn/emmet-vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'ervandew/supertab'
-Bundle 'jgdavey/tslime.vim'
-Bundle 'godlygeek/tabular'
-Bundle 'm2ym/rsense'
-Bundle 'jiangmiao/auto-pairs'
-Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'kakkyz81/evervim'
-Bundle 'dgryski/vim-godef'
-
-
-" Color theme for vim
-Bundle 'jnurmine/Zenburn'
-Bundle 'jpo/vim-railscasts-theme'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'wesgibbs/vim-irblack'
-Bundle 'tomasr/molokai'
+call vundle#end()    
+filetype plugin indent on 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
