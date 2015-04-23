@@ -15,7 +15,7 @@ source $ZSH/oh-my-zsh.sh
 alias ws='cd ~/Documents/workspace/'
 
 # path
-export GOPATH=$HOME/Documents/workspace/go
+export GOPATH=$HOME/Library/Development/Go
 
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
