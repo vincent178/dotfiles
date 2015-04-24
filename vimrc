@@ -19,7 +19,8 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe' " Provide autocomplete for c-family and python using jedi and go using gocode
+Plugin 'marijnh/tern_for_vim' " Provide autocomplete for javascript based on tern
 
 Plugin 'pangloss/vim-javascript'
 Plugin 'kchmck/vim-coffee-script'
