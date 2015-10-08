@@ -13,6 +13,7 @@ source $ZSH/oh-my-zsh.sh
 
 # alias
 alias ws='cd ~/Documents/workspace/'
+alias chi='cd ~/Documents/Excelsior/Code/excelsior/'
 
 # path
 export GOPATH=$HOME/Documents/workspace/go
