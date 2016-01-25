@@ -13,51 +13,55 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-Bundle 'gmarik/vundle'
+Plugin 'VundleVim/Vundle.vim'
 
 " My Bundles here:
 
 " Language Syntax
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'pangloss/vim-javascript'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'juvenn/mustache.vim'
-Bundle 'Blackrush/vim-gocode'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-markdown'
-Bundle 'dgryski/vim-godef'
-Bundle 'elixir-lang/vim-elixir'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'pangloss/vim-javascript'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'juvenn/mustache.vim'
+Plugin 'Blackrush/vim-gocode'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-markdown'
+Plugin 'dgryski/vim-godef'
+Plugin 'elixir-lang/vim-elixir'
 
 " Function expand
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-commentary'
-Bundle 'mileszs/ack.vim'
-Bundle 'kien/ctrlp.vim'
-Bundle 'mattn/emmet-vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'jgdavey/tslime.vim'
-Bundle 'jiangmiao/auto-pairs'
-Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'jistr/vim-nerdtree-tabs'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-commentary'
+Plugin 'mileszs/ack.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'mattn/emmet-vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Lokaltog/vim-powerline'
+Plugin 'jgdavey/tslime.vim'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'jistr/vim-nerdtree-tabs'
 
 
 " AutoComplete
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'marijnh/tern_for_vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'marijnh/tern_for_vim'
 
 " Color theme for vim
-Bundle 'jnurmine/Zenburn'
-Bundle 'jpo/vim-railscasts-theme'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'wesgibbs/vim-irblack'
-Bundle 'tomasr/molokai'
+Plugin 'jnurmine/Zenburn'
+Plugin 'jpo/vim-railscasts-theme'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'wesgibbs/vim-irblack'
+Plugin 'tomasr/molokai'
+
+call vundle#end() 
+filetype plugin indent on 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
