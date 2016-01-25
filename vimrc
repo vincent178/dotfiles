@@ -213,10 +213,21 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'dir':  '\v[\/]\.(git|hg|svn|bower_components|acceptance_tests|node_modules)$',
   \ 'file': '\v\.(exe|so|dll)$'}
 
 " Use Ag with ack.vim
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
+set wildignore+=*/node_modules/*,*/bower_components/*,*/acceptance_tests/*
+
+if has("multi_byte")
+  if &termencoding == ""
+    let &termencoding = &encoding
+  endif
+  set encoding=utf-8
+  setglobal fileencoding=utf-8
+  "setglobal bomb
+  set fileencodings=ucs-bom,utf-8,latin1
+endif
 
