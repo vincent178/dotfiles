@@ -1,0 +1,47 @@
+{
+    "workbench.colorTheme": "Ayu Mirage",
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "workbench.editor.enablePreview": false,
+
+
+
+    "window.zoomLevel": 0,
+    "extensions.ignoreRecommendations": false,
+    "files.useExperimentalFileWatcher": true,
+ 
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/tmp": true,
+        "**/log": true
+    },
+ 
+    "files.watcherExclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/tmp": true,
+        "**/log": true
+    },
+
+    "files.exclude": {
+        "**/node_modules": false,
+        "**/bower_components": true,
+        "**/tmp": true,
+        "**/log": true
+    },
+
+    "vim.easymotion": true,
+    "vim.useSystemClipboard": false,
+    "vim.useCtrlKeys": true,
+    "vim.hlsearch": true,
+    "vim.enableNeovim": false,
+ 
+    "editor.fontSize": 13,
+    "editor.tabSize": 2,
+    "editor.minimap.enabled": false,
+    "editor.renderWhitespace": "all",
+ 
+    "gitlens.annotations.file.gutter.heatmap.enabled": false,
+    "gitlens.codeLens.recentChange.enabled": false,
+    "gitlens.codeLens.authors.enabled": false,
+}
