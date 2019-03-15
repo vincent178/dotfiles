@@ -1,0 +1,94 @@
+{
+    "workbench.colorTheme": "Ayu Mirage Bordered",
+    // "workbench.editor.enablePreviewFromQuickOpen": false,
+    // "workbench.editor.enablePreview": false,
+
+    // "workbench.colorCustomizations":{
+    //     "tab.activeBackground": "#282c34",
+    //     "activityBar.background": "#282c34",
+    //     "sideBar.background": "#282c34"
+    // },
+
+    "npm.enableScriptExplorer": false,
+
+    "files.useExperimentalFileWatcher": true,
+    "files.insertFinalNewline": true,
+
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+
+    "extensions.ignoreRecommendations": true,
+ 
+    "search.smartCase": true,
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/tmp": true,
+        "**/log": true,
+        "**/dist": true
+    },
+ 
+    "files.watcherExclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/tmp": true,
+        "**/log": true
+    },
+
+    "files.exclude": {
+        "**/node_modules": false,
+        "**/bower_components": true,
+        "**/tmp": true,
+        "**/log": true
+    },
+
+    "vim.easymotion": true,
+    "vim.useSystemClipboard": false,
+    "vim.useCtrlKeys": true,
+    "vim.hlsearch": true,
+    "vim.enableNeovim": false,
+ 
+    "editor.fontSize": 13,
+    "editor.tabSize": 2,
+    "editor.minimap.enabled": false,
+    "editor.renderWhitespace": "all",
+ 
+    "gitlens.codeLens.recentChange.enabled": false,
+    "gitlens.codeLens.authors.enabled": false,
+    "gitlens.advanced.messages": {
+        "suppressCommitHasNoPreviousCommitWarning": false,
+        "suppressCommitNotFoundWarning": false,
+        "suppressFileNotUnderSourceControlWarning": false,
+        "suppressGitVersionWarning": false,
+        "suppressLineUncommittedWarning": false,
+        "suppressNoRepositoryWarning": false,
+        "suppressResultsExplorerNotice": false,
+        "suppressShowKeyBindingsNotice": true,
+        "suppressUpdateNotice": true,
+        "suppressWelcomeNotice": false
+    },
+    "gitlens.blame.heatmap.enabled": false,
+    "gitlens.keymap": "none",
+    "git.autofetch": true,
+    "git.confirmSync": false,
+
+    "editor.acceptSuggestionOnCommitCharacter": false,
+    "editor.acceptSuggestionOnEnter": "on",
+
+    "window.zoomLevel": 0,
+    "gulp.autoDetect": "off",
+    "gitlens.views.fileHistory.enabled": false,
+    "gitlens.views.lineHistory.enabled": false,
+    "editor.renderControlCharacters": true,
+    "breadcrumbs.enabled": true,
+    "http.proxy": "http://proxy.sin.sap.corp:8080",
+    "workbench.statusBar.visible": false,
+    "workbench.activityBar.visible": true,
+    "workbench.sideBar.location": "left",
+
+    "go.lintTool": "gometalinter",
+    "go.lintFlags": [
+        "--config=~/.gometalinter"
+    ],
+    "typescript.updateImportsOnFileMove.enabled": "never"
+}
