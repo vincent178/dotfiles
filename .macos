@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Change initial key repeat 
+defaults write -g InitialKeyRepeat -int 12
+defaults write -g KeyRepeat -int 2
