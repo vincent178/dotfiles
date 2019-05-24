@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 echo "Setup your Mac..."
 
 if test ! $(which brew); then
@@ -17,6 +19,10 @@ fi
 
 ln -s $HOME/Dotfiles/.zshrc $HOME/.zshrc
 ln -s $HOME/Dotfiles/.slate $HOME/.slate
+
+# config git ignore
+ln -s $HOME/Dotfiles/.gitignore $HOME/.gitignore
+git config --global core.excludesfile ~/.gitignore
 
 source .macos
 

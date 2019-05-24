@@ -1,8 +1,8 @@
+Dotfiles
+=======
 
-### Quick Start
+### Backup Mac
+./backup.sh
 
-`git clone https://github.com/vincent178/dotfiles.git`
-
-`cd dotfiles`
-
-`./install.rb`
+### Setup Mac
+./install.sh
