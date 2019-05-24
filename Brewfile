@@ -1,11 +1,8 @@
-tap "cloudfoundry/tap"
-tap "ethereum/ethereum"
 tap "go-delve/delve"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
 tap "homebrew/services"
-tap "homebrew/versions"
 tap "tomanthony/brews"
 brew "aria2"
 brew "autoconf"
@@ -28,8 +25,6 @@ brew "neovim"
 brew "pkg-config"
 brew "protobuf"
 brew "pstree"
-brew "readline"
-brew "python", link: false
 brew "redis"
 brew "rsync"
 brew "telnet"
@@ -40,11 +35,19 @@ brew "unixodbc"
 brew "watchman"
 brew "youtube-dl"
 brew "tomanthony/brews/itermocil"
+cask "alfred"
 cask "android-platform-tools"
+cask "iterm2"
 cask "keycastr"
 cask "ngrok"
 cask "slate"
 cask "vagrant"
 cask "virtualbox"
-mas "com.fabriceleyne.hourlite", id: 569089415
-mas "com.tencent.xinWeChat", id: 836500024
+cask "visual-studio-code"
+mas "GarageBand", id: 682658836
+mas "Hour", id: 569089415
+mas "iMovie", id: 408981434
+mas "Keynote", id: 409183694
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
+mas "WeChat", id: 836500024
