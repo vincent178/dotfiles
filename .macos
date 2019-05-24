@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
-# Change initial key repeat 
+# Change key repeat rate
 defaults write -g InitialKeyRepeat -int 12
 defaults write -g KeyRepeat -int 2
+
+# Enable key repeat
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+

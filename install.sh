@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "Set up your Mac..."
+echo "Setup your Mac..."
 
 if test ! $(which brew); then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -15,10 +15,12 @@ if [ ! -d $HOME/.oh-my-zsh ]; then
 	rm -rf $HOME/.zshrc
 fi
 
-ln -s $HOME/.dotfiles/.zshrc $HOME/.zshrc
-ln -s $HOME/.dotfiles/.slate $HOME/.slate
+ln -s $HOME/Dotfiles/.zshrc $HOME/.zshrc
+ln -s $HOME/Dotfiles/.slate $HOME/.slate
 
 source .macos
+
+echo "Done setup"
 
 # $ npm install --global pure-prompt
 
