@@ -44,5 +44,6 @@ cask "slate"
 cask "vagrant"
 cask "virtualbox"
 cask "visual-studio-code"
+cask "shadowsocksx-ng"
 mas "Hour", id: 569089415
 mas "WeChat", id: 836500024
