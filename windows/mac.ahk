@@ -1,5 +1,8 @@
 SetCapsLockState AlwaysOff
 
++CapsLock::CapsLock
+
+; Unified MacOS like copy paste
 !x::
   IfWinActive, Hyper
     Send ^+x
@@ -21,6 +24,7 @@ Return
     Send ^v
 Return
 
+; Reuse system wide navigation
 CapsLock & b::Send {Left}
 CapsLock & f::Send {Right}
 CapsLock & p::Send {Up}
@@ -59,3 +63,13 @@ CapsLock & 0::Send ^0
 !a::Send ^a
 !f::Send ^f
 !z::Send ^z
+!q::Send !{F4}
+
+!+t::Send ^+t
+
+; To Mac Command Left Click
+!LButton::  
+  SendEvent ^{LButton down}
+  KeyWait AppsKey  ; Prevents keyboard auto-repeat from repeating the mouse click.
+  SendEvent ^{LButton up}
+return
