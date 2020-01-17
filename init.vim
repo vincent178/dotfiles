@@ -33,13 +33,20 @@ set hlsearch
 set encoding=utf-8
 set mouse=a
 
-highlight Pmenu ctermbg=238 gui=bold
+let mapleader=","
 
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+set wildignore+=*/node_modules/*,*/bower_components/*,*/acceptance_tests/*
+set wildignore+=.git/*,.hg/*,.svn/*
+
+set completeopt+=noinsert
+set completeopt-=preview
+set completeopt+=menuone
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Key mapping
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <C-t> <C-p>
 
 tnoremap <C-j> <C-\><C-N><C-w>j
 tnoremap <C-k> <C-\><C-N><C-w>k
@@ -61,7 +68,6 @@ inoremap <C-E> <End>
 inoremap <C-B> <Left>
 inoremap <C-F> <Right>
 
-let mapleader=","
 
 vnoremap <Leader>y "+y
 nnoremap <Leader>y "+y
@@ -78,16 +84,7 @@ noremap <Leader>q :q<cr>
 noremap <Leader>w :w<cr>
 noremap <Leader>wq :wq<cr>
 
-
-function! HTerminal()
-  sp
-  wincmd j
-  resize 10
-	terminal
-endfunction
-
 nnoremap <Leader>t :call HTerminal()<CR>
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
@@ -101,68 +98,30 @@ set shiftwidth=2
 filetype plugin indent on  " Load plugins according to detected filetype
 syntax on
 
-au FileType c setlocal sw=4 sts=4 et
-au FileType python setlocal sw=4 sts=4 et
-au FileType php setlocal sw=4 sts=4 et
-au FileType javascript setlocal sw=2 sts=2 et
-au FileType css setlocal sw=2 sts=2 et
-au FileType scss setlocal sw=2 sts=2 et
-au FileType sass setlocal sw=2 sts=2 et
-au FileType html setlocal sw=4 sts=4 et
-au FileType go set shiftwidth=4
-au FileType go set softtabstop=4
-au FileType go set tabstop=4
-
-autocmd FileType go nmap <leader>b <Plug>(go-build)
-autocmd FileType go nmap <leader>r <Plug>(go-run)
-autocmd FileType go nmap <leader>t <Plug>(go-test)
-autocmd FileType go nmap <leader>i <Plug>(go-info)
-
-au FileType go nmap <leader>gt :GoDeclsDir<cr>
-au Filetype go nmap <leader>ga <Plug>(go-alternate-edit)
-au Filetype go nmap <leader>gah <Plug>(go-alternate-split)
-au Filetype go nmap <leader>gav <Plug>(go-alternate-vertical)
-au FileType go nmap <F10> :GoTest -short<cr>
-au FileType go nmap <F9> :GoCoverageToggle -short<cr>
-au FileType go nmap <F12> <Plug>(go-def)
-
-
+autocmd FileType c          set shiftwidth=4
+autocmd FileType python     set shiftwidth=4
+autocmd FileType php        set shiftwidth=4
+autocmd FileType javascript set shiftwidth=2
+autocmd FileType css        set shiftwidth=2
+autocmd FileType scss       set shiftwidth=2
+autocmd FileType sass       set shiftwidth=2
+autocmd FileType html       set shiftwidth=4
+autocmd FileType go         set shiftwidth=4
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Customazation
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap <F2> :set invpaste paste?<CR>
-imap <F2> <C-O>:set invpaste paste?<CR>
-set pastetoggle=<F2>
-
-autocmd BufLeave,FocusLost * silent! wall
-
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
-let g:go_auto_sameids = 1
-let g:go_fmt_command = "goimports"
-
-let g:ale_sign_error = '⤫'
-let g:ale_sign_warning = '⚠'
-let g:airline#extensions#ale#enabled = 1
-
-
-let g:go_addtags_transform = "snakecase"
-let g:go_snippet_engine = "neosnippet"
-
-let g:go_auto_type_info = 1
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Function
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! HTerminal()
+  sp
+  wincmd j
+  resize 20
+	terminal
+endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Setting
@@ -170,27 +129,8 @@ let g:go_auto_type_info = 1
 
 let NERDTreeShowHidden=1
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
-
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn|bower_components|acceptance_tests|node_modules|public)$',
-  \ 'file': '\v\.(exe|so|dll)$'}
-
-set wildignore+=*/node_modules/*,*/bower_components/*,*/acceptance_tests/*
-
-if has("multi_byte")
-  if &termencoding == ""
-    let &termencoding = &encoding
-  endif
-  set encoding=utf-8
-  setglobal fileencoding=utf-8
-  "setglobal bomb
-  set fileencodings=ucs-bom,utf-8,latin1
-endif
-
-
-set completeopt+=noinsert
-set completeopt-=preview
-set completeopt+=menuone
+autocmd FileType go nmap <leader>b <Plug>(go-build)
+autocmd FileType go nmap <leader>r <Plug>(go-run)
+autocmd FileType go nmap <leader>t <Plug>(go-test)
+autocmd FileType go nmap <leader>i <Plug>(go-info)
 
