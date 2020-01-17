@@ -1,8 +1,10 @@
 call plug#begin('~/.vim/autoload/plugged')
 
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 Plug 'scrooloose/nerdtree' " project file tree
 
-Plug 'fatih/vim-go' " golang
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'sebdah/vim-delve' " golang debug
 
 Plug 'mileszs/ack.vim' " search across project
@@ -128,6 +130,9 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let NERDTreeShowHidden=1
+
+let g:go_fmt_command = "goimports"
+let g:go_auto_type_info = 1
 
 autocmd FileType go nmap <leader>b <Plug>(go-build)
 autocmd FileType go nmap <leader>r <Plug>(go-run)
