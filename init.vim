@@ -1,23 +1,18 @@
 call plug#begin('~/.vim/autoload/plugged')
 
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/deoplete.nvim'
-Plug 'fatih/vim-go'
-Plug 'jodosha/vim-godebug'
-Plug 'scrooloose/nerdtree'
-Plug 'mileszs/ack.vim'
-Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'scrooloose/nerdtree' " project file tree
+
+Plug 'fatih/vim-go' " golang
+Plug 'sebdah/vim-delve' " golang debug
+
+Plug 'mileszs/ack.vim' " search across project
+
 Plug 'kien/ctrlp.vim'
-Plug 'zchee/deoplete-go', {'build': 'make'}
-Plug 'sebdah/vim-delve'
+
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
+
 Plug 'jiangmiao/auto-pairs'
-Plug 'ervandew/supertab'
-Plug 'mattn/emmet-vim'
-Plug 'vim-ruby/vim-ruby'
-Plug 'stamblerre/gocode', { 'rtp': 'nvim', 'do': '~/.vim/autoload/plugged/gocode/nvim/symlink.sh' }
 
 call plug#end()
 
@@ -25,23 +20,20 @@ call plug#end()
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set t_Co=256
+set autoindent
+set expandtab
 set number
+set showmode
+set showcmd
 set ruler
 set hidden
 set noswapfile
 set incsearch
 set hlsearch
-set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936,gbk,cp936
 set encoding=utf-8
-set guifont=Menlo:h15
 set mouse=a
 
 highlight Pmenu ctermbg=238 gui=bold
-
-set background=dark
-colorscheme hybrid_reverse
-let g:airline_theme = "hybrid"
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -96,14 +88,6 @@ endfunction
 
 nnoremap <Leader>t :call HTerminal()<CR>
 
-au FileType go nmap <leader>gt :GoDeclsDir<cr>
-au Filetype go nmap <leader>ga <Plug>(go-alternate-edit)
-au Filetype go nmap <leader>gah <Plug>(go-alternate-split)
-au Filetype go nmap <leader>gav <Plug>(go-alternate-vertical)
-au FileType go nmap <F10> :GoTest -short<cr>
-au FileType go nmap <F9> :GoCoverageToggle -short<cr>
-au FileType go nmap <F12> <Plug>(go-def)
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
@@ -113,6 +97,9 @@ set backspace=2
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
+
+filetype plugin indent on  " Load plugins according to detected filetype
+syntax on
 
 au FileType c setlocal sw=4 sts=4 et
 au FileType python setlocal sw=4 sts=4 et
@@ -125,6 +112,20 @@ au FileType html setlocal sw=4 sts=4 et
 au FileType go set shiftwidth=4
 au FileType go set softtabstop=4
 au FileType go set tabstop=4
+
+autocmd FileType go nmap <leader>b <Plug>(go-build)
+autocmd FileType go nmap <leader>r <Plug>(go-run)
+autocmd FileType go nmap <leader>t <Plug>(go-test)
+autocmd FileType go nmap <leader>i <Plug>(go-info)
+
+au FileType go nmap <leader>gt :GoDeclsDir<cr>
+au Filetype go nmap <leader>ga <Plug>(go-alternate-edit)
+au Filetype go nmap <leader>gah <Plug>(go-alternate-split)
+au Filetype go nmap <leader>gav <Plug>(go-alternate-vertical)
+au FileType go nmap <F10> :GoTest -short<cr>
+au FileType go nmap <F9> :GoCoverageToggle -short<cr>
+au FileType go nmap <F12> <Plug>(go-def)
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -156,14 +157,7 @@ let g:airline#extensions#ale#enabled = 1
 let g:go_addtags_transform = "snakecase"
 let g:go_snippet_engine = "neosnippet"
 
-
-
 let g:go_auto_type_info = 1
-
-if has('nvim')
-    " Enable deoplete on startup
-    let g:deoplete#enable_at_startup = 1
-endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -183,9 +177,6 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn|bower_components|acceptance_tests|node_modules|public)$',
   \ 'file': '\v\.(exe|so|dll)$'}
 
-" Use Ag with ack.vim
-let g:ackprg = 'ag --nogroup --nocolor --column'
-
 set wildignore+=*/node_modules/*,*/bower_components/*,*/acceptance_tests/*
 
 if has("multi_byte")
@@ -203,6 +194,3 @@ set completeopt+=noinsert
 set completeopt-=preview
 set completeopt+=menuone
 
-
-imap <expr><CR> neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : pumvisible() ?
-			\ "\<C-y>" : "\<CR>"
