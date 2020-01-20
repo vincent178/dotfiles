@@ -56,7 +56,6 @@ config/*.sphinx.conf
 vendor/bundle
 public/s/files
 solr/data
-data/*
 resque.pid
 resque_scheduler.pid
 
