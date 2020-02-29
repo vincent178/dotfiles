@@ -41,4 +41,9 @@ if ! [ -f $HOME/.gitconfig ]; then
 	ln -s $PWD/.gitconfig $HOME/.gitconfig
 fi
 
+echo "setup nvm"
+if ! [ -f $HOME/.nvm ]; then
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
+fi
+
 echo "finish dotfiles"
