@@ -26,7 +26,7 @@ fi
 
 if ! [ -f $HOME/.config/nvim/init.vim ]; then
 	ln -s $PWD/init.vim $HOME/.config/nvim/init.vim
-  ln -s $PWD/coc-config.json $HOME/.config/nvim/coc-settings.json
+  ln -s $PWD/coc-settings.json $HOME/.config/nvim/coc-settings.json
   ln -s $PWD/coc $HOME/.config/coc
 fi
 
