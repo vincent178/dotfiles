@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "coc-json": ">=1.2.5",
+    "coc-markdownlint": ">=1.1.1"
+  }
+}

@@ -16,16 +16,18 @@ check_or_install "nvim"
 
 if ! [ -d $HOME/.config/nvim/ ]; then
 	mkdir $HOME/.config/nvim/
-fi
-
-if ! [ -f $HOME/.config/nvim/init.vim ]; then
-	ln -s $PWD/init.vim $HOME/.config/nvim/init.vim
-  ln -s $PWD/coc-config.json $HOME/.config/nvim/coc-settings.json
+  mkdir $HOME/.config/coc/
 fi
 
 if ! [ -f ~/.local/share/nvim/site/autoload/plug.vim ]; then
 	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 	    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
+
+if ! [ -f $HOME/.config/nvim/init.vim ]; then
+	ln -s $PWD/init.vim $HOME/.config/nvim/init.vim
+  ln -s $PWD/coc-config.json $HOME/.config/nvim/coc-settings.json
+  ln -s $PWD/coc $HOME/.config/coc
 fi
 
 echo "setup tmux"
