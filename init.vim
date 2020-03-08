@@ -1,19 +1,20 @@
 call plug#begin('~/.vim/autoload/plugged')
 
+" Engine with full language server protocol 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plug 'scrooloose/nerdtree' " project file tree
+" Project file tree
+Plug 'scrooloose/nerdtree'
 
+" Golang for vim
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'sebdah/vim-delve' " golang debug
 
-Plug 'mileszs/ack.vim' " search across project
-
+" Cross project search
+Plug 'mileszs/ack.vim'
 Plug 'kien/ctrlp.vim'
-
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-
 Plug 'jiangmiao/auto-pairs'
 
 call plug#end()

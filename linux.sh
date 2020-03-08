@@ -20,6 +20,7 @@ fi
 
 if ! [ -f $HOME/.config/nvim/init.vim ]; then
 	ln -s $PWD/init.vim $HOME/.config/nvim/init.vim
+  ln -s $PWD/coc-config.json $HOME/.config/nvim/coc-settings.json
 fi
 
 if ! [ -f ~/.local/share/nvim/site/autoload/plug.vim ]; then
