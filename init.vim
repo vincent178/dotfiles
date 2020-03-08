@@ -109,7 +109,7 @@ autocmd FileType css        set shiftwidth=2
 autocmd FileType scss       set shiftwidth=2
 autocmd FileType sass       set shiftwidth=2
 autocmd FileType html       set shiftwidth=4
-autocmd FileType go         set shiftwidth=4
+autocmd FileType go         set shiftwidth=4 tabstop=4 softtabstop=4
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Customazation
