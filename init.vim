@@ -23,6 +23,9 @@ Plug 'junegunn/fzf.vim'
 " View and search LSP symbols, tags
 Plug 'liuchengxu/vista.vim'
 
+" Focus writing mode
+Plug 'junegunn/goyo.vim'
+
 " Colortheme
 Plug 'junegunn/seoul256.vim'
 
@@ -78,7 +81,6 @@ inoremap <C-E> <End>
 inoremap <C-B> <Left>
 inoremap <C-F> <Right>
 
-
 vnoremap <Leader>y "+y
 nnoremap <Leader>y "+y
 nnoremap <Leader>p "+p
@@ -90,8 +92,6 @@ nnoremap <Leader>v <C-w>s<C-w>j
 noremap <Leader>q :q<cr>
 noremap <Leader>w :w<cr>
 noremap <Leader>wq :wq<cr>
-
-nnoremap <Leader>0 :call MonkeyTerminalToggle()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
@@ -105,12 +105,7 @@ syntax on
 " => Function
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-function! HTerminal()
-  sp
-  wincmd j
-  resize 20
-	terminal
-endfunction
+nnoremap <Leader>0 :call MonkeyTerminalToggle()<CR>
 
 let s:monkey_terminal_window = -1
 let s:monkey_terminal_buffer = -1
@@ -176,6 +171,10 @@ nnoremap <Leader>n :NERDTreeToggle<CR>
 let g:go_fmt_command = "goimports"
 let g:go_auto_type_info = 1
 let g:go_def_mapping_enabled = 0
+
+let g:go_highlight_structs = 0
+let g:go_highlight_interfaces = 0
+let g:go_highlight_operators = 0
 
 autocmd FileType go nmap <leader>b <Plug>(go-build)
 autocmd FileType go nmap <leader>r <Plug>(go-run)
