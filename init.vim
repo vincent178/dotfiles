@@ -17,6 +17,9 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
 
+" View and search LSP symbols, tags
+Plug 'liuchengxu/vista.vim'
+
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -98,7 +101,8 @@ set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 
-filetype plugin indent on  " Load plugins according to detected filetype
+" Load plugins according to detected filetype
+filetype plugin indent on  
 syntax on
 
 autocmd FileType c          set shiftwidth=4
@@ -110,10 +114,6 @@ autocmd FileType scss       set shiftwidth=2
 autocmd FileType sass       set shiftwidth=2
 autocmd FileType html       set shiftwidth=4
 autocmd FileType go         set shiftwidth=4 tabstop=4 softtabstop=4
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Customazation
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Function
@@ -130,8 +130,11 @@ endfunction
 " => Plugin Setting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" [nerdtree] 
+" display hidden files
 let NERDTreeShowHidden=1
 
+" [vim-go]
 let g:go_fmt_command = "goimports"
 let g:go_auto_type_info = 1
 
@@ -140,5 +143,13 @@ autocmd FileType go nmap <leader>r <Plug>(go-run)
 autocmd FileType go nmap <leader>t <Plug>(go-test)
 autocmd FileType go nmap <leader>i <Plug>(go-info)
 
+" [coc-vim]
+" use return to confirm completion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" [vista] 
+" set tag view width
+let g:vista_sidebar_width = 48
+" disable tag view icon
+let g:vista#renderer#enable_icon = 0
 
