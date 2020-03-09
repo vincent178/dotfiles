@@ -186,6 +186,11 @@ autocmd FileType go nmap <leader>i <Plug>(go-info)
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 map <Leader>f :CocSearch<Space>
 
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 " [vista] 
 " set tag view width
 let g:vista_sidebar_width = 48

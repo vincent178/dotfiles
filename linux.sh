@@ -2,6 +2,8 @@
 
 set -e
 
+# curl -sL install-node.now.sh/lts | bash
+
 check_or_install () {
 	if ! [ -x "$(command -v $1)" ]; then
 		echo "not found $1, try to install it"
