@@ -1,30 +1,38 @@
 call plug#begin('~/.vim/autoload/plugged')
 
+Plug 'tpope/vim-commentary'
+Plug 'jiangmiao/auto-pairs'
+
 " Engine with full language server protocol 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Project file tree
+" Project tree
 Plug 'scrooloose/nerdtree'
 
 " Golang for vim
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'sebdah/vim-delve' " golang debug
 
-" Cross project search
-Plug 'mileszs/ack.vim'
-Plug 'kien/ctrlp.vim'
-Plug 'tpope/vim-commentary'
+" Git
 Plug 'tpope/vim-fugitive'
-Plug 'jiangmiao/auto-pairs'
+
+" Fuzzy finder
+Plug 'junegunn/fzf', { 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
 
 " View and search LSP symbols, tags
 Plug 'liuchengxu/vista.vim'
+
+" Colortheme
+Plug 'junegunn/seoul256.vim'
 
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let mapleader=","
 
 set autoindent
 set expandtab
@@ -39,16 +47,12 @@ set hlsearch
 set encoding=utf-8
 set mouse=a
 
-let mapleader=","
-
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
-set wildignore+=*/node_modules/*,*/bower_components/*,*/acceptance_tests/*
-set wildignore+=.git/*,.hg/*,.svn/*
-
 set completeopt+=noinsert
 set completeopt-=preview
 set completeopt+=menuone
+
+let g:seoul256_background = 235
+colo seoul256
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Key mapping
@@ -81,39 +85,21 @@ nnoremap <Leader>p "+p
 
 nmap <silent> <Leader>/ :silent noh<CR>
 
-map <Leader>f :Ack!<Space>
-
-nnoremap <Leader>n :NERDTreeToggle<CR>
 nnoremap <Leader>s <C-w>v<C-w>l
 nnoremap <Leader>v <C-w>s<C-w>j
 noremap <Leader>q :q<cr>
 noremap <Leader>w :w<cr>
 noremap <Leader>wq :wq<cr>
 
-nnoremap <Leader>t :call MonkeyTerminalToggle()<CR>
+nnoremap <Leader>0 :call MonkeyTerminalToggle()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set backspace=2
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-
 " Load plugins according to detected filetype
 filetype plugin indent on  
 syntax on
-
-autocmd FileType c          set shiftwidth=4
-autocmd FileType python     set shiftwidth=4
-autocmd FileType php        set shiftwidth=4
-autocmd FileType javascript set shiftwidth=2
-autocmd FileType css        set shiftwidth=2
-autocmd FileType scss       set shiftwidth=2
-autocmd FileType sass       set shiftwidth=2
-autocmd FileType html       set shiftwidth=4
-autocmd FileType go         set shiftwidth=4 tabstop=4 softtabstop=4
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Function
@@ -184,10 +170,12 @@ endfunction
 " [nerdtree] 
 " display hidden files
 let NERDTreeShowHidden=1
+nnoremap <Leader>n :NERDTreeToggle<CR>
 
 " [vim-go]
 let g:go_fmt_command = "goimports"
 let g:go_auto_type_info = 1
+let g:go_def_mapping_enabled = 0
 
 autocmd FileType go nmap <leader>b <Plug>(go-build)
 autocmd FileType go nmap <leader>r <Plug>(go-run)
@@ -197,10 +185,14 @@ autocmd FileType go nmap <leader>i <Plug>(go-info)
 " [coc-vim]
 " use return to confirm completion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+map <Leader>f :CocSearch<Space>
 
 " [vista] 
 " set tag view width
 let g:vista_sidebar_width = 48
 " disable tag view icon
 let g:vista#renderer#enable_icon = 0
+
+" [fzf.vim]
+map <C-t> :Files<CR>
 
