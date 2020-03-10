@@ -28,6 +28,7 @@ Plug 'junegunn/goyo.vim'
 
 " Colortheme
 Plug 'junegunn/seoul256.vim'
+Plug 'mhartington/oceanic-next'
 
 call plug#end()
 
@@ -54,8 +55,11 @@ set completeopt+=noinsert
 set completeopt-=preview
 set completeopt+=menuone
 
-let g:seoul256_background = 235
-colo seoul256
+if (has("termguicolors"))
+  set termguicolors
+endif
+
+colorscheme OceanicNext
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Key mapping
@@ -99,7 +103,7 @@ noremap <Leader>wq :wq<cr>
 
 " Load plugins according to detected filetype
 filetype plugin indent on  
-syntax on
+syntax enable
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Function
@@ -184,7 +188,6 @@ autocmd FileType go nmap <leader>i <Plug>(go-info)
 " [coc-vim]
 " use return to confirm completion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-map <Leader>f :CocSearch<Space>
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -199,4 +202,13 @@ let g:vista#renderer#enable_icon = 0
 
 " [fzf.vim]
 map <C-t> :Files<CR>
+map <Leader>f :Rg<Space>
 
+command! -bang -nargs=? Rg
+    \ call fzf#vim#grep(RgCommand(<f-args>), 1, <bang>0)
+
+function! RgCommand(...)
+  " not sure why f-args won't split argument by spaces  
+  " this is a hack implementation
+  return printf("rg --column --line-number --no-heading --color=always --smart-case %s", a:1)
+endfunction
