@@ -1,0 +1,4 @@
+
+--glob=!git/*
+
+--glob=!**/*/cassettes/*

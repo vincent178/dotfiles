@@ -9,9 +9,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Project tree
 Plug 'scrooloose/nerdtree'
 
-" Golang for vim
+" Go support
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'sebdah/vim-delve' " golang debug
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -173,8 +172,8 @@ nnoremap <Leader>n :NERDTreeToggle<CR>
 
 " [vim-go]
 let g:go_fmt_command = "goimports"
-let g:go_auto_type_info = 1
 let g:go_def_mapping_enabled = 0
+let g:go_code_completion_enabled = 0
 
 let g:go_highlight_structs = 0
 let g:go_highlight_interfaces = 0
@@ -205,7 +204,7 @@ map <C-t> :Files<CR>
 map <Leader>f :Rg<Space>
 
 command! -bang -nargs=? Rg
-    \ call fzf#vim#grep(RgCommand(<f-args>), 1, <bang>0)
+    \ call fzf#vim#grep(RgCommand(<f-args>), 1, fzf#vim#with_preview(), <bang>0)
 
 function! RgCommand(...)
   " not sure why f-args won't split argument by spaces  
