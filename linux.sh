@@ -47,6 +47,7 @@ if ! [ -f $HOME/.gitconfig ]; then
 fi
 
 ln -s $PWD/.ripgreprc $HOME/.ripgreprc
+ln -s $PWD/.zshrc $HOME/.zshrc
 
 echo "setup nvm"
 if ! [ -f $HOME/.nvm ]; then
