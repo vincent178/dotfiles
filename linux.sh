@@ -2,8 +2,6 @@
 
 set -e
 
-# curl -sL install-node.now.sh/lts | bash
-
 check_or_install () {
 	if ! [ -x "$(command -v $1)" ]; then
 		echo "not found $1, try to install it"
@@ -38,7 +36,12 @@ if ! [ -f $HOME/.tmux.conf ]; then
 	ln -s $PWD/.tmux.conf $HOME/.tmux.conf
 fi
 
-echo "setup git"
+echo "setup tpm"
+if ! [ -f $HOME/.tmux/plugins ]; then
+        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
+
+echo "setup git config"
 if ! [ -f $HOME/.gitignore ]; then
 	ln -s $PWD/.gitignore $HOME/.gitignore
 fi

@@ -9,9 +9,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Project tree
 Plug 'scrooloose/nerdtree'
 
-" Go support
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
 " Git
 Plug 'tpope/vim-fugitive'
 
@@ -170,20 +167,6 @@ endfunction
 let NERDTreeShowHidden=1
 nnoremap <Leader>n :NERDTreeToggle<CR>
 
-" [vim-go]
-let g:go_fmt_command = "goimports"
-let g:go_def_mapping_enabled = 0
-let g:go_code_completion_enabled = 0
-
-let g:go_highlight_structs = 0
-let g:go_highlight_interfaces = 0
-let g:go_highlight_operators = 0
-
-autocmd FileType go nmap <leader>b <Plug>(go-build)
-autocmd FileType go nmap <leader>r <Plug>(go-run)
-autocmd FileType go nmap <leader>t <Plug>(go-test)
-autocmd FileType go nmap <leader>i <Plug>(go-info)
-
 " [coc-vim]
 " use return to confirm completion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -192,6 +175,9 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+" auto go import and fmt when save
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " [vista] 
 " set tag view width
@@ -211,3 +197,4 @@ function! RgCommand(...)
   " this is a hack implementation
   return printf("rg --column --line-number --no-heading --color=always --smart-case %s", a:1)
 endfunction
+
