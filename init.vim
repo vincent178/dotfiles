@@ -101,6 +101,11 @@ noremap <Leader>wq :wq<cr>
 filetype plugin indent on  
 syntax enable
 
+" set width of a hard tabstop measured in spaces
+set tabstop=4
+" set size of an indent measured in spaces
+set shiftwidth=4
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Function
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
