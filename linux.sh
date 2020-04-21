@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-set -e
+set -ueo pipefail
 
 check_or_install () {
 	if ! [ -x "$(command -v $1)" ]; then
@@ -14,47 +14,41 @@ echo "install dotfiles"
 echo "setup nvim"
 check_or_install "nvim"
 
-if ! [ -d $HOME/.config/nvim/ ]; then
-	mkdir $HOME/.config/nvim/
-  mkdir $HOME/.config/coc/
-fi
+[ ! -d $HOME/.config/nvim/ ] && \
+    mkdir $HOME/.config/nvim/ && \
+    mkdir $HOME/.config/coc/ && \
+    ln -s $PWD/init.vim $HOME/.config/nvim/init.vim && \
+    ln -s $PWD/coc-settings.json $HOME/.config/nvim/coc-settings.json && \
+    ln -s $PWD/coc $HOME/.config/coc
 
-if ! [ -f ~/.local/share/nvim/site/autoload/plug.vim ]; then
-	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-	    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
-
-if ! [ -f $HOME/.config/nvim/init.vim ]; then
-	ln -s $PWD/init.vim $HOME/.config/nvim/init.vim
-  ln -s $PWD/coc-settings.json $HOME/.config/nvim/coc-settings.json
-  ln -s $PWD/coc $HOME/.config/coc
-fi
+[ ! -f $HOME/.local/share/nvim/site/autoload/plug.vim ] && \
+    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 echo "setup tmux"
 check_or_install "tmux"
-if ! [ -f $HOME/.tmux.conf ]; then
+[ ! -f $HOME/.tmux.conf ] && \
 	ln -s $PWD/.tmux.conf $HOME/.tmux.conf
-fi
+[ ! -d $HOME/.tmux/plugins ] && \
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-echo "setup tpm"
-if ! [ -f $HOME/.tmux/plugins ]; then
-        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-fi
 
 echo "setup git config"
-if ! [ -f $HOME/.gitignore ]; then
+[ ! -f $HOME/.gitignore ] && \
 	ln -s $PWD/.gitignore $HOME/.gitignore
-fi
-if ! [ -f $HOME/.gitconfig ]; then
+[ ! -f $HOME/.gitconfig ] && \
 	ln -s $PWD/.gitconfig $HOME/.gitconfig
-fi
 
-ln -s $PWD/.ripgreprc $HOME/.ripgreprc
-ln -s $PWD/.zshrc $HOME/.zshrc
+echo "setup zsh"
+[ ! -f $HOME/.zshrc ] && \
+    ln -s $PWD/.zshrc $HOME/.zshrc
+
+[ ! -f $HOME/.ripgreprc ] && \
+    ln -s $PWD/.ripgreprc $HOME/.ripgreprc
 
 echo "setup nvm"
-if ! [ -f $HOME/.nvm ]; then
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
-fi
+[ ! -d $HOME/.nvm ] && \
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
 
 echo "finish dotfiles"
+
