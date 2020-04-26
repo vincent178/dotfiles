@@ -25,6 +25,7 @@ Plug 'junegunn/goyo.vim'
 " Colortheme
 Plug 'junegunn/seoul256.vim'
 Plug 'mhartington/oceanic-next'
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 
@@ -36,7 +37,6 @@ let mapleader=","
 
 set autoindent
 set expandtab
-set number
 set showmode
 set showcmd
 set ruler
@@ -55,7 +55,7 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-colorscheme OceanicNext
+colorscheme gruvbox
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Key mapping
@@ -73,6 +73,14 @@ nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
+
+map <C-s> :source ~/.config/nvim/init.vim<CR>
+map <C-g> :Goyo<CR>
+
+nnoremap <Up> :resize +2<CR>
+nnoremap <Down> :resize -2<CR>
+nnoremap <Left> :vertical resize +2<CR>
+nnoremap <Right> :vertical resize -2<CR>
 
 tnoremap <Esc> <C-\><C-n>
 
@@ -102,7 +110,7 @@ filetype plugin indent on
 syntax enable
 
 " set width of a hard tabstop measured in spaces
-set tabstop=4
+"set tabstop=4
 " set size of an indent measured in spaces
 set shiftwidth=4
 
