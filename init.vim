@@ -32,6 +32,7 @@ call plug#end()
 
 let mapleader=","
 
+set spell " spell check
 set autoindent
 set expandtab
 set showmode
