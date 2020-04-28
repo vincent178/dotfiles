@@ -68,6 +68,8 @@ hi Normal guibg=NONE ctermbg=NONE
 " => Key mapping
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+map <C-s> :source ~/.config/nvim/init.vim<CR>
+
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
@@ -76,8 +78,6 @@ nnoremap <C-l> <C-W>l
 " move entire line in visual mode 
 xnoremap K :move '<-2<CR>gv-gv
 xnoremap J :move '>+1<CR>gv-gv
-
-map <C-s> :source ~/.config/nvim/init.vim<CR>
 
 nnoremap <Up> :resize +2<CR>
 nnoremap <Down> :resize -2<CR>
@@ -143,6 +143,9 @@ let g:vista_sidebar_width = 48
 let g:vista#renderer#enable_icon = 0
 " use coc-vim
 let g:vista_default_executive = 'coc'
+
+" toggle Vista view
+nnoremap gv :Vista!!<CR>
 
 " [fzf.vim]
 map <C-t> :Files<CR>
