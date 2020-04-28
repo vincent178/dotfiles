@@ -6,6 +6,9 @@ Plug 'jiangmiao/auto-pairs'
 " Engine with full language server protocol 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" Go support
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 " Project tree
 Plug 'scrooloose/nerdtree'
 
