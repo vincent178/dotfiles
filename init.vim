@@ -19,9 +19,6 @@ Plug 'junegunn/fzf.vim'
 " View and search LSP symbols, tags
 Plug 'liuchengxu/vista.vim'
 
-" Focus writing mode
-Plug 'junegunn/goyo.vim'
-
 " Colortheme
 Plug 'junegunn/seoul256.vim'
 Plug 'mhartington/oceanic-next'
@@ -46,6 +43,7 @@ set incsearch
 set hlsearch
 set encoding=utf-8
 set mouse=a
+set cursorline
 
 set completeopt+=noinsert
 set completeopt-=preview
@@ -69,21 +67,16 @@ hi Normal guibg=NONE ctermbg=NONE
 " => Key mapping
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-tnoremap <C-j> <C-\><C-N><C-w>j
-tnoremap <C-k> <C-\><C-N><C-w>k
-tnoremap <C-h> <C-\><C-N><C-w>h
-tnoremap <C-l> <C-\><C-N><C-w>l
-inoremap <C-j> <C-\><C-N><C-w>j
-inoremap <C-k> <C-\><C-N><C-w>k
-inoremap <C-h> <C-\><C-N><C-w>h
-inoremap <C-l> <C-\><C-N><C-w>l
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
 
+" move entire line in visual mode 
+xnoremap K :move '<-2<CR>gv-gv
+xnoremap J :move '>+1<CR>gv-gv
+
 map <C-s> :source ~/.config/nvim/init.vim<CR>
-map <C-g> :Goyo<CR>
 
 nnoremap <Up> :resize +2<CR>
 nnoremap <Down> :resize -2<CR>
@@ -113,10 +106,9 @@ noremap <Leader>wq :wq<cr>
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" set width of a hard tabstop measured in spaces
-"set tabstop=4
-" set size of an indent measured in spaces
 set shiftwidth=4
+set tabstop=4
+set softtabstop=4
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Function
