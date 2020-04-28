@@ -6,9 +6,6 @@ Plug 'jiangmiao/auto-pairs'
 " Engine with full language server protocol 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Go support
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
 " Project tree
 Plug 'scrooloose/nerdtree'
 
@@ -144,6 +141,8 @@ autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeIm
 let g:vista_sidebar_width = 48
 " disable tag view icon
 let g:vista#renderer#enable_icon = 0
+" use coc-vim
+let g:vista_default_executive = 'coc'
 
 " [fzf.vim]
 map <C-t> :Files<CR>
