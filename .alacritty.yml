@@ -4,7 +4,6 @@ window:
   dimensions:
     columns: 140
     lines: 38
-  decorations: none
 
 background_opacity: 0.95
 
@@ -46,7 +45,4 @@ colors:
 cursor:
   style: Block
   unfocused_hollow: true
-
-  key_bindings:
-    - { key: N,  mods: Shift|Control,             action: SpawnNewInstance     }
 
