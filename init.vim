@@ -1,5 +1,8 @@
 call plug#begin('~/.vim/autoload/plugged')
 
+" tmux requires additional setup: https://github.com/christoomey/vim-tmux-navigator
+Plug 'christoomey/vim-tmux-navigator'
+
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 
@@ -69,11 +72,6 @@ hi Normal guibg=NONE ctermbg=NONE
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 map <C-s> :source ~/.config/nvim/init.vim<CR>
-
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-h> <C-W>h
-nnoremap <C-l> <C-W>l
 
 " move entire line in visual mode 
 xnoremap K :move '<-2<CR>gv-gv
