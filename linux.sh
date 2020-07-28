@@ -7,7 +7,7 @@ set -ueo pipefail
 check_or_install () {
 	if ! [ -x "$(command -v $1)" ]; then
 		echo "not found $1, try to install it"
-		sudo apt-get install -y $1
+		sudo pacman -S $1
 	fi
 }
 
@@ -16,11 +16,11 @@ echo "install dotfiles"
 echo "setup nvim"
 check_or_install "nvim"
 
-mkdir -p $HOME/.config/nvim/ \
-    mkdir -p $HOME/.config/coc/ \
-    ln -fsn $PWD/init.vim $HOME/.config/nvim/init.vim \
-    ln -fsn $PWD/coc-settings.json $HOME/.config/nvim/coc-settings.json \
-    ln -fsn $PWD/coc $HOME/.config/coc
+mkdir -p $HOME/.config/nvim/ 
+mkdir -p $HOME/.config/coc/ 
+ln -fsn $PWD/init.vim $HOME/.config/nvim/init.vim 
+ln -fsn $PWD/coc-settings.json $HOME/.config/nvim/coc-settings.json 
+ln -fsn $PWD/coc $HOME/.config/coc
 
 
 [ ! -f $HOME/.local/share/nvim/site/autoload/plug.vim ] && \
