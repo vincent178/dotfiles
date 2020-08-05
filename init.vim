@@ -8,6 +8,7 @@ Plug 'jiangmiao/auto-pairs'
 
 " Engine with full language server protocol 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Project tree
 Plug 'scrooloose/nerdtree'
@@ -48,6 +49,7 @@ set hlsearch
 set encoding=utf-8
 set mouse=a
 set cursorline
+set number
 
 set completeopt+=noinsert
 set completeopt-=preview
@@ -58,14 +60,13 @@ filetype plugin indent on
 syntax enable
 
 
-if (has("termguicolors"))
-  set termguicolors
-endif
+set notermguicolors
+
+" if (has("termguicolors"))
+"   set termguicolors
+" endif
 
 colorscheme gruvbox
-
-" Remove background
-hi Normal guibg=NONE ctermbg=NONE
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Key mapping
@@ -133,6 +134,10 @@ nmap <silent> gr <Plug>(coc-references)
 
 " auto go import and fmt when save
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+
+" [vim-go]
+let g:go_gopls_enabled = 0
+let g:go_def_mapping_enabled = 0
 
 " [vista] 
 " set tag view width

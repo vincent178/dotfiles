@@ -5,3 +5,5 @@
 	insteadOf = https://github.com/
 [push]
 	default = current
+[pull]
+	rebase = true
