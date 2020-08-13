@@ -5,10 +5,11 @@ Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-surround'
 
 " Engine with full language server protocol 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Project tree
 Plug 'scrooloose/nerdtree'
@@ -138,6 +139,7 @@ autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeIm
 " [vim-go]
 let g:go_gopls_enabled = 0
 let g:go_def_mapping_enabled = 0
+let g:go_code_completion_enabled = 0
 
 " [vista] 
 " set tag view width
