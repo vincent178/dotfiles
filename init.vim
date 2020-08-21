@@ -60,6 +60,7 @@ set completeopt+=menuone
 filetype plugin indent on  
 syntax enable
 
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 set notermguicolors
 
@@ -78,6 +79,8 @@ map <C-s> :source ~/.config/nvim/init.vim<CR>
 " move entire line in visual mode 
 xnoremap K :move '<-2<CR>gv-gv
 xnoremap J :move '>+1<CR>gv-gv
+
+nnoremap <Leader>c :let @+=expand('%:p')<CR>
 
 nnoremap <Up> :resize +2<CR>
 nnoremap <Down> :resize -2<CR>
