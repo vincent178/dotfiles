@@ -28,6 +28,10 @@ Plug 'liuchengxu/vista.vim'
 Plug 'junegunn/seoul256.vim'
 Plug 'mhartington/oceanic-next'
 Plug 'morhetz/gruvbox'
+Plug 'ayu-theme/ayu-vim'
+Plug 'joshdick/onedark.vim'
+Plug 'dracula/vim'
+
 
 call plug#end()
 
@@ -62,19 +66,15 @@ syntax enable
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-set notermguicolors
-
-" if (has("termguicolors"))
-"   set termguicolors
-" endif
+if (has("termguicolors"))
+  set termguicolors
+endif
 
 colorscheme gruvbox
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Key mapping
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-map <C-s> :source ~/.config/nvim/init.vim<CR>
 
 " move entire line in visual mode 
 xnoremap K :move '<-2<CR>gv-gv
@@ -93,6 +93,8 @@ inoremap <C-A> <Home>
 inoremap <C-E> <End>
 inoremap <C-B> <Left>
 inoremap <C-F> <Right>
+
+nnoremap <Leader>r :source ~/.config/nvim/init.vim<CR>
 
 vnoremap <Leader>y "+y
 nnoremap <Leader>y "+y
