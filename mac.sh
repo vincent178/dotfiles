@@ -4,38 +4,50 @@ set -e
 
 echo "Setup your Mac..."
 
-check_or_install () {
+check_install() {
 	if ! [ -x "$(command -v $1)" ]; then
-		echo "not found $1, try to install it"
-		if [ "$1" == "brew" ]; then
-			/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-		else if [ "$1" == "zsh" ]; then
-			sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-		else
-			brew install $1
-		fi
+		echo "$1 not found $1, exit"
+		exit 1
 	fi
 }
 
-echo "install dotfiles"
+check_install "brew"
 
-echo "setup homebrew"
-check_or_install "homebrew"
-brew update
-brew tap homebrew/bundle
-brew bundle
+if [[ "$(uname -a)" == *"x86_64"* ]]; then
+	echo "setup nvim"
+	check_install "nvim"
 
-echo "setup zshrc"
-# ln -s $PWD/.zshrc $HOME/.zshrc
+	mkdir -p $HOME/.config/nvim/ 
+	mkdir -p $HOME/.config/coc/ 
+	ln -fsn $PWD/init.vim $HOME/.config/nvim/init.vim 
+	ln -fsn $PWD/coc-settings.json $HOME/.config/nvim/coc-settings.json 
 
-echo "setup slate"
-# ln -s $HOME/Dotfiles/.slate $HOME/.slate
+	[ ! -f $HOME/.local/share/nvim/site/autoload/plug.vim ] && \
+	    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+	    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
 
 echo "setup oh-my-zsh"
+check_install "zsh"
 if [ ! -d $HOME/.oh-my-zsh ]; then
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 	rm -rf $HOME/.zshrc
 fi
+ln -s $PWD/.zshrc $HOME/.zshrc
+
+echo "setup tmux"
+check_install "tmux"
+ln -s $PWD/.tmux.conf $HOME/.tmux.conf
+
+echo "setup git"
+ln -s $PWD/.gitconfig $HOME/.gitconfig
+ln -s $PWD/.gitignore $HOME/.gitignore
+
+echo "setup yabai"
+ln -s $PWD/.yabairc $HOME/.yabairc
+
+echo "setup skhd"
+ln -s $PWD/.skhdrc $HOME/.skhdrc
 
 echo "setup git"
 # config git ignore
