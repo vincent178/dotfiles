@@ -10,6 +10,9 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+alias abrew='/opt/homebrew/bin/brew'
+alias ibrew='arch -x86_64 /usr/local/bin/brew'
+
 # Homebrew
 eval $(/opt/homebrew/bin/brew shellenv)
 
