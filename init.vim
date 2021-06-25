@@ -2,18 +2,20 @@ call plug#begin('~/.vim/autoload/plugged')
 
 " tmux requires additional setup: https://github.com/christoomey/vim-tmux-navigator
 Plug 'christoomey/vim-tmux-navigator'
-
 Plug 'djoshea/vim-autoread'
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
-
+Plug 'akinsho/nvim-toggleterm.lua'
+Plug 'tpope/vim-dadbod'
+Plug 'kristijanhusak/vim-dadbod-ui'
 
 " LSP and other IDE like plugins
 Plug 'neovim/nvim-lspconfig'
 Plug 'liuchengxu/vista.vim'
 Plug 'hrsh7th/nvim-compe'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'hrsh7th/vim-vsnip'
 
 " Project tree
 Plug 'scrooloose/nerdtree'
@@ -55,12 +57,15 @@ set mouse=a
 set cursorline
 set number
 
+set completeopt=menuone,noselect
+
 " Load plugins according to detected filetype
 filetype plugin indent on  
 syntax enable
 
 set termguicolors
-colorscheme gruvbox
+let ayucolor="mirage" " for mirage version of theme
+colorscheme ayu
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Key mapping
@@ -70,13 +75,16 @@ colorscheme gruvbox
 xnoremap K :move '<-2<CR>gv-gv
 xnoremap J :move '>+1<CR>gv-gv
 
-
 nnoremap <Up> :resize +2<CR>
 nnoremap <Down> :resize -2<CR>
 nnoremap <Left> :vertical resize +2<CR>
 nnoremap <Right> :vertical resize -2<CR>
 
 tnoremap <Esc> <C-\><C-n>
+tnoremap <C-j> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+tnoremap <C-h> <C-\><C-n><C-w>h
+tnoremap <C-l> <C-\><C-n><C-w>l
 
 inoremap <C-A> <Home>
 inoremap <C-E> <End>
@@ -96,8 +104,7 @@ noremap <Leader>w :w<cr>
 noremap <Leader>wq :wq<cr>
 
 " confirm complete with return
-inoremap <silent><expr> <CR>      compe#complete()
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
@@ -152,12 +159,10 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pyright", "gopls", "rust_analyzer", "tsserver" }
+local servers = { "gopls" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end
-
-vim.o.completeopt = "menuone,noselect"
 
 require'compe'.setup {
   enabled = true;
@@ -183,6 +188,27 @@ require'compe'.setup {
     vsnip = true;
     ultisnips = true;
   };
+}
+
+require("toggleterm").setup{
+  -- size can be a number or function which is passed the current terminal
+  size = function(term)
+    if term.direction == "horizontal" then
+      return 15
+    elseif term.direction == "vertical" then
+      return vim.o.columns * 0.4
+    end
+  end,
+  open_mapping = [[<c-\>]],
+  hide_numbers = true, -- hide the number column in toggleterm buffers
+  shade_filetypes = {},
+  shade_terminals = true,
+  shading_factor = 3, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+  start_in_insert = true,
+  insert_mappings = true, -- whether or not the open mapping applies in insert mode
+  persist_size = true,
+  close_on_exit = true, -- close the terminal window when the process exits
+  shell = "/bin/zsh --login", -- change the default shell
 }
 EOF
 
