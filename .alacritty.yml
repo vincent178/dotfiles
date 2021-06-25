@@ -5,12 +5,12 @@ window:
     columns: 140
     lines: 38
   padding:
-    x: 6
+    x: 0
     y: 0
 
   decorations: none
 
-  startup_mode: Maximized
+  startup_mode: Fullscreen
 
 background_opacity: 0.95
 

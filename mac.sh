@@ -17,10 +17,10 @@ if [[ "$(uname -a)" == *"x86_64"* ]]; then
 	echo "setup nvim"
 	check_install "nvim"
 
-	mkdir -p $HOME/.config/nvim/ 
-	mkdir -p $HOME/.config/coc/ 
-	ln -fsn $PWD/init.vim $HOME/.config/nvim/init.vim 
-	ln -fsn $PWD/coc-settings.json $HOME/.config/nvim/coc-settings.json 
+	mkdir -p $HOME/.config/nvim/
+	mkdir -p $HOME/.config/coc/
+	ln -fsn $PWD/init.vim $HOME/.config/nvim/init.vim
+	ln -fsn $PWD/coc-settings.json $HOME/.config/nvim/coc-settings.json
 
 	[ ! -f $HOME/.local/share/nvim/site/autoload/plug.vim ] && \
 	    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
@@ -59,4 +59,3 @@ source .macos
 echo "Done setup"
 
 # $ npm install --global pure-prompt
-
