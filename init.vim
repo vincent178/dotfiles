@@ -34,6 +34,9 @@ Plug 'morhetz/gruvbox'
 Plug 'ayu-theme/ayu-vim'
 Plug 'joshdick/onedark.vim'
 Plug 'dracula/vim'
+Plug 'hoob3rt/lualine.nvim'
+" require font setting in iterm2
+Plug 'kyazdani42/nvim-web-devicons' 
 
 call plug#end()
 
@@ -208,6 +211,15 @@ require("toggleterm").setup{
   persist_size = true,
   close_on_exit = true, -- close the terminal window when the process exits
   shell = "/bin/zsh --login", -- change the default shell
+}
+
+require('nvim-web-devicons').setup {}
+
+require('lualine').setup {
+    options = {
+        icons_enabled = true,
+        theme = 'ayu_mirage',
+    },
 }
 EOF
 
