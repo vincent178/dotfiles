@@ -15,13 +15,16 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'liuchengxu/vista.vim'
 Plug 'hrsh7th/nvim-compe'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'buoto/gotests-vim'
 Plug 'hrsh7th/vim-vsnip'
+
 
 " Project tree
 Plug 'scrooloose/nerdtree'
 
 " Git
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 
 " Fuzzy finder
 Plug 'junegunn/fzf', { 'do': './install --bin' }
@@ -59,6 +62,7 @@ set encoding=utf-8
 set mouse=a
 set cursorline
 set number
+set ignorecase
 
 set completeopt=menuone,noselect
 
@@ -124,9 +128,25 @@ set softtabstop=4
 lua << EOF
 local nvim_lsp = require('lspconfig')
 
+nvim_lsp.rust_analyzer.setup{}
 nvim_lsp.pyright.setup{}
-nvim_lsp.gopls.setup{}
+nvim_lsp.gopls.setup{
+  flags = {
+    debounce_text_changes = 500,
+  }
+}
 nvim_lsp.solargraph.setup{}
+nvim_lsp.ccls.setup {
+  init_options = {
+    compilationDatabaseDirectory = "build";
+    index = {
+      threads = 0;
+    };
+    clang = {
+      excludeArgs = { "-frounding-math"} ;
+    };
+  }
+}
 
 -- Use an on_attach function to only map the following keys 
 -- after the language server attaches to the current buffer
@@ -166,7 +186,7 @@ for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end
 
-require'compe'.setup {
+require'compe'.setup{
   enabled = true;
   autocomplete = true;
   debug = false;
@@ -210,16 +230,25 @@ require("toggleterm").setup{
   insert_mappings = true, -- whether or not the open mapping applies in insert mode
   persist_size = true,
   close_on_exit = true, -- close the terminal window when the process exits
-  shell = "/bin/zsh --login", -- change the default shell
+  shell = "/bin/zsh --login" -- change the default shell
 }
 
-require('nvim-web-devicons').setup {}
+require('nvim-web-devicons').setup{}
 
-require('lualine').setup {
+require('lualine').setup{
     options = {
         icons_enabled = true,
         theme = 'ayu_mirage',
     },
+    sections = {
+        lualine_c = {
+            {
+                'filename',
+                file_status = true,
+                path = 1,
+            }
+        },
+  },
 }
 EOF
 
