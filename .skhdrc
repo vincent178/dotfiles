@@ -164,13 +164,13 @@ ctrl + cmd - 3  : yabai -m window --display 3; yabai -m display --focus 3
 
 # toggle window zoom
 # alt - d : yabai -m window --toggle zoom-parent
-# alt - f : yabai -m window --toggle zoom-fullscreen
+alt - f : yabai -m window --toggle zoom-fullscreen
 
 # toggle window split type
-# alt - e : yabai -m window --toggle split
+alt - e : yabai -m window --toggle split
 
 # float / unfloat window and center on screen
-alt - f : yabai -m window --toggle float;\
+alt - t : yabai -m window --toggle float;\
           yabai -m window --grid 4:4:1:1:2:2
 
 # alt - p : yabai -m window --toggle sticky;\

@@ -5,8 +5,8 @@ window:
     columns: 140
     lines: 38
   padding:
-    x: 12
-    y: 12
+    x: 6
+    y: 6
 
   decorations: none
 
@@ -16,6 +16,17 @@ background_opacity: 0.95
 
 font:
   size: 14.0
+  normal:
+    family: DroidSansMono Nerd Font
+
+  bold:
+    family: DroidSansMono Nerd Font
+
+  italic:
+    family: DroidSansMono Nerd Font
+
+  bold_italic:
+    family: DroidSansMono Nerd Font
 
 colors:
  # Default colors
