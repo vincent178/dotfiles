@@ -84,3 +84,6 @@ cursor:
   style: Block
   unfocused_hollow: true
 
+key_bindings:
+  - { key: Back, action:  ReceiveChar}
+    

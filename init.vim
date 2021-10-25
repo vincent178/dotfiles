@@ -9,6 +9,11 @@ Plug 'tpope/vim-surround'
 Plug 'akinsho/nvim-toggleterm.lua'
 Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-ui'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+" Markdown
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
 " LSP and other IDE like plugins
 Plug 'neovim/nvim-lspconfig'
@@ -17,7 +22,12 @@ Plug 'hrsh7th/nvim-compe'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'buoto/gotests-vim'
 Plug 'hrsh7th/vim-vsnip'
+Plug 'cespare/vim-toml'
 
+" Dap
+Plug 'leoluz/nvim-dap-go'
+Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
 
 " Project tree
 Plug 'scrooloose/nerdtree'
@@ -29,6 +39,9 @@ Plug 'tpope/vim-rhubarb'
 " Fuzzy finder
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 " Colortheme
 Plug 'junegunn/seoul256.vim'
@@ -49,6 +62,9 @@ call plug#end()
 
 let mapleader=","
 
+" lang en_US.UTF-8
+
+set nocompatible
 set autoindent
 set expandtab
 set showmode
@@ -59,12 +75,13 @@ set noswapfile
 set incsearch
 set hlsearch
 set encoding=utf-8
+set termencoding=utf-8
 set mouse=a
 set cursorline
 set number
 set ignorecase
 
-set completeopt=menuone,noselect
+set completeopt=menuone,noselect,preview
 
 " Load plugins according to detected filetype
 filetype plugin indent on  
@@ -74,6 +91,8 @@ set termguicolors
 let ayucolor="mirage" " for mirage version of theme
 colorscheme ayu
 
+let g:markdown_fenced_languages = ['go', 'ruby', 'vim']
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Key mapping
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -82,10 +101,10 @@ colorscheme ayu
 xnoremap K :move '<-2<CR>gv-gv
 xnoremap J :move '>+1<CR>gv-gv
 
-nnoremap <Up> :resize +2<CR>
-nnoremap <Down> :resize -2<CR>
-nnoremap <Left> :vertical resize +2<CR>
-nnoremap <Right> :vertical resize -2<CR>
+" nnoremap <Up> :resize +2<CR>
+" nnoremap <Down> :resize -2<CR>
+" nnoremap <Left> :vertical resize +2<CR>
+" nnoremap <Right> :vertical resize -2<CR>
 
 tnoremap <Esc> <C-\><C-n>
 tnoremap <C-j> <C-\><C-n><C-w>j
@@ -110,8 +129,22 @@ noremap <Leader>q :q<cr>
 noremap <Leader>w :w<cr>
 noremap <Leader>wq :wq<cr>
 
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+nnoremap <silent> <leader>bb :lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <silent> <leader>bn :lua require'dap'.continue()<CR>
+nnoremap <silent> <leader>bs :lua require'dap'.step_over()<CR>
+nnoremap <silent> <leader>bi :lua require'dap'.step_into()<CR>
+nnoremap <silent> <leader>bo :lua require'dap'.step_out()<CR>
+nnoremap <silent> <leader>bu :lua require('dapui').toggle('sidebar')<CR>
+
 " confirm complete with return
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+" inoremap <silent><expr> <CR> compe#complete()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
@@ -143,7 +176,7 @@ nvim_lsp.ccls.setup {
       threads = 0;
     };
     clang = {
-      excludeArgs = { "-frounding-math"} ;
+      excludeArgs = { "-frounding-math" };
     };
   }
 }
@@ -161,27 +194,23 @@ local on_attach = function(client, bufnr)
   local opts = { noremap=true, silent=true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua require(\'telescope.builtin\').lsp_references()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua require(\'telescope.builtin\').lsp_implementations()<CR>', opts)
+
+  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_set_keymap('n', '<space>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+
   buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "gopls" }
+local servers = { "gopls", "rust_analyzer", "pyright", "solargraph", "ccls" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end
@@ -241,6 +270,8 @@ require('lualine').setup{
         theme = 'ayu_mirage',
     },
     sections = {
+        lualine_a = {'mode'},
+        lualine_b = {'branch'},
         lualine_c = {
             {
                 'filename',
@@ -250,6 +281,40 @@ require('lualine').setup{
         },
   },
 }
+
+require("dapui").setup{
+  icons = { expanded = "▾", collapsed = "▸" },
+  mappings = {
+    -- Use a table to apply multiple mappings
+    expand = { "<CR>", "<2-LeftMouse>" },
+    open = "o",
+    remove = "d",
+    edit = "e",
+    repl = "r",
+  },
+  sidebar = {
+    elements = {
+      { id = "stacks", size = 0.5 },
+      {
+        id = "scopes",
+        size = 0.5,
+      },
+    },
+    size = 40,
+    position = "left", 
+  },
+  floating = {
+    max_height = nil, -- These can be integers or a float between 0 and 1.
+    max_width = nil, -- Floats will be treated as percentage of your screen.
+    mappings = {
+      close = { "q", "<Esc>" },
+    },
+  },
+  windows = { indent = 1 },
+}
+
+require('dap-go').setup()
+require('dap.ext.vscode').load_launchjs(vim.fn.getcwd() .. '/.dap.json')
 EOF
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -259,6 +324,10 @@ EOF
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Setting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" [dadbod-ui]
+" disable auto execute on save
+let g:db_ui_execute_on_save = 0
 
 " [nerdtree] 
 " display hidden files
@@ -280,6 +349,9 @@ let g:vista_default_executive = 'nvim_lsp'
 
 " toggle Vista view
 nnoremap gv :Vista!!<CR>
+
+" [vim-markdown]
+let g:vim_markdown_folding_disabled = 1
 
 " [fzf.vim]
 map <C-t> :Files<CR>
