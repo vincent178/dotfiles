@@ -91,7 +91,6 @@ set termguicolors
 let ayucolor="mirage" " for mirage version of theme
 colorscheme ayu
 
-let g:markdown_fenced_languages = ['go', 'ruby', 'vim']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Key mapping
@@ -129,17 +128,17 @@ noremap <Leader>q :q<cr>
 noremap <Leader>w :w<cr>
 noremap <Leader>wq :wq<cr>
 
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <Leader>ff <cmd>Telescope find_files<cr>
+nnoremap <Leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <Leader>fb <cmd>Telescope buffers<cr>
+nnoremap <Leader>fh <cmd>Telescope help_tags<cr>
 
-nnoremap <silent> <leader>bb :lua require'dap'.toggle_breakpoint()<CR>
-nnoremap <silent> <leader>bn :lua require'dap'.continue()<CR>
-nnoremap <silent> <leader>bs :lua require'dap'.step_over()<CR>
-nnoremap <silent> <leader>bi :lua require'dap'.step_into()<CR>
-nnoremap <silent> <leader>bo :lua require'dap'.step_out()<CR>
-nnoremap <silent> <leader>bu :lua require('dapui').toggle('sidebar')<CR>
+nnoremap <silent> <Leader>bb :lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <silent> <Leader>bn :lua require'dap'.continue()<CR>
+nnoremap <silent> <Leader>bs :lua require'dap'.step_over()<CR>
+nnoremap <silent> <Leader>bi :lua require'dap'.step_into()<CR>
+nnoremap <silent> <Leader>bo :lua require'dap'.step_out()<CR>
+nnoremap <silent> <Leader>bu :lua require('dapui').toggle('sidebar')<CR>
 
 " confirm complete with return
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -164,55 +163,56 @@ local nvim_lsp = require('lspconfig')
 nvim_lsp.rust_analyzer.setup{}
 nvim_lsp.pyright.setup{}
 nvim_lsp.gopls.setup{
-  flags = {
+flags = {
     debounce_text_changes = 500,
-  }
+    }
 }
 nvim_lsp.solargraph.setup{}
 nvim_lsp.ccls.setup {
-  init_options = {
-    compilationDatabaseDirectory = "build";
-    index = {
-      threads = 0;
-    };
-    clang = {
-      excludeArgs = { "-frounding-math" };
-    };
-  }
-}
+    init_options = {
+        compilationDatabaseDirectory = "build";
+        index = {
+            threads = 0;
+            };
+        clang = {
+            excludeArgs = { "-frounding-math" };
+            };
+        }
+    }
 
 -- Use an on_attach function to only map the following keys 
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-  --Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+    --Enable completion triggered by <c-x><c-o>
+    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  -- Mappings.
-  local opts = { noremap=true, silent=true }
+    -- Mappings.
+    local opts = { noremap=true, silent=true }
 
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua require(\'telescope.builtin\').lsp_references()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua require(\'telescope.builtin\').lsp_implementations()<CR>', opts)
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+    buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    buf_set_keymap('n', 'gr', '<cmd>lua require(\'telescope.builtin\').lsp_references()<CR>', opts)
+    buf_set_keymap('n', 'gi', '<cmd>lua require(\'telescope.builtin\').lsp_implementations()<CR>', opts)
 
-  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-  buf_set_keymap('n', '<space>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    buf_set_keymap('n', 'rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+    buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+    buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+    buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+    buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = { "gopls", "rust_analyzer", "pyright", "solargraph", "ccls" }
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup { on_attach = on_attach }
+    nvim_lsp[lsp].setup { on_attach = on_attach }
 end
 
 require'compe'.setup{
@@ -231,24 +231,24 @@ require'compe'.setup{
   documentation = true;
 
   source = {
-    path = true;
-    buffer = true;
-    calc = true;
-    nvim_lsp = true;
-    nvim_lua = true;
-    vsnip = true;
-    ultisnips = true;
-  };
-}
+      path = true;
+      buffer = true;
+      calc = true;
+      nvim_lsp = true;
+      nvim_lua = true;
+      vsnip = true;
+      ultisnips = true;
+      };
+  }
 
 require("toggleterm").setup{
-  -- size can be a number or function which is passed the current terminal
-  size = function(term)
-    if term.direction == "horizontal" then
-      return 15
-    elseif term.direction == "vertical" then
-      return vim.o.columns * 0.4
-    end
+-- size can be a number or function which is passed the current terminal
+size = function(term)
+if term.direction == "horizontal" then
+    return 15
+elseif term.direction == "vertical" then
+    return vim.o.columns * 0.4
+end
   end,
   open_mapping = [[<c-\>]],
   hide_numbers = true, -- hide the number column in toggleterm buffers
@@ -260,58 +260,58 @@ require("toggleterm").setup{
   persist_size = true,
   close_on_exit = true, -- close the terminal window when the process exits
   shell = "/bin/zsh --login" -- change the default shell
-}
+  }
 
 require('nvim-web-devicons').setup{}
 
 require('lualine').setup{
-    options = {
-        icons_enabled = true,
-        theme = 'ayu_mirage',
+options = {
+    icons_enabled = true,
+    theme = 'ayu_mirage',
     },
-    sections = {
-        lualine_a = {'mode'},
-        lualine_b = {'branch'},
-        lualine_c = {
-            {
+sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch'},
+    lualine_c = {
+        {
                 'filename',
                 file_status = true,
                 path = 1,
-            }
+        }
         },
-  },
+    },
 }
 
 require("dapui").setup{
-  icons = { expanded = "▾", collapsed = "▸" },
-  mappings = {
+icons = { expanded = "▾", collapsed = "▸" },
+mappings = {
     -- Use a table to apply multiple mappings
     expand = { "<CR>", "<2-LeftMouse>" },
     open = "o",
     remove = "d",
     edit = "e",
     repl = "r",
-  },
-  sidebar = {
-    elements = {
-      { id = "stacks", size = 0.5 },
-      {
-        id = "scopes",
-        size = 0.5,
-      },
     },
-    size = 40,
-    position = "left", 
-  },
-  floating = {
-    max_height = nil, -- These can be integers or a float between 0 and 1.
-    max_width = nil, -- Floats will be treated as percentage of your screen.
-    mappings = {
-      close = { "q", "<Esc>" },
-    },
-  },
-  windows = { indent = 1 },
-}
+sidebar = {
+elements = {
+    { id = "stacks", size = 0.5 },
+    {
+            id = "scopes",
+            size = 0.5,
+            },
+            },
+        size = 40,
+        position = "left", 
+        },
+    floating = {
+        max_height = nil, -- These can be integers or a float between 0 and 1.
+        max_width = nil, -- Floats will be treated as percentage of your screen.
+        mappings = {
+            close = { "q", "<Esc>" },
+            },
+        },
+    windows = { indent = 1 },
+    }
 
 require('dap-go').setup()
 require('dap.ext.vscode').load_launchjs(vim.fn.getcwd() .. '/.dap.json')
@@ -324,6 +324,9 @@ EOF
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Setting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" [vim-markdown]
+let g:markdown_fenced_languages = ['go', 'ruby', 'vim']
 
 " [dadbod-ui]
 " disable auto execute on save
