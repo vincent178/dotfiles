@@ -49,7 +49,7 @@ Plug 'morhetz/gruvbox'
 Plug 'ayu-theme/ayu-vim'
 Plug 'joshdick/onedark.vim'
 Plug 'dracula/vim'
-Plug 'hoob3rt/lualine.nvim'
+Plug 'nvim-lualine/lualine.nvim'
 " require font setting in iterm2
 Plug 'kyazdani42/nvim-web-devicons' 
 
@@ -250,6 +250,7 @@ require("toggleterm").setup{
 require('nvim-web-devicons').setup{}
 
 require('lualine').setup{options = {theme = 'ayu_mirage'}}
+require('evil_lualine')
 
 local dap = require('dap')
 dap.adapters.go = function(callback, config)
@@ -319,8 +320,7 @@ dap.adapters.go = function(callback, config)
       program = "./${relativeFileDirname}"
     } 
 }
-
-require('dap.ext.vscode').load_launchjs(vim.fn.getcwd() .. '/.dap.json')
+dap.ext.vscode.load_launchjs(vim.fn.getcwd() .. '/.dap.json')
 EOF
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
