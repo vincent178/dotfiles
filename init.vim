@@ -25,7 +25,6 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'cespare/vim-toml'
 
 " Dap
-Plug 'leoluz/nvim-dap-go'
 Plug 'mfussenegger/nvim-dap'
 Plug 'rcarriga/nvim-dap-ui'
 
@@ -140,6 +139,9 @@ nnoremap <silent> <Leader>bi :lua require'dap'.step_into()<CR>
 nnoremap <silent> <Leader>bo :lua require'dap'.step_out()<CR>
 nnoremap <silent> <Leader>bu :lua require('dapui').toggle('sidebar')<CR>
 
+nnoremap <Leader>tt <Cmd>1ToggleTerm<CR>
+nnoremap <Leader>tf <Cmd>2ToggleTerm direction=float<CR>
+
 " confirm complete with return
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <silent><expr> <CR>      compe#confirm('<CR>')
@@ -154,7 +156,7 @@ set tabstop=4
 set softtabstop=4
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Language Server Config
+" => Lua Config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 lua << EOF
@@ -163,8 +165,8 @@ local nvim_lsp = require('lspconfig')
 nvim_lsp.rust_analyzer.setup{}
 nvim_lsp.pyright.setup{}
 nvim_lsp.gopls.setup{
-flags = {
-    debounce_text_changes = 500,
+    flags = {
+        debounce_text_changes = 500,
     }
 }
 nvim_lsp.solargraph.setup{}
@@ -173,12 +175,12 @@ nvim_lsp.ccls.setup {
         compilationDatabaseDirectory = "build";
         index = {
             threads = 0;
-            };
+        };
         clang = {
             excludeArgs = { "-frounding-math" };
-            };
-        }
+        };
     }
+}
 
 -- Use an on_attach function to only map the following keys 
 -- after the language server attaches to the current buffer
@@ -216,104 +218,108 @@ for _, lsp in ipairs(servers) do
 end
 
 require'compe'.setup{
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  resolve_timeout = 800;
-  incomplete_delay = 400;
-  max_abbr_width = 100;
-  max_kind_width = 100;
-  max_menu_width = 100;
-  documentation = true;
+    enabled = true;
+    autocomplete = true;
+    debug = false;
+    min_length = 1;
+    preselect = 'enable';
+    throttle_time = 80;
+    source_timeout = 200;
+    resolve_timeout = 800;
+    incomplete_delay = 400;
+    max_abbr_width = 100;
+    max_kind_width = 100;
+    max_menu_width = 100;
+    documentation = true;
 
-  source = {
-      path = true;
-      buffer = true;
-      calc = true;
-      nvim_lsp = true;
-      nvim_lua = true;
-      vsnip = true;
-      ultisnips = true;
-      };
-  }
+    source = {
+        path = true;
+        buffer = true;
+        calc = true;
+        nvim_lsp = true;
+        nvim_lua = true;
+        vsnip = true;
+        ultisnips = true;
+    };
+}
 
 require("toggleterm").setup{
--- size can be a number or function which is passed the current terminal
-size = function(term)
-if term.direction == "horizontal" then
-    return 15
-elseif term.direction == "vertical" then
-    return vim.o.columns * 0.4
-end
-  end,
-  open_mapping = [[<c-\>]],
-  hide_numbers = true, -- hide the number column in toggleterm buffers
-  shade_filetypes = {},
-  shade_terminals = true,
-  shading_factor = 3, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
-  start_in_insert = true,
-  insert_mappings = true, -- whether or not the open mapping applies in insert mode
-  persist_size = true,
-  close_on_exit = true, -- close the terminal window when the process exits
-  shell = "/bin/zsh --login" -- change the default shell
-  }
+    shell = "/bin/zsh --login" -- change the default shell
+}
 
 require('nvim-web-devicons').setup{}
 
-require('lualine').setup{
-options = {
-    icons_enabled = true,
-    theme = 'ayu_mirage',
+require('lualine').setup{options = {theme = 'ayu_mirage'}}
+
+local dap = require('dap')
+dap.adapters.go = function(callback, config)
+    local stdout = vim.loop.new_pipe(false)
+    local stderr = vim.loop.new_pipe(false)
+    local handle
+    local pid_or_err
+    local port = 38697
+    local opts = {
+      stdio = {nil, stdout, stderr},
+      args = {"dap", "-l", "127.0.0.1:" .. port},
+      detached = true
+    }
+    handle, pid_or_err = vim.loop.spawn("dlv", opts, function(code)
+      stdout:close()
+      stderr:close()
+      handle:close()
+      if code ~= 0 then
+        print('dlv exited with code', code)
+      end
+    end)
+    assert(handle, 'Error running dlv: ' .. tostring(pid_or_err))
+    stdout:read_start(function(err, chunk)
+      assert(not err, err)
+      if chunk then
+        vim.schedule(function()
+          require('dap.repl').append(chunk)
+        end)
+      end
+    end)
+    stderr:read_start(function(err, chunk)
+      assert(not err, err)
+      if chunk then
+        vim.schedule(function()
+          require('dap.repl').append(chunk)
+        end)
+      end
+    end)
+    -- Wait for delve to start
+    vim.defer_fn(
+      function()
+        callback({type = "server", host = "127.0.0.1", port = port})
+      end,
+      100)
+  end
+  -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
+  dap.configurations.go = {
+    {
+      type = "go",
+      name = "Debug",
+      request = "launch",
+      program = "${file}"
     },
-sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch'},
-    lualine_c = {
-        {
-                'filename',
-                file_status = true,
-                path = 1,
-        }
-        },
+    {
+      type = "go",
+      name = "Debug test", -- configuration for debugging test files
+      request = "launch",
+      mode = "test",
+      program = "${file}"
     },
+    -- works with go.mod packages and sub packages 
+    {
+      type = "go",
+      name = "Debug test (go.mod)",
+      request = "launch",
+      mode = "test",
+      program = "./${relativeFileDirname}"
+    } 
 }
 
-require("dapui").setup{
-icons = { expanded = "▾", collapsed = "▸" },
-mappings = {
-    -- Use a table to apply multiple mappings
-    expand = { "<CR>", "<2-LeftMouse>" },
-    open = "o",
-    remove = "d",
-    edit = "e",
-    repl = "r",
-    },
-sidebar = {
-elements = {
-    { id = "stacks", size = 0.5 },
-    {
-            id = "scopes",
-            size = 0.5,
-            },
-            },
-        size = 40,
-        position = "left", 
-        },
-    floating = {
-        max_height = nil, -- These can be integers or a float between 0 and 1.
-        max_width = nil, -- Floats will be treated as percentage of your screen.
-        mappings = {
-            close = { "q", "<Esc>" },
-            },
-        },
-    windows = { indent = 1 },
-    }
-
-require('dap-go').setup()
 require('dap.ext.vscode').load_launchjs(vim.fn.getcwd() .. '/.dap.json')
 EOF
 
