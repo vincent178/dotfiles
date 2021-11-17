@@ -10,6 +10,8 @@ Plug 'akinsho/nvim-toggleterm.lua'
 Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'kristijanhusak/orgmode.nvim'
+Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 
 " Markdown
 Plug 'godlygeek/tabular'
@@ -19,7 +21,7 @@ Plug 'plasticboy/vim-markdown'
 Plug 'neovim/nvim-lspconfig'
 Plug 'liuchengxu/vista.vim'
 Plug 'hrsh7th/nvim-compe'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'buoto/gotests-vim'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'cespare/vim-toml'
@@ -59,7 +61,7 @@ call plug#end()
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let mapleader=","
+let mapleader=" "
 
 " lang en_US.UTF-8
 
@@ -94,6 +96,8 @@ colorscheme ayu
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Key mapping
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+nnoremap <silent> <Leader> :WhichKey '<Space>'<CR>
 
 " move entire line in visual mode 
 xnoremap K :move '<-2<CR>gv-gv
@@ -139,8 +143,7 @@ nnoremap <silent> <Leader>bi :lua require'dap'.step_into()<CR>
 nnoremap <silent> <Leader>bo :lua require'dap'.step_out()<CR>
 nnoremap <silent> <Leader>bu :lua require('dapui').toggle('sidebar')<CR>
 
-nnoremap <Leader>tt <Cmd>1ToggleTerm<CR>
-nnoremap <Leader>tf <Cmd>2ToggleTerm direction=float<CR>
+nnoremap <Leader>t <Cmd>ToggleTerm<CR>
 
 " confirm complete with return
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -160,6 +163,36 @@ set softtabstop=4
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 lua << EOF
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.org = {
+  install_info = {
+    url = 'https://github.com/milisims/tree-sitter-org',
+    revision = 'main',
+    files = {'src/parser.c', 'src/scanner.cc'},
+  },
+  filetype = 'org',
+}
+
+require'nvim-treesitter.configs'.setup {
+  -- If TS highlights are not enabled at all, or disabled via `disable` prop, highlighting will fallback to default Vim syntax highlighting
+  highlight = {
+    enable = true,
+    disable = {'org'}, -- Remove this to use TS highlighter for some of the highlights (Experimental)
+    additional_vim_regex_highlighting = {'org'}, -- Required since TS highlighter doesn't support all syntax features (conceal)
+  },
+  ensure_installed = {'org'}, -- Or run :TSUpdate org
+}
+
+require('orgmode').setup({
+    org_todo_keywords = {'TODO(t)', '|', 'DONE(d)'},
+    org_agenda_files = {'~/Org/*'},
+    org_default_notes_file = '~/Org/inbox.org',
+    mappings = {
+        capture = {
+        }
+    }
+})
+
 local nvim_lsp = require('lspconfig')
 
 nvim_lsp.rust_analyzer.setup{}
@@ -201,11 +234,10 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', 'gr', '<cmd>lua require(\'telescope.builtin\').lsp_references()<CR>', opts)
     buf_set_keymap('n', 'gi', '<cmd>lua require(\'telescope.builtin\').lsp_implementations()<CR>', opts)
 
-    buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    buf_set_keymap('n', '<Leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
     buf_set_keymap('n', 'rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 
-    buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-    buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+    buf_set_keymap('n', '<Leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
     buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 end
@@ -294,10 +326,10 @@ dap.adapters.go = function(callback, config)
       function()
         callback({type = "server", host = "127.0.0.1", port = port})
       end,
-      100)
-  end
-  -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
-  dap.configurations.go = {
+    100)
+end
+-- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
+dap.configurations.go = {
     {
       type = "go",
       name = "Debug",
@@ -320,12 +352,55 @@ dap.adapters.go = function(callback, config)
       program = "./${relativeFileDirname}"
     } 
 }
-dap.ext.vscode.load_launchjs(vim.fn.getcwd() .. '/.dap.json')
+require('dap.ext.vscode').load_launchjs(vim.fn.getcwd() .. '/.dap.json')
+
+require('dapui').setup()
+
+function goimports(timeout_ms)
+    local context = { only = { "source.organizeImports" } }
+    vim.validate { context = { context, "t", true } }
+
+    local params = vim.lsp.util.make_range_params()
+    params.context = context
+
+    -- See the implementation of the textDocument/codeAction callback
+    -- (lua/vim/lsp/handler.lua) for how to do this properly.
+    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, timeout_ms)
+    if not result or next(result) == nil then 
+        vim.lsp.buf.formatting()
+        return 
+    end
+
+    local actions = result[1].result
+    if not actions then 
+        vim.lsp.buf.formatting()
+        return 
+    end
+    local action = actions[1]
+
+    -- textDocument/codeAction can return either Command[] or CodeAction[]. If it
+    -- is a CodeAction, it can have either an edit, a command or both. Edits
+    -- should be executed first.
+    if action.edit or type(action.command) == "table" then
+      if action.edit then
+        vim.lsp.util.apply_workspace_edit(action.edit)
+      end
+      if type(action.command) == "table" then
+        vim.lsp.buf.execute_command(action.command)
+      end
+    else
+      vim.lsp.buf.execute_command(action)
+    end
+
+    vim.lsp.buf.formatting()
+end
 EOF
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Function
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+autocmd BufWritePre *.go lua goimports(1000)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Setting
@@ -362,10 +437,6 @@ nnoremap gv :Vista!!<CR>
 " [vim-markdown]
 let g:vim_markdown_folding_disabled = 1
 
-" [fzf.vim]
-map <C-t> :Files<CR>
-map <Leader>f :Rg<Space>
-
 " command! -bang -nargs=? Rg
 "     \ call fzf#vim#grep(RgCommand(<f-args>), 1, fzf#vim#with_preview(), <bang>0)
 
@@ -374,4 +445,3 @@ map <Leader>f :Rg<Space>
 "   " this is a hack implementation
 "   return printf("rg --column --line-number --no-heading --color=always --smart-case %s", a:1)
 " endfunction
-
