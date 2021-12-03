@@ -68,8 +68,6 @@ call plug#end()
 
 let mapleader=" "
 
-" lang en_US.UTF-8
-
 set nocompatible
 set autoindent
 set expandtab
@@ -262,6 +260,11 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '<Leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
     buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+
+    -- Auto Formatting
+    if client.resolved_capabilities.document_formatting then
+        vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()]]
+    end
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
@@ -352,59 +355,12 @@ require('dap.ext.vscode').load_launchjs(vim.fn.getcwd() .. '/.dap.json')
 
 require('dapui').setup()
 
-function goimports(timeout_ms)
-    local context = { only = { "source.organizeImports" } }
-    vim.validate { context = { context, "t", true } }
-
-    local params = vim.lsp.util.make_range_params()
-    params.context = context
-
-    -- See the implementation of the textDocument/codeAction callback
-    -- (lua/vim/lsp/handler.lua) for how to do this properly.
-    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, timeout_ms)
-    if not result or next(result) == nil then 
-        vim.lsp.buf.formatting()
-        return 
-    end
-
-    if table.getn(result) < 2 then
-        vim.lsp.buf.formatting()
-        return 
-    end
-
-    local actions = result[1].result
-    if not actions then 
-        vim.lsp.buf.formatting()
-        return 
-    end
-
-    local action = actions[1]
-
-    -- textDocument/codeAction can return either Command[] or CodeAction[]. If it
-    -- is a CodeAction, it can have either an edit, a command or both. Edits
-    -- should be executed first.
-    if action.edit or type(action.command) == "table" then
-      if action.edit then
-        vim.lsp.util.apply_workspace_edit(action.edit)
-      end
-      if type(action.command) == "table" then
-        vim.lsp.buf.execute_command(action.command)
-      end
-    else
-      vim.lsp.buf.execute_command(action)
-    end
-
-    vim.lsp.buf.formatting()
-end
-
 require('gitsigns').setup()
 EOF
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Function
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-autocmd BufWritePre *.go lua goimports(1000)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Setting
@@ -432,7 +388,7 @@ let g:go_code_completion_enabled = 0
 let g:vista_sidebar_width = 48
 " disable tag view icon
 let g:vista#renderer#enable_icon = 0
-" use coc-vim
+" use nvim_lsp
 let g:vista_default_executive = 'nvim_lsp'
 
 " toggle Vista view
