@@ -12,6 +12,8 @@ Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'kristijanhusak/orgmode.nvim'
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+Plug 'nvim-lua/plenary.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 
 " Markdown
 Plug 'godlygeek/tabular'
@@ -20,11 +22,14 @@ Plug 'plasticboy/vim-markdown'
 " LSP and other IDE like plugins
 Plug 'neovim/nvim-lspconfig'
 Plug 'liuchengxu/vista.vim'
-Plug 'hrsh7th/nvim-compe'
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'buoto/gotests-vim'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'cespare/vim-toml'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
 
 " Dap
 Plug 'mfussenegger/nvim-dap'
@@ -145,11 +150,6 @@ nnoremap <silent> <Leader>bu :lua require('dapui').toggle('sidebar')<CR>
 
 nnoremap <Leader>t <Cmd>ToggleTerm<CR>
 
-" confirm complete with return
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-" inoremap <silent><expr> <CR> compe#complete()
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -182,6 +182,27 @@ require'nvim-treesitter.configs'.setup {
   },
   ensure_installed = {'org'}, -- Or run :TSUpdate org
 }
+
+local cmp = require('cmp')
+
+cmp.setup({
+  mapping = {
+    ['<C-e>'] = cmp.mapping({
+      i = cmp.mapping.abort(),
+      c = cmp.mapping.close(),
+    }),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'path' },
+    { name = 'cmdline' },
+    { name = 'buffer' }
+  }),
+  experimental = {
+    ghost_text = true
+  }
+})
 
 require('orgmode').setup({
     org_todo_keywords = {'TODO(t)', '|', 'DONE(d)'},
@@ -234,6 +255,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', 'gr', '<cmd>lua require(\'telescope.builtin\').lsp_references()<CR>', opts)
     buf_set_keymap('n', 'gi', '<cmd>lua require(\'telescope.builtin\').lsp_implementations()<CR>', opts)
 
+    buf_set_keymap('n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     buf_set_keymap('n', '<Leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
     buf_set_keymap('n', 'rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 
@@ -249,39 +271,13 @@ for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup { on_attach = on_attach }
 end
 
-require'compe'.setup{
-    enabled = true;
-    autocomplete = true;
-    debug = false;
-    min_length = 1;
-    preselect = 'enable';
-    throttle_time = 80;
-    source_timeout = 200;
-    resolve_timeout = 800;
-    incomplete_delay = 400;
-    max_abbr_width = 100;
-    max_kind_width = 100;
-    max_menu_width = 100;
-    documentation = true;
-
-    source = {
-        path = true;
-        buffer = true;
-        calc = true;
-        nvim_lsp = true;
-        nvim_lua = true;
-        vsnip = true;
-        ultisnips = true;
-    };
-}
-
 require("toggleterm").setup{
     shell = "/bin/zsh --login" -- change the default shell
 }
 
 require('nvim-web-devicons').setup{}
 
-require('lualine').setup{options = {theme = 'ayu_mirage'}}
+-- require('lualine').setup{options = {theme = 'ayu_mirage'}}
 require('evil_lualine')
 
 local dap = require('dap')
@@ -371,11 +367,17 @@ function goimports(timeout_ms)
         return 
     end
 
+    if table.getn(result) < 2 then
+        vim.lsp.buf.formatting()
+        return 
+    end
+
     local actions = result[1].result
     if not actions then 
         vim.lsp.buf.formatting()
         return 
     end
+
     local action = actions[1]
 
     -- textDocument/codeAction can return either Command[] or CodeAction[]. If it
@@ -394,6 +396,8 @@ function goimports(timeout_ms)
 
     vim.lsp.buf.formatting()
 end
+
+require('gitsigns').setup()
 EOF
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
