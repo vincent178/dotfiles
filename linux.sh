@@ -17,9 +17,7 @@ echo "setup nvim"
 check_or_install "nvim"
 
 mkdir -p $HOME/.config/nvim/ 
-mkdir -p $HOME/.config/coc/ 
 ln -fsn $PWD/init.vim $HOME/.config/nvim/init.vim 
-ln -fsn $PWD/coc-settings.json $HOME/.config/nvim/coc-settings.json 
 
 [ ! -f $HOME/.local/share/nvim/site/autoload/plug.vim ] && \
     curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
@@ -42,10 +40,6 @@ echo "setup zsh"
 
 ln -fsn $PWD/.p10k.zsh $HOME/.p10k.zsh
 ln -fsn $PWD/.ripgreprc $HOME/.ripgreprc
-
-echo "setup nvm"
-[ ! -d $HOME/.nvm ] && \
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
 
 echo "finish dotfiles"
 
