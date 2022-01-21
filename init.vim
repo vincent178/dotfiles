@@ -281,7 +281,7 @@ require("toggleterm").setup{
 require('nvim-web-devicons').setup{}
 
 -- require('lualine').setup{options = {theme = 'ayu_mirage'}}
-require('evil_lualine')
+-- require('evil_lualine')
 
 local dap = require('dap')
 dap.adapters.go = function(callback, config)
