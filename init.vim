@@ -18,6 +18,9 @@ Plug 'lewis6991/gitsigns.nvim'
 " Markdown
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+Plug 'sotte/presenting.vim' 
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'ferrine/md-img-paste.vim'
 
 " LSP and other IDE like plugins
 Plug 'neovim/nvim-lspconfig'
@@ -128,11 +131,12 @@ vnoremap <Leader>y "+y
 nnoremap <Leader>y "+y
 nnoremap <Leader>p "+p
 nmap <silent> <Leader>/ :silent noh<CR>
-nnoremap <Leader>s <C-w>v<C-w>l
-nnoremap <Leader>v <C-w>s<C-w>j
+" nnoremap <Leader>s <C-w>v<C-w>l
+" nnoremap <Leader>v <C-w>s<C-w>j
 noremap <Leader>q :q<cr>
 noremap <Leader>w :w<cr>
 noremap <Leader>wq :wq<cr>
+
 
 nnoremap <Leader>ff <cmd>Telescope find_files<cr>
 nnoremap <Leader>fg <cmd>Telescope live_grep<cr>
@@ -148,13 +152,16 @@ nnoremap <silent> <Leader>bu :lua require('dapui').toggle('sidebar')<CR>
 
 nnoremap <Leader>t <Cmd>ToggleTerm<CR>
 
+autocmd FileType markdown,org nmap <buffer><silent> <Leader>p :call mdip#MarkdownClipboardImage()<CR>
+autocmd FileType markdown nmap <buffer><silent> <Leader>s <cmd>MarkdownPreviewToggle()<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4
+set shiftwidth=2
+set tabstop=2
+set softtabstop=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Lua Config
@@ -185,10 +192,6 @@ local cmp = require('cmp')
 
 cmp.setup({
   mapping = {
-    ['<C-e>'] = cmp.mapping({
-      i = cmp.mapping.abort(),
-      c = cmp.mapping.close(),
-    }),
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
   },
   sources = cmp.config.sources({
@@ -203,7 +206,7 @@ cmp.setup({
 })
 
 require('orgmode').setup({
-    org_todo_keywords = {'TODO(t)', '|', 'DONE(d)'},
+    org_todo_keywords = {'TODO(t)',  'PROGRESS(p)', '|', 'DONE(d)'},
     org_agenda_files = {'~/Org/*'},
     org_default_notes_file = '~/Org/inbox.org',
     mappings = {
