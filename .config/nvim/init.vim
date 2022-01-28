@@ -51,6 +51,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-rg.nvim'
 
 " Colortheme
 Plug 'junegunn/seoul256.vim'
@@ -139,7 +140,7 @@ noremap <Leader>wq :wq<cr>
 
 
 nnoremap <Leader>ff <cmd>Telescope find_files<cr>
-nnoremap <Leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <Leader>fg <cmd>lua require("telescope").extensions.live_grep_raw.live_grep_raw()<cr>
 nnoremap <Leader>fb <cmd>Telescope buffers<cr>
 nnoremap <Leader>fh <cmd>Telescope help_tags<cr>
 
