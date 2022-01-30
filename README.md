@@ -6,3 +6,10 @@ Dotfiles
 
 ### Setup Mac
 ./install.sh
+
+## Nvim
+
+## AwesomeVM
+
+## Polybar
+

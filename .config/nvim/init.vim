@@ -141,7 +141,7 @@ noremap <Leader>w :w<cr>
 noremap <Leader>wq :wq<cr>
 
 
-nnoremap <Leader>ff <cmd>lua require('telescope').extensions.frecency.frecency()<cr>
+nnoremap <Leader>ff <cmd>Telescope find_files<cr>
 nnoremap <Leader>fg <cmd>lua require("telescope").extensions.live_grep_raw.live_grep_raw()<cr>
 nnoremap <Leader>fb <cmd>Telescope buffers<cr>
 nnoremap <Leader>fh <cmd>Telescope help_tags<cr>
