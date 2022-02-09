@@ -52,7 +52,7 @@ theme.layout_txt_magnifier                      = "[M]"
 theme.layout_txt_floating                       = "[|]"
 theme.tasklist_plain_task_name                  = true
 theme.tasklist_disable_icon                     = true
-theme.useless_gap                               = dpi(0)
+theme.useless_gap                               = dpi(6)
 theme.titlebar_close_button_normal              = theme.zenburn_dir.."/titlebar/close_normal.png"
 theme.titlebar_close_button_focus               = theme.zenburn_dir.."/titlebar/close_focus.png"
 theme.titlebar_minimize_button_normal           = theme.zenburn_dir.."/titlebar/minimize_normal.png"
@@ -167,12 +167,15 @@ local bat = lain.widget.bat({
 
 -- Net checker
 local net = lain.widget.net({
+    wifi_state = "on",
     settings = function()
         if net_now.state == "up" then net_state = "On"
         else net_state = "Off" end
         widget:set_markup(markup.font(theme.font, markup(gray, " Net ") .. net_state .. " "))
     end
 })
+
+local wifi = lain.widget.net()
 
 -- ALSA volume
 theme.volume = lain.widget.alsa({
@@ -263,7 +266,7 @@ function theme.at_screen_connect(s)
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
             spr,
-            theme.mpd.widget,
+            --theme.mpd.widget,
             --theme.mail.widget,
             cpu.widget,
             mem.widget,
