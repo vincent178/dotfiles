@@ -1,4 +1,3 @@
-
 # window customizations
 window:
   dimensions:
@@ -7,26 +6,24 @@ window:
   padding:
     x: 6
     y: 6
-
-  decorations: none
+  decorations: full
 
   # startup_mode: Fullscreen
-
-background_opacity: 0.9
+# background_opacity: 0.9
 
 font:
-  size: 11.0
-  normal:
-    family: DroidSansMono Nerd Font
+  size: 12.0
+  # normal:
+  #   family: DroidSansMono Nerd Font
 
-  bold:
-    family: DroidSansMono Nerd Font
+  # bold:
+  #   family: DroidSansMono Nerd Font
 
-  italic:
-    family: DroidSansMono Nerd Font
+  # italic:
+  #   family: DroidSansMono Nerd Font
 
-  bold_italic:
-    family: DroidSansMono Nerd Font
+  # bold_italic:
+  #   family: DroidSansMono Nerd Font
 
 colors:
   # Default colors
