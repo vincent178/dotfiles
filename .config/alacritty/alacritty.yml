@@ -1,6 +1,6 @@
 # window customizations
 window:
-  opacity: 0.9
+  opacity: 0.8
   dimensions:
     columns: 140
     lines: 38
@@ -13,18 +13,19 @@ window:
 # background_opacity: 0.9
 
 font:
-  size: 14.0
-  # normal:
-  #   family: DroidSansMono Nerd Font
+  size: 10.0
+  normal:
+    family: FiraCode Nerd Font Mono
 
-  # bold:
-  #   family: DroidSansMono Nerd Font
+  bold:
+    family: FiraCode Nerd Font
+    style: Blod
 
-  # italic:
-  #   family: DroidSansMono Nerd Font
+  italic:
+    family: FiraCode Nerd Font Mono
 
-  # bold_italic:
-  #   family: DroidSansMono Nerd Font
+  bold_italic:
+    family: FiraCode Nerd Font Mono
 
 colors:
   # primary:
