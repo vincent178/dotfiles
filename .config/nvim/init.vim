@@ -217,6 +217,7 @@ require('orgmode').setup({
         }
     }
 })
+require('orgmode').setup_ts_grammar()
 
 local nvim_lsp = require('lspconfig')
 

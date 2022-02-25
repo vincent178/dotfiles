@@ -30,7 +30,7 @@ bspc config active_border_color         "#073642"
 # Autostart
 #
 # Set display from arandr saved script
-sh ~/.screenlayout/monitor.sh &
+# sh ~/.screenlayout/monitor.sh &
 # Bar
 ~/.config/polybar/launch.sh &
 # Notifications
@@ -51,4 +51,10 @@ xsetroot -cursor_name left_ptr &
 
 # Low battery notifier
 ~/.config/bspwm/scripts/low_bat_notifier.sh
+
+# Start clash
+~/go/bin/clash &
+
+# Start chromium
+chromium --proxy-server=localhost:7890 &
 
