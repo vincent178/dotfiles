@@ -171,6 +171,12 @@ Print
 super + Print
   ~/.config/bspwm/scripts/screenshot.sh
 
+super + alt + 3
+  maim -u ~/Pictures/$(date +%F_%T).png
+
+super + alt + 4
+  maim -s -u ~/Pictures/$(date +%F_%T).png
+
 # Shortcuts
 super + w 
   chromium
