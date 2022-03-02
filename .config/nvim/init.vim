@@ -74,6 +74,7 @@ call plug#end()
 
 let mapleader=" "
 
+set number relativenumber
 set nocompatible
 set autoindent
 set expandtab
@@ -88,7 +89,6 @@ set encoding=utf-8
 set termencoding=utf-8
 set mouse=a
 set cursorline
-set number
 set ignorecase
 
 set completeopt=menuone,noselect,preview
@@ -145,6 +145,7 @@ nnoremap <Leader>ff <cmd>Telescope find_files<cr>
 nnoremap <Leader>fg <cmd>lua require("telescope").extensions.live_grep_raw.live_grep_raw()<cr>
 nnoremap <Leader>fb <cmd>Telescope buffers<cr>
 nnoremap <Leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <Leader>fp <cmd>Telescope pickers<cr>
 
 nnoremap <silent> <Leader>bb :lua require'dap'.toggle_breakpoint()<CR>
 nnoremap <silent> <Leader>bn :lua require'dap'.continue()<CR>
@@ -364,7 +365,13 @@ require('dapui').setup()
 
 require('gitsigns').setup()
 
-require('telescope').setup()
+require('telescope').setup({
+  defaults = {
+    cache_picker = {
+      num_pickers = -1,
+    }
+  },
+})
 
 require('telescope').load_extension('fzf')
 EOF

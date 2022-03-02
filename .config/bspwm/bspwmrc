@@ -4,15 +4,14 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 
 # bspc monitor -d I II III IV V VI VII VIII IX X
 m=$(xrandr | grep connected | grep -v disconnected | wc -l)
+
 if (( m == 2 )); then
   bspc monitor eDP -d I II III IV V 
   bspc monitor HDMI-A-0 -d VI VII VIII IX X
-
   # sh ~/.screenlayout/dual_monitor.sh &
 else
   bspc monitor -d I II III IV V VI VII VIII IX X
 fi
-
 
 bspc config border_width         2
 bspc config window_gap          12
