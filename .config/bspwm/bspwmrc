@@ -59,5 +59,10 @@ xsetroot -cursor_name left_ptr &
 # Low battery notifier
 ~/.config/bspwm/scripts/low_bat_notifier.sh
 
+# Set keymap
+~/.scripts/setxmodmap.sh
+
 # Start clash
-~/go/bin/clash 2>&1 > /dev/null &
+# ~/go/bin/clash 2>&1 > /dev/null &
+
+

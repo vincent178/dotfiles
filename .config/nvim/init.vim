@@ -241,6 +241,7 @@ nvim_lsp.ccls.setup {
         };
     }
 }
+nvim_lsp.jsonls.setup{}
 
 -- Use an on_attach function to only map the following keys 
 -- after the language server attaches to the current buffer
@@ -262,7 +263,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', 'gi', '<cmd>lua require(\'telescope.builtin\').lsp_implementations()<CR>', opts)
 
     buf_set_keymap('n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    buf_set_keymap('n', '<Leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    buf_set_keymap('n', '<Leader>fd', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
     buf_set_keymap('n', 'rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 
     buf_set_keymap('n', '<Leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
@@ -271,13 +272,13 @@ local on_attach = function(client, bufnr)
 
     -- Auto Formatting
     if client.resolved_capabilities.document_formatting then
-        vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()]]
+        -- vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()]]
     end
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "gopls", "rust_analyzer", "pyright", "solargraph", "ccls" }
+local servers = { "gopls", "rust_analyzer", "pyright", "solargraph", "ccls", "jsonls" }
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup { on_attach = on_attach }
 end
