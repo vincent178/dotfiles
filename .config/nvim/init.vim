@@ -156,8 +156,11 @@ nnoremap <silent> <Leader>bu :lua require('dapui').toggle('sidebar')<CR>
 
 nnoremap <Leader>t <Cmd>ToggleTerm<CR>
 
-autocmd FileType markdown,org nmap <buffer><silent> <Leader>p :call mdip#MarkdownClipboardImage()<CR>
-autocmd FileType markdown nmap <buffer><silent> <Leader>s <cmd>MarkdownPreviewToggle()<CR>
+autocmd FileType markdown nmap <buffer><silent> <Leader>mi :call mdip#MarkdownClipboardImage()<CR>
+autocmd FileType markdown nmap <buffer><silent> <Leader>mp <cmd>MarkdownPreviewToggle<CR>
+autocmd FileType markdown nmap <buffer><silent> <Leader>mtv <cmd>Toc<CR>
+autocmd FileType markdown nmap <buffer><silent> <Leader>mti <cmd>InsertToc<CR>
+autocmd FileType markdown nmap <buffer><silent> <Leader>mv <cmd>PresentingStart<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
@@ -414,7 +417,11 @@ let g:vista_default_executive = 'nvim_lsp'
 nnoremap gv :Vista!!<CR>
 
 " [vim-markdown]
-let g:vim_markdown_folding_disabled = 1
+set conceallevel=2
+let g:vim_markdown_folding_level = 2
+let g:vim_markdown_follow_anchor = 1
+let g:vim_markdown_math = 1
+let g:vim_markdown_json_frontmatter = 1
 
 " command! -bang -nargs=? Rg
 "     \ call fzf#vim#grep(RgCommand(<f-args>), 1, fzf#vim#with_preview(), <bang>0)
