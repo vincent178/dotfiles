@@ -1,6 +1,6 @@
 # window customizations
 window:
-  opacity: 0.8
+  opacity: 0.9
   dimensions:
     columns: 140
     lines: 38
@@ -9,23 +9,22 @@ window:
     y: 6
   decorations: full
 
-  # startup_mode: Fullscreen
-# background_opacity: 0.9
-
 font:
-  size: 11.0
+  size: 12.0
   normal:
-    family: FiraCode Nerd Font Mono
+    family: Hack Nerd Font Mono
 
   bold:
-    family: FiraCode Nerd Font
+    family: Hack Nerd Font Mono
     style: Blod
 
   italic:
-    family: FiraCode Nerd Font Mono
+    family: Hack Nerd Font Mono
+    style: Italic
 
   bold_italic:
-    family: FiraCode Nerd Font Mono
+    family: Hack Nerd Font Mono
+    style: Blod Italic
 
 colors:
   # primary:
