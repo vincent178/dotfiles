@@ -424,7 +424,7 @@ let g:vista_default_executive = 'nvim_lsp'
 nnoremap gv :Vista!!<CR>
 
 " [vim-markdown]
-set conceallevel=2
+set conceallevel=0
 let g:vim_markdown_folding_level = 2
 let g:vim_markdown_follow_anchor = 1
 let g:vim_markdown_math = 1

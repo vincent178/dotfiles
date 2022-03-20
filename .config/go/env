@@ -1,1 +1,2 @@
+GOPRIVATE=github.com/goatapp,github.com/vincent178/opengoat
 GOPROXY=https://goproxy.io,direct
