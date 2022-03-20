@@ -1,15 +1,12 @@
 Dotfiles
 =======
 
-### Backup Mac
-./backup.sh
+For MacOS, install homebrew first before run `./install.sh`
 
-### Setup Mac
-./install.sh
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
 
-## Nvim
-
-## AwesomeVM
-
-## Polybar
-
+```bash
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```

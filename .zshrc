@@ -1,35 +1,34 @@
-export ZSH="$HOME/.oh-my-zsh"
+source $HOME/.scripts/antigen.zsh
 
-ZSH_THEME="robbyrussell"
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
 
-DISABLE_AUTO_UPDATE="true"
+# Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundle git
+antigen bundle command-not-found
 
-plugins=(git)
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle agkozak/zsh-z
 
-source $ZSH/oh-my-zsh.sh
+# Load the theme.
+antigen theme robbyrussell
 
-# Homebrew
-eval $(/opt/homebrew/bin/brew shellenv)
+antigen apply
 
-# User configuration
+export EDITOR="nvim"
+export BROWSER="chromium"
 
-export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+export http_proxy="http://localhost:7890"
+export https_proxy="http://localhost:7890"
 
-# https://stackoverflow.com/questions/48308803/how-to-include-ffi-in-os-x
-export LDFLAGS="-L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/icu4c/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/icu4c/include"
-export PKG_CONFIG_PATH="/opt/homebrew/opt/libffi/lib/pkgconfig /opt/homebrew/opt/icu4c/lib/pkgconfig"
+export PATH=$PATH:$HOME/go/bin:$HOME/.rvm/bin
 
 alias v="nvim"
+alias n="neofetch"
+alias f="fzf"
+alias r="ranger"
 
-# PATH
-export PATH=$PATH:/usr/local/bin:/usr/local/go/bin:$HOME/go/bin
+source /usr/share/nvm/init-nvm.sh
+source $HOME/.rvm/scripts/rvm
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$HOME/.rvm/bin:$PATH"
-
-eval "$(rbenv init -)"
-eval "$(/usr/libexec/path_helper)"
-
-
-export DATABASE_URL=postgres://sneakers@localhost/sneakers_development
