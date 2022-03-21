@@ -20,7 +20,6 @@ Plug 'kristijanhusak/orgmode.nvim'
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
-Plug 'ryanoasis/vim-devicons'
 
 " Markdown
 Plug 'godlygeek/tabular'
