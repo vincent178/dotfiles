@@ -3,6 +3,8 @@ Dotfiles
 
 ## Linux
 
+![arch.png](./img/arch.png)
+
 I use Arch, other distro might be a bit different in terms of package managers.
 
 Before hit `./install.sh`, install yay first:
