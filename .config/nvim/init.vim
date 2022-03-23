@@ -251,6 +251,8 @@ nvim_lsp.ccls.setup {
     }
 }
 nvim_lsp.jsonls.setup{}
+nvim_lsp.sourcekit.setup{}
+
 
 -- Use an on_attach function to only map the following keys 
 -- after the language server attaches to the current buffer
@@ -287,7 +289,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "gopls", "rust_analyzer", "pyright", "solargraph", "ccls", "jsonls" }
+local servers = { "gopls", "rust_analyzer", "pyright", "solargraph", "ccls", "jsonls", "sourcekit" }
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup { on_attach = on_attach }
 end
@@ -418,9 +420,6 @@ let g:vista_sidebar_width = 48
 let g:vista#renderer#enable_icon = 0
 " use nvim_lsp
 let g:vista_default_executive = 'nvim_lsp'
-
-" toggle Vista view
-nnoremap gv :Vista!!<CR>
 
 " [vim-markdown]
 set conceallevel=0
