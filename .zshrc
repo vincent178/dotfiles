@@ -16,19 +16,31 @@ antigen theme robbyrussell
 
 antigen apply
 
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+
 export EDITOR="nvim"
 export BROWSER="chromium"
-
-export http_proxy="http://localhost:7890"
-export https_proxy="http://localhost:7890"
-
-export PATH=$PATH:$HOME/go/bin:$HOME/.rvm/bin
 
 alias v="nvim"
 alias n="neofetch"
 alias f="fzf"
 alias r="ranger"
 
-source /usr/share/nvm/init-nvm.sh
+# MacOS arm only
+if [ "$(uname)" = "Darwin" ]; then
+  eval $(/opt/homebrew/bin/brew shellenv)
+
+  alias brew='arch -arm64 /opt/homebrew/bin/brew'
+  alias abrew='/opt/homebrew/bin/brew'
+  alias ibrew='arch -x86_64 /usr/local/bin/brew'
+  alias bundle="arch -x86_64 bundle"
+  alias npm="arch -x86_64 npm"
+  alias pnpm="arch -x86_64 pnpm"
+  alias gem="arch -x86_64 gem"
+  alias pbcopy="LANG=zh-CN.UTF-8 pbcopy"
+fi
+
+source $HOME/.nvm/nvm.sh
 source $HOME/.rvm/scripts/rvm
 
