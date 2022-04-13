@@ -44,7 +44,10 @@ $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bas
 
 I use neovim as my primary text editor.
 
+* fuzzy finder
 ![vim1.png](./img/vim1.png)
+
+* auto complete
 ![vim2.png](./img/vim2.png)
 
 
