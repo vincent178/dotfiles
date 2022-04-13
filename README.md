@@ -10,7 +10,7 @@ For Mac, I use [yabai](https://github.com/koekeishiya/yabai) window manager.
 Before hit `./install.sh`, install homebrew first:
 
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
 ## Linux
@@ -22,7 +22,7 @@ I use Arch, other distro might be a bit different in terms of package managers.
 Before hit `./install.sh`, install yay first:
 
 ```bash
-pacman -S yay
+$ pacman -S yay
 ```
 
 ## Programming Languages
@@ -56,5 +56,5 @@ $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bas
 I use tpm to manage tmux packages, install it first:
 
 ```bash
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+$ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```

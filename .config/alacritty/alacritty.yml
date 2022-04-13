@@ -1,6 +1,6 @@
 # window customizations
 window:
-  opacity: 0.9
+  opacity: 0.9 
   dimensions:
     columns: 140
     lines: 38
@@ -10,7 +10,7 @@ window:
   decorations: full
 
 font:
-  size: 12.0
+  size: 14.0
   normal:
     family: Hack Nerd Font
     style: Regular
@@ -77,6 +77,6 @@ cursor:
   style: Block
   unfocused_hollow: true
 
-# key_bindings:
-  # - { key: Back, action:  ReceiveChar}
+key_bindings:
+  - { key: Back, action:  ReceiveChar}
     
