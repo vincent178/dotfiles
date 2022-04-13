@@ -42,12 +42,12 @@ $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bas
 
 ## Neovim
 
-I use neovim as my primary text editor.
+[Neovim](https://neovim.io) is my primary text editor, below are some existing features for demo:
 
-* fuzzy finder
+* fuzzy finder & builtin terminal
 ![vim1.png](./img/vim1.png)
 
-* auto complete
+* auto complete based on LSP 
 ![vim2.png](./img/vim2.png)
 
 
