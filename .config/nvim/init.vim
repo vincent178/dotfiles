@@ -152,6 +152,7 @@ nnoremap <Leader>fg <cmd>lua require("telescope").extensions.live_grep_raw.live_
 nnoremap <Leader>fb <cmd>Telescope buffers<cr>
 nnoremap <Leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <Leader>fp <cmd>Telescope pickers<cr>
+nnoremap <Leader>fr <cmd>Telescope resume<cr>
 
 nnoremap <silent> <Leader>bb :lua require'dap'.toggle_breakpoint()<CR>
 nnoremap <silent> <Leader>bn :lua require'dap'.continue()<CR>
