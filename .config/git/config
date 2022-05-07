@@ -7,5 +7,3 @@
 	default = current
 [pull]
 	rebase = true
-[http]
-	proxy = http://localhost:7890
