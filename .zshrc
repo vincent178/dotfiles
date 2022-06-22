@@ -41,7 +41,7 @@ if [ "$(uname)" = "Darwin" ]; then
   alias pbcopy="LANG=zh-CN.UTF-8 pbcopy"
 fi
 
-export PATH=$HOME/go/bin:$PATH
+export PATH=$HOME/go/bin:$HOME/.cargo/bin:$PATH
 
 source $HOME/.nvm/nvm.sh
 source $HOME/.rvm/scripts/rvm
