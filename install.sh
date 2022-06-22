@@ -24,6 +24,8 @@ echo "link files"
 
 # link .config
 
+mkdir -p $HOME/.config
+
 configs=("alacritty" "bspwm" "sxhkd" "polybar" "git" "nvim" "yabai" "go" "rofi" "skhd" "emacs")
 
 for c in ${configs[@]};
