@@ -27,7 +27,7 @@ $ pacman -S yay
 
 ## Programming Languages
 
-Go, Ruby, Javascript are my primary programming languages, and correspondingly, I use [rvm](https://rvm.io) to manage ruby version, and [nvm](https://github.com/nvm-sh/nvm) to manage node version.
+Go, Rust, Ruby, Javascript are my primary programming languages, and correspondingly, I use [rvm](https://rvm.io) to manage ruby version, and [nvm](https://github.com/nvm-sh/nvm) to manage node version.
 
 * install rvm
 ```bash
@@ -38,6 +38,11 @@ $ curl -sSL https://get.rvm.io | bash -s stable
 * install nvm
 ```bash
 $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+```
+
+* install rustup
+```bash
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
 ## Neovim

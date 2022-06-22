@@ -7,9 +7,9 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "install packages"
 
 packages=('ranger' 'fzf' 'neovim' 'zsh' 'alacritty' 'golang' 'tmux' 'ranger' 'tig')
-mac_packages=("${packages[@]}")
+mac_packages=("${packages[@]}" 'gh')
 linux_packages=("${packages[@]}" 'sxhkd' 'bspwm' 'polybar' 'rofi')
-cask_packages=('iterm2' 'raycask' 'wechat')
+cask_packages=('iterm2' 'raycask' 'wechat' 'visual-studio-code')
   
 if [ "$(uname)" = "Darwin" ]; then
   brew install "${mac_packages[@]}"
