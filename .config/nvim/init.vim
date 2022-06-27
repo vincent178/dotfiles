@@ -59,6 +59,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-rg.nvim'
 Plug 'nvim-telescope/telescope-frecency.nvim'
+Plug 'nvim-telescope/telescope-live-grep-args.nvim'
 Plug 'tami5/sqlite.lua'
 
 " Colortheme
@@ -148,7 +149,7 @@ noremap <Leader>wq :wq<cr>
 
 
 nnoremap <Leader>ff <cmd>Telescope find_files<cr>
-nnoremap <Leader>fg <cmd>lua require("telescope").extensions.live_grep_raw.live_grep_raw()<cr>
+nnoremap <Leader>fg <cmd>lua require("telescope").extensions.live_grep_args.live_grep_args()<cr>
 nnoremap <Leader>fb <cmd>Telescope buffers<cr>
 nnoremap <Leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <Leader>fp <cmd>Telescope pickers<cr>
@@ -387,6 +388,7 @@ require('telescope').setup({
 })
 
 require('telescope').load_extension('fzf')
+require('telescope').load_extension('live_grep_args')
 EOF
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
