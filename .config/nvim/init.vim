@@ -16,7 +16,7 @@ Plug 'akinsho/nvim-toggleterm.lua'
 Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'kristijanhusak/orgmode.nvim'
+Plug 'nvim-orgmode/orgmode'
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
@@ -29,6 +29,8 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'ferrine/md-img-paste.vim'
 
 " LSP and other IDE like plugins
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'liuchengxu/vista.vim'
 Plug 'buoto/gotests-vim'
@@ -39,6 +41,7 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
+" Plug 'simrat39/rust-tools.nvim'
 
 " Dap
 Plug 'mfussenegger/nvim-dap'
@@ -54,7 +57,6 @@ Plug 'tpope/vim-rhubarb'
 " Fuzzy finder
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
-Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-rg.nvim'
@@ -81,22 +83,7 @@ call plug#end()
 
 let mapleader=" "
 
-set number relativenumber
-set nocompatible
-set autoindent
-set expandtab
-set showmode
-set showcmd
-set ruler
-set hidden
-set noswapfile
-set incsearch
-set hlsearch
-set encoding=utf-8
-set termencoding=utf-8
-set mouse=a
-set cursorline
-set ignorecase
+" set ignorecase
 
 set completeopt=menuone,noselect,preview
 
@@ -183,212 +170,7 @@ set softtabstop=2
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 lua << EOF
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.org = {
-  install_info = {
-    url = 'https://github.com/milisims/tree-sitter-org',
-    revision = 'main',
-    files = {'src/parser.c', 'src/scanner.cc'},
-  },
-  filetype = 'org',
-}
-
-require'nvim-treesitter.configs'.setup {
-  -- If TS highlights are not enabled at all, or disabled via `disable` prop, highlighting will fallback to default Vim syntax highlighting
-  highlight = {
-    enable = true,
-    disable = {'org'}, -- Remove this to use TS highlighter for some of the highlights (Experimental)
-    additional_vim_regex_highlighting = {'org'}, -- Required since TS highlighter doesn't support all syntax features (conceal)
-  },
-  ensure_installed = {'org'}, -- Or run :TSUpdate org
-}
-
-local cmp = require('cmp')
-
-cmp.setup({
-  mapping = cmp.mapping.preset.insert({
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
-  }),
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'path' },
-    { name = 'cmdline' },
-    { name = 'buffer' }
-  }),
-  experimental = {
-    ghost_text = true
-  }
-})
-
-require('orgmode').setup({
-    org_todo_keywords = {'TODO(t)',  'PROGRESS(p)', '|', 'DONE(d)'},
-    org_agenda_files = {'~/Org/*'},
-    org_default_notes_file = '~/Org/inbox.org',
-    mappings = {
-        capture = {
-        }
-    }
-})
-require('orgmode').setup_ts_grammar()
-
-local nvim_lsp = require('lspconfig')
-
-nvim_lsp.rust_analyzer.setup{}
-nvim_lsp.pyright.setup{}
-nvim_lsp.gopls.setup{
-    flags = {
-        debounce_text_changes = 500,
-    }
-}
-nvim_lsp.solargraph.setup{}
-nvim_lsp.ccls.setup {
-    init_options = {
-        compilationDatabaseDirectory = "build";
-        index = {
-            threads = 0;
-        };
-        clang = {
-            excludeArgs = { "-frounding-math" };
-        };
-    }
-}
-nvim_lsp.jsonls.setup{}
-nvim_lsp.sourcekit.setup{}
-
-
--- Use an on_attach function to only map the following keys 
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-    --Enable completion triggered by <c-x><c-o>
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-    -- Mappings.
-    local opts = { noremap=true, silent=true }
-
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    buf_set_keymap('n', 'gr', '<cmd>lua require(\'telescope.builtin\').lsp_references()<CR>', opts)
-    buf_set_keymap('n', 'gi', '<cmd>lua require(\'telescope.builtin\').lsp_implementations()<CR>', opts)
-
-    buf_set_keymap('n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    buf_set_keymap('n', '<Leader>fd', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-    buf_set_keymap('n', 'rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-
-    buf_set_keymap('n', '<Leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-    buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-
-    -- Auto Formatting
-    if client.resolved_capabilities.document_formatting then
-        -- vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()]]
-    end
-end
-
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local servers = { "gopls", "rust_analyzer", "pyright", "solargraph", "ccls", "jsonls", "sourcekit" }
-for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup { on_attach = on_attach }
-end
-
-require("toggleterm").setup{
-    shell = "/bin/zsh --login" -- change the default shell
-}
-
-require('nvim-web-devicons').setup{}
-
--- require('lualine').setup{options = {theme = 'ayu_mirage'}}
--- require('evil_lualine')
-
-local dap = require('dap')
-dap.adapters.go = function(callback, config)
-    local stdout = vim.loop.new_pipe(false)
-    local stderr = vim.loop.new_pipe(false)
-    local handle
-    local pid_or_err
-    local port = 38697
-    local opts = {
-      stdio = {nil, stdout, stderr},
-      args = {"dap", "-l", "127.0.0.1:" .. port},
-      detached = true
-    }
-    handle, pid_or_err = vim.loop.spawn("dlv", opts, function(code)
-      stdout:close()
-      stderr:close()
-      handle:close()
-      if code ~= 0 then
-        print('dlv exited with code', code)
-      end
-    end)
-    assert(handle, 'Error running dlv: ' .. tostring(pid_or_err))
-    stdout:read_start(function(err, chunk)
-      assert(not err, err)
-      if chunk then
-        vim.schedule(function()
-          require('dap.repl').append(chunk)
-        end)
-      end
-    end)
-    stderr:read_start(function(err, chunk)
-      assert(not err, err)
-      if chunk then
-        vim.schedule(function()
-          require('dap.repl').append(chunk)
-        end)
-      end
-    end)
-    -- Wait for delve to start
-    vim.defer_fn(
-      function()
-        callback({type = "server", host = "127.0.0.1", port = port})
-      end,
-    100)
-end
--- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
-dap.configurations.go = {
-    {
-      type = "go",
-      name = "Debug",
-      request = "launch",
-      program = "${file}"
-    },
-    {
-      type = "go",
-      name = "Debug test", -- configuration for debugging test files
-      request = "launch",
-      mode = "test",
-      program = "${file}"
-    },
-    -- works with go.mod packages and sub packages 
-    {
-      type = "go",
-      name = "Debug test (go.mod)",
-      request = "launch",
-      mode = "test",
-      program = "./${relativeFileDirname}"
-    } 
-}
-require('dap.ext.vscode').load_launchjs(vim.fn.getcwd() .. '/.dap.json')
-
-require('dapui').setup()
-
-require('gitsigns').setup()
-
-require('telescope').setup({
-  defaults = {
-    cache_picker = {
-      num_pickers = -1,
-    }
-  },
-})
-
-require('telescope').load_extension('fzf')
-require('telescope').load_extension('live_grep_args')
+require('config');
 EOF
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
