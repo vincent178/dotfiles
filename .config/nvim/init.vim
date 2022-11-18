@@ -10,14 +10,14 @@ call plug#begin('~/.vim/autoload/plugged')
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'djoshea/vim-autoread'
 Plug 'tpope/vim-commentary'
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'akinsho/nvim-toggleterm.lua'
 Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-orgmode/orgmode'
-Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 
@@ -41,7 +41,9 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
-" Plug 'simrat39/rust-tools.nvim'
+Plug 'simrat39/rust-tools.nvim'
+Plug 'nvim-lua/lsp-status.nvim'
+Plug 'j-hui/fidget.nvim'
 
 " Dap
 Plug 'mfussenegger/nvim-dap'
@@ -221,4 +223,12 @@ let g:vim_markdown_json_frontmatter = 1
 "   " not sure why f-args won't split argument by spaces  
 "   " this is a hack implementation
 "   return printf("rg --column --line-number --no-heading --color=always --smart-case %s", a:1)
+" endfunction
+
+" function! LspStatus() abort
+"   if luaeval('#vim.lsp.buf_get_clients() > 0')
+"     return luaeval("require('lsp-status').status()")
+"   endif
+
+"   return ''
 " endfunction
