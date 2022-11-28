@@ -10,14 +10,14 @@ end
 -- Mason
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = { "rust_analyzer", "gopls", "sumneko_lua", "pyright", "jsonls" } -- Manage language server dependencies
+    ensure_installed = { "rust_analyzer", "gopls", "sumneko_lua", "pyright", "jsonls", "tsserver" } -- Manage language server dependencies
 })
 
 -- UI for language server progress
 require("fidget").setup({})
 
 -- Default LSP config list
-local config_lsp_servers = { "gopls", "pyright", "jsonls" }
+local config_lsp_servers = { "gopls", "pyright", "jsonls", "tsserver" }
 
 for _, lsp in ipairs(config_lsp_servers) do
     require('lspconfig')[lsp].setup({})
@@ -48,9 +48,9 @@ require('lspconfig').sumneko_lua.setup {
 }
 
 -- Custom Rust LSP config and more, see more: https://github.com/simrat39/rust-tools.nvim
-local extension_path = vim.env.HOME .. '/.local/share/nvim/mason/packages/codelldb'
+local extension_path = vim.env.HOME .. '/.local/share/nvim/mason/packages/codelldb/extension/'
 local codelldb_path = extension_path .. 'adapter/codelldb'
-local liblldb_path = extension_path .. 'lldb/lib/liblldb.so'
+local liblldb_path = extension_path .. 'lldb/lib/liblldb.dylib'
 
 local rt = require("rust-tools")
 
@@ -116,34 +116,52 @@ require("toggleterm").setup({
 -- Dap
 require('dap-go').setup()
 
-require('dapui').setup()
+require('dapui').setup({
+    icons = { expanded = "▾", collapsed = "▸" },
+    controls = {
+        enabled = false,
+    }
+})
 
 -- Use nvim-dap events to open and close the windows automatically
 local dap, dapui = require("dap"), require("dapui")
 dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open()
+    dapui.open({})
 end
 dap.listeners.before.event_terminated["dapui_config"] = function()
-    dapui.close()
+    dapui.close({})
 end
 dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui.close()
+    dapui.close({})
 end
 
 sign({ name = 'DapBreakpoint', text = '●' })
 sign({ name = 'DapStopped', text = '➞' })
 sign({ name = 'DapBreakpointRejected', text = '⊝' })
 
+-- Trouble
+require('trouble').setup({})
+
 -- Telescope
-require('telescope').setup({
+local actions = require("telescope.actions")
+local trouble = require("trouble.providers.telescope")
+
+local telescope = require("telescope")
+
+telescope.setup {
     defaults = {
         cache_picker = {
             num_pickers = -1,
-        }
-    }
-})
-require('telescope').load_extension('fzf')
-require('telescope').load_extension('live_grep_args')
+        },
+        mappings = {
+            i = { ["<C-t>"] = trouble.open_with_trouble },
+            n = { ["<C-t>"] = trouble.open_with_trouble },
+        },
+    },
+}
+
+telescope.load_extension('fzf')
+telescope.load_extension('live_grep_args')
 
 -- LSP diagnostics config
 sign({ name = 'DiagnosticSignError', text = '' })
@@ -165,13 +183,9 @@ vim.diagnostic.config({
     },
 })
 
-vim.cmd([[
-autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
-]])
-
 -- Treesitter
 require('nvim-treesitter.configs').setup({
-    ensure_installed = { "go", "rust", "ruby" }, -- A list of parser names
+    ensure_installed = { "go", "rust", "ruby", "javascript", "json", "toml" }, -- A list of parser names
     auto_install = true, -- Automatically install missing parsers when entering buffer
     sync_install = true, -- Install parsers synchronously (only applied to `ensure_installed`)
     highlight = true

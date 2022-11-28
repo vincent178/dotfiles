@@ -13,10 +13,9 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-orgmode/orgmode'
 Plug 'folke/which-key.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'lewis6991/gitsigns.nvim'
-Plug 'kevinhwang91/promise-async'
-Plug 'kevinhwang91/nvim-ufo'
-Plug 'Joakker/lua-json5'
+Plug 'folke/trouble.nvim'
+Plug 'nvim-tree/nvim-tree.lua'
+Plug 'nvim-tree/nvim-web-devicons'
 
 " Markdown
 Plug 'godlygeek/tabular'
@@ -29,30 +28,26 @@ Plug 'ferrine/md-img-paste.vim'
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
-Plug 'liuchengxu/vista.vim'
-Plug 'buoto/gotests-vim'
+Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/vim-vsnip'
-Plug 'cespare/vim-toml'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'simrat39/rust-tools.nvim'
 Plug 'nvim-lua/lsp-status.nvim'
+Plug 'glepnir/lspsaga.nvim'
 Plug 'j-hui/fidget.nvim'
-Plug 'leoluz/nvim-dap-go'
+Plug 'leoluz/nvim-dap-go' " go DAP support
+Plug 'simrat39/rust-tools.nvim' " rust LSP & DAP support
 
 " Dap
 Plug 'mfussenegger/nvim-dap'
 Plug 'rcarriga/nvim-dap-ui'
 
-" Project tree
-Plug 'scrooloose/nerdtree'
-
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'lewis6991/gitsigns.nvim'
 
 " Fuzzy finder
 Plug 'junegunn/fzf', { 'do': './install --bin' }
@@ -73,8 +68,7 @@ Plug 'dracula/vim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'rebelot/kanagawa.nvim'
 Plug 'ellisonleao/gruvbox.nvim'
-" require font setting in iterm2
-Plug 'kyazdani42/nvim-web-devicons' 
+Plug 'sam4llis/nvim-tundra'
 
 call plug#end()
 
@@ -136,24 +130,6 @@ let g:markdown_fenced_languages = ['go', 'ruby', 'vim']
 " [dadbod-ui]
 " disable auto execute on save
 let g:db_ui_execute_on_save = 0
-
-" [nerdtree] 
-" display hidden files
-let NERDTreeShowHidden=1
-nnoremap <Leader>n :NERDTreeToggle<CR>
-
-" [vim-go]
-let g:go_gopls_enabled = 0
-let g:go_def_mapping_enabled = 0
-let g:go_code_completion_enabled = 0
-
-" [vista] 
-" set tag view width
-let g:vista_sidebar_width = 48
-" disable tag view icon
-let g:vista#renderer#enable_icon = 0
-" use nvim_lsp
-let g:vista_default_executive = 'nvim_lsp'
 
 " [vim-markdown]
 set conceallevel=0

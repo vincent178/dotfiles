@@ -1,6 +1,9 @@
 local opt = vim.opt
 local cmd = vim.cmd
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 opt.background = "dark" -- or "light" for light mode
 
 opt.swapfile = false -- boolean: Use a swapfile for the buffer
@@ -36,22 +39,15 @@ cmd([[
 autocmd BufWritePre * lua vim.lsp.buf.formatting_sync()
 ]])
 
-opt.updatetime = 400 -- num: If this milliseconds noting write, fire CursorHold autocommand event
-cmd([[
-autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
-]])
-
 -- Theme/UI
 -- require('kanagawa').setup({
 -- 	keywordStyle = { italic = false, bold = true },
 -- })
 -- cmd("colorscheme kanagawa")
 
-
 -- set termguicolors
-cmd([[
-colorscheme gruvbox
-]])
+opt.background = 'dark'
+cmd('colorscheme gruvbox')
 
 -- clear sign column highlights, see more: https://stackoverflow.com/questions/15277241/changing-vim-gutter-color
 cmd([[
@@ -69,3 +65,5 @@ require('lualine').setup { options = { theme = 'gruvbox' } }
 require('gitsigns').setup()
 
 require('nvim-web-devicons').setup({})
+
+require("nvim-tree").setup()

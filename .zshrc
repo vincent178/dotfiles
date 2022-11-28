@@ -31,7 +31,7 @@ alias r="ranger"
 if [ "$(uname)" = "Darwin" ]; then
   eval $(/opt/homebrew/bin/brew shellenv)
 
-  alias brew='arch -arm64 /opt/homebrew/bin/brew'
+  alias brew='/opt/homebrew/bin/brew'
   alias abrew='/opt/homebrew/bin/brew'
   alias ibrew='arch -x86_64 /usr/local/bin/brew'
   alias bundle="arch -x86_64 bundle"
