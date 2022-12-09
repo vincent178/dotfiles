@@ -10,7 +10,7 @@ end
 -- Mason
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = { "rust_analyzer", "gopls", "sumneko_lua", "pyright", "jsonls", "tsserver" } -- Manage language server dependencies
+    ensure_installed = { "rust_analyzer", "gopls", "sumneko_lua", "pyright", "jsonls", "tsserver", "ruby_ls" } -- Manage language server dependencies
 })
 
 -- UI for language server progress
