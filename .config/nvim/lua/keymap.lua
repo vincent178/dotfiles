@@ -71,9 +71,6 @@ wk.register({
 -- vim.keymap.set("n", "<Leader>fr", require('telescope.builtin').resume, noremap)
 -- vim.keymap.set("n", "<Leader>fv", require('telescope.builtin').registers, noremap)
 
--- ToggleTerm
-vim.keymap.set('n', '<Leader>t', ':ToggleTerm<CR>', noremap)
-
 -- Dap
 vim.keymap.set('n', '<Leader>bb', require('dap').toggle_breakpoint, noremap)
 vim.keymap.set('n', '<Leader>bn', require('dap').continue, noremap)
@@ -89,8 +86,8 @@ vim.keymap.set('n', '<Leader>buo', require("dapui").open, noremap)
 vim.keymap.set('n', '<Leader>lr', '<cmd>LspRestart<CR>', noremapsilent)
 
 vim.keymap.set('n', "gh", "<cmd>Lspsaga lsp_finder<CR>", noremapsilent)
-vim.keymap.set('n', 'gd', "<cmd>Lspsaga peek_definition<CR>", noremapsilent)
-vim.keymap.set('n', 'gD', vim.lsp.buf.definition, noremapsilent)
+vim.keymap.set('n', 'gD', "<cmd>Lspsaga peek_definition<CR>", noremapsilent)
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, noremapsilent)
 vim.keymap.set('n', "K", "<cmd>Lspsaga hover_doc<CR>", noremapsilent)
 vim.keymap.set('n', 'gi', require('telescope.builtin').lsp_implementations, noremapsilent)
 vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, noremapsilent)
@@ -109,3 +106,28 @@ end, noremapsilent)
 vim.keymap.set('n', ']e', function()
     require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
 end, noremapsilent)
+
+-- ToggleTerm
+vim.keymap.set('n', '<Leader>t', ':ToggleTerm<CR>', noremap)
+
+function _G.set_terminal_keymaps()
+    local opts = { buffer = 0 }
+    vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+    vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+    vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+    vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+    vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+end
+
+-- if you only want these mappings for toggle term use term://*toggleterm#* instead
+vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+
+vim.api.nvim_set_keymap("n", "<leader>ta", ":$tabnew<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>tc", ":tabclose<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>to", ":tabonly<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>tn", ":tabn<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>tp", ":tabp<CR>", { noremap = true })
+-- move current tab to previous position
+vim.api.nvim_set_keymap("n", "<leader>tmp", ":-tabmove<CR>", { noremap = true })
+-- move current tab to next position
+vim.api.nvim_set_keymap("n", "<leader>tmn", ":+tabmove<CR>", { noremap = true })

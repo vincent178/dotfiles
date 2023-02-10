@@ -44,3 +44,7 @@ export PATH=$HOME/go/bin:$HOME/.cargo/bin:$PATH
 source $HOME/.nvm/nvm.sh
 source $HOME/.rvm/scripts/rvm
 
+export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig"
+

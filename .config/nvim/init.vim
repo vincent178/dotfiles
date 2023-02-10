@@ -16,6 +16,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'folke/trouble.nvim'
 Plug 'nvim-tree/nvim-tree.lua'
 Plug 'nvim-tree/nvim-web-devicons'
+Plug 'wakatime/vim-wakatime'
 
 " Markdown
 Plug 'godlygeek/tabular'
