@@ -17,6 +17,7 @@ Plug 'folke/trouble.nvim'
 Plug 'nvim-tree/nvim-tree.lua'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'wakatime/vim-wakatime'
+Plug 'vincent178/nvim-github-linker'
 
 " Markdown
 Plug 'godlygeek/tabular'

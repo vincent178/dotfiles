@@ -1,3 +1,5 @@
+require('nvim-github-linker').setup()
+
 -- Util function
 local sign = function(opts)
     vim.fn.sign_define(opts.name, {
