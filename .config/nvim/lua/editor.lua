@@ -36,7 +36,7 @@ opt.splitbelow = true -- boolean: Place new window below the current one
 
 -- Auto Format
 cmd([[
-autocmd BufWritePre * lua vim.lsp.buf.formatting_sync()
+autocmd BufWritePre * lua vim.lsp.buf.format()
 ]])
 
 -- Theme/UI
