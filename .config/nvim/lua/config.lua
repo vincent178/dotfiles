@@ -12,7 +12,7 @@ end
 -- Mason
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = { "rust_analyzer", "gopls", "sumneko_lua", "pyright", "jsonls", "tsserver", "ruby_ls" } -- Manage language server dependencies
+    ensure_installed = { "rust_analyzer", "gopls", "lua_ls", "pyright", "jsonls", "tsserver", "ruby_ls" } -- Manage language server dependencies
 })
 
 -- UI for language server progress
@@ -26,7 +26,7 @@ for _, lsp in ipairs(config_lsp_servers) do
 end
 
 -- Custom Lua LSP config
-require('lspconfig').sumneko_lua.setup {
+require('lspconfig').lua_ls.setup {
     settings = {
         Lua = {
             runtime = {

@@ -38,7 +38,7 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'glepnir/lspsaga.nvim'
-Plug 'j-hui/fidget.nvim'
+Plug 'j-hui/fidget.nvim', { 'tag': 'legacy' }
 Plug 'leoluz/nvim-dap-go' " go DAP support
 Plug 'simrat39/rust-tools.nvim' " rust LSP & DAP support
 
