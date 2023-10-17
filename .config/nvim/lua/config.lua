@@ -83,13 +83,13 @@ cmp.setup({
         ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = {
-        { name = 'path' }, -- file paths
-        { name = 'nvim_lsp' }, -- from language server
-        { name = 'nvim_lsp_signature_help' }, -- display function signatures with current parameter emphasized
-        { name = 'nvim_lua', keyword_length = 2 }, -- complete neovim's Lua runtime API such vim.lsp.*
-        { name = 'buffer', keyword_length = 2 }, -- source current buffer
-        { name = 'calc' }, -- source for math calculation
-        { name = 'vsnip' }, -- For vsnip users.
+        { name = 'path' },                                       -- file paths
+        { name = 'nvim_lsp' },                                   -- from language server
+        { name = 'nvim_lsp_signature_help' },                    -- display function signatures with current parameter emphasized
+        { name = 'nvim_lua',               keyword_length = 2 }, -- complete neovim's Lua runtime API such vim.lsp.*
+        { name = 'buffer',                 keyword_length = 2 }, -- source current buffer
+        { name = 'calc' },                                       -- source for math calculation
+        { name = 'vsnip' },                                      -- For vsnip users.
     },
     window = {
         completion = cmp.config.window.bordered(),
@@ -188,7 +188,7 @@ vim.diagnostic.config({
 -- Treesitter
 require('nvim-treesitter.configs').setup({
     ensure_installed = { "go", "rust", "ruby", "javascript", "json", "toml" }, -- A list of parser names
-    auto_install = true, -- Automatically install missing parsers when entering buffer
-    sync_install = true, -- Install parsers synchronously (only applied to `ensure_installed`)
+    auto_install = true,                                                       -- Automatically install missing parsers when entering buffer
+    sync_install = true,                                                       -- Install parsers synchronously (only applied to `ensure_installed`)
     highlight = true
 })
