@@ -112,9 +112,9 @@ set softtabstop=2
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 lua << EOF
+require('config') -- LSP / Treesitter
 require('editor') -- Basic config
 require('keymap') 
-require('config') -- LSP / Treesitter
 EOF
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

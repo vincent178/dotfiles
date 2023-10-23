@@ -85,7 +85,7 @@ vim.keymap.set('n', '<Leader>buo', require("dapui").open, noremap)
 -- Lsp
 vim.keymap.set('n', '<Leader>lr', '<cmd>LspRestart<CR>', noremapsilent)
 
-vim.keymap.set('n', "gh", "<cmd>Lspsaga lsp_finder<CR>", noremapsilent)
+vim.keymap.set('n', "gh", "<cmd>Lspsaga finder<CR>", noremapsilent)
 vim.keymap.set('n', 'gD', "<cmd>Lspsaga peek_definition<CR>", noremapsilent)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, noremapsilent)
 vim.keymap.set('n', "K", "<cmd>Lspsaga hover_doc<CR>", noremapsilent)
@@ -101,10 +101,10 @@ vim.keymap.set('n', '<Leader>e', vim.diagnostic.open_float, noremapsilent)
 vim.keymap.set('n', '[d', "<cmd>Lspsaga diagnostic_jump_prev<CR>", noremapsilent)
 vim.keymap.set('n', ']d', "<cmd>Lspsaga diagnostic_jump_next<CR>", noremapsilent)
 vim.keymap.set('n', '[e', function()
-    require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
+    require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
 end, noremapsilent)
 vim.keymap.set('n', ']e', function()
-    require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
+    require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
 end, noremapsilent)
 
 -- ToggleTerm

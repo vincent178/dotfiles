@@ -192,3 +192,5 @@ require('nvim-treesitter.configs').setup({
     sync_install = true,                                                       -- Install parsers synchronously (only applied to `ensure_installed`)
     highlight = true
 })
+
+require('lspsaga').setup({})
