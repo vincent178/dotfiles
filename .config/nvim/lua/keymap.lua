@@ -56,6 +56,7 @@ wk.register({
     ["<Leader>f"] = {
         name = "+telescope",
         f = { function() require('telescope.builtin').find_files({ follow = true }) end, "List files" },
+        c = { require('telescope.builtin').current_buffer_fuzzy_find, "Fuzzy find" },
         b = { require('telescope.builtin').buffers, "List buffers" },
         g = { require('telescope').extensions.live_grep_args.live_grep_args, "Search string" },
         v = { require('telescope.builtin').registers, "List registers" },
