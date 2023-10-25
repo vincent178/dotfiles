@@ -6,14 +6,13 @@ if not vim.loop.fs_stat(lazypath) then
         "clone",
         "--filter=blob:none",
         "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
+        "--branch=stable",
         lazypath,
     })
 end
 vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = " "
-
 vim.g.loaded_netrw       = 1
 vim.g.loaded_netrwPlugin = 1
 
@@ -61,8 +60,11 @@ require("lazy").setup({
         end
     },
 
-    { 'nvim-tree/nvim-web-devicons', lazy = true },
-    
+    {
+        'nvim-tree/nvim-web-devicons',
+        lazy = true
+    },
+
     'wakatime/vim-wakatime',
     'vincent178/nvim-github-linker',
     'Exafunction/codeium.vim',
@@ -87,7 +89,6 @@ require("lazy").setup({
     'j-hui/fidget.nvim',
     'leoluz/nvim-dap-go',
     'simrat39/rust-tools.nvim',
-
 
     'mfussenegger/nvim-dap',
     'rcarriga/nvim-dap-ui',
@@ -117,7 +118,6 @@ require("lazy").setup({
         dependencies = { 'nvim-tree/nvim-web-devicons' },
         opts = { theme = 'gruvbox' }
     },
- 
     'rebelot/kanagawa.nvim',
     'ellisonleao/gruvbox.nvim',
     'sam4llis/nvim-tundra'
