@@ -55,7 +55,7 @@ wk.register({
 wk.register({
     ["<Leader>f"] = {
         name = "+telescope",
-        f = { require('telescope.builtin').find_files, "List files" },
+        f = { function() require('telescope.builtin').find_files({ follow = true }) end, "List files" },
         b = { require('telescope.builtin').buffers, "List buffers" },
         g = { require('telescope').extensions.live_grep_args.live_grep_args, "Search string" },
         v = { require('telescope.builtin').registers, "List registers" },
@@ -63,6 +63,7 @@ wk.register({
         t = { require('telescope.builtin').colorscheme, "List colorscheme" },
     }
 })
+
 -- vim.keymap.set('n', '<Leader>ff', require('telescope.builtin').find_files, noremap)
 -- vim.keymap.set("n", "<Leader>fg", require('telescope').extensions.live_grep_args.live_grep_args, noremap)
 -- vim.keymap.set("n", "<Leader>fb", require('telescope.builtin').buffers, noremap)
