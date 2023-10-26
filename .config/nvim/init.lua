@@ -67,7 +67,7 @@ require("lazy").setup({
         build = ":TSUpdate",
         config = function()
             require('nvim-treesitter.configs').setup({
-                ensure_installed = { "go", "rust", "ruby", "javascript", "json", "toml" }, -- A list of parser names
+                ensure_installed = { "go", "rust", "ruby", "javascript", "json", "toml", "markdown", "markdown_inline" }, -- A list of parser names
                 auto_install = true,                                                       -- Automatically install missing parsers when entering buffer
                 sync_install = true,                                                       -- Install parsers synchronously (only applied to `ensure_installed`)
                 highlight = true
@@ -226,7 +226,16 @@ require("lazy").setup({
         end
     },
 
-    'glepnir/lspsaga.nvim',
+    {
+        'glepnir/lspsaga.nvim',
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter',
+            'nvim-tree/nvim-web-devicons'
+        },
+        config = function()
+            require('lspsaga').setup({})
+        end
+    },
 
     {
         'j-hui/fidget.nvim',
@@ -436,7 +445,8 @@ vim.keymap.set('n', ']e', function()
 end, noremapsilent)
 
 -- ToggleTerm
-vim.keymap.set('n', '<Leader>t', ':ToggleTerm<CR>', noremap)
+-- 'n','t', '<A-d>', '<cmd>Lspsaga term_toggle'
+vim.keymap.set('n', '<Leader>to', '<cmd>Lspsaga term_toggle<CR>', noremapsilent)
 
 function _G.set_terminal_keymaps()
     local opts = { buffer = 0 }
