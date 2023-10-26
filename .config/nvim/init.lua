@@ -57,6 +57,15 @@ require("lazy").setup({
     'wakatime/vim-wakatime',
 
     {
+        'nvimdev/dashboard-nvim',
+        event = 'VimEnter',
+        config = function()
+          require('dashboard').setup({})
+        end,
+        dependencies = { {'nvim-tree/nvim-web-devicons'}}
+    },
+
+    {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
