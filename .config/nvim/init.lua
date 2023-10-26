@@ -307,8 +307,10 @@ require("lazy").setup({
     'sam4llis/nvim-tundra'
 })
 
-vim.cmd('colorscheme gruvbox')
+-- clear sign column highlights, see more: https://stackoverflow.com/questions/15277241/changing-vim-gutter-color
+vim.cmd('highlight clear SignColumn')
 
+vim.cmd('colorscheme gruvbox')
 
 
 -- Auto Format
@@ -344,34 +346,12 @@ vim.diagnostic.config({
 })
 
 local noremap = { noremap = true }
-local noremapsilent = { noremap = true, silent = true }
-local wk = require("which-key")
-
-
--- Save and exit
-vim.keymap.set('n', '<Leader>w', ':w<CR>', noremap)
-vim.keymap.set('n', '<Leader>q', ':q<CR>', noremap)
-vim.keymap.set('n', '<Leader>qa', ':qa<CR>', noremap)
-
--- To turn off highlighting until the next search
-vim.keymap.set('n', '<Leader>/', ':nohlsearch<CR>', noremapsilent)
 
 -- Move cursor when insert mode
 vim.keymap.set('i', "<C-a>", "<Home>", noremap)
 vim.keymap.set('i', "<C-e>", "<End>", noremap)
 vim.keymap.set('i', "<C-b>", "<Left>", noremap)
 vim.keymap.set('i', "<C-f>", "<Right>", noremap)
-
--- map("n", "<C-j>", "<C-w>j<C-w>")
--- map("n", "<C-h>", "<C-w>h<C-w>")
--- map("n", "<C-k>", "<C-w>k<C-w>")
--- map("n", "<C-l>", "<C-w>l<C-w>")
-
--- vim.keymap.set('n', '<Leader>bp', ':bprevious<CR>', noremap)
--- vim.keymap.set('n', '<Leader>bn', ':bnext<CR>', noremap)
--- vim.keymap.set('n', '<Leader>bf', ':bfirst<CR>', noremap)
--- vim.keymap.set('n', '<Leader>bl', ':blast<CR>', noremap)
--- vim.keymap.set('n', '<Leader>bd', ':bdelete<CR>', noremap)
 
 -- Clipboard
 vim.keymap.set('v', '<Leader>y', '"+y', noremap)
@@ -384,96 +364,56 @@ vim.keymap.set('n', '<Leader>P', '"+P', noremap)
 vim.keymap.set('v', '<Leader>p', '"+p', noremap)
 vim.keymap.set('v', '<Leader>P', '"+P', noremap)
 
--- Nvimtree
+local wk = require("which-key")
+
 wk.register({
-    n = {
+    ["<Leader>n"] = {
         name = "file tree",
         t = { "<cmd>NvimTreeToggle<CR>", "Toggle file tree" },
         c = { "<cmd>NvimTreeFocus<CR>", "Focus current buffer in file tree" },
         f = { "<cmd>NvimTreeFindFile<CR>", "Move cursor for current buffer" },
     },
-}, { prefix = "<Leader>" })
 
--- Telescope
-wk.register({
     ["<Leader>f"] = {
-        name = "+telescope",
-        f = { function() require('telescope.builtin').find_files({ follow = true }) end, "List files" },
+        name = "find",
         c = { require('telescope.builtin').current_buffer_fuzzy_find, "Find in current file" },
-        b = { require('telescope.builtin').buffers, "List buffers" },
         g = { require('telescope').extensions.live_grep_args.live_grep_args, "Find in project" },
+        f = { function() require('telescope.builtin').find_files({ follow = true }) end, "List files" },
+    },
+
+    ["<Leader>l"] = {
+        name = "list",
+        b = { require('telescope.builtin').buffers, "List buffers" },
         v = { require('telescope.builtin').registers, "List registers" },
         m = { require('telescope.builtin').marks, "List marks" },
         t = { require('telescope.builtin').colorscheme, "List colorscheme" },
-    }
+        d = { require('telescope.builtin').lsp_document_diagnostics, "Document diagnostics" },
+        w = { require('telescope.builtin').lsp_workspace_diagnostics, "Workspace diagnostics" },
+    },
+
+    ["<Leader>t"] = {
+        name = "tab",
+        a = { "<cmd>tabnew<CR>", "New tab" },
+        c = { "<cmd>tabclose<CR>", "Close tab" },
+        o = { "<cmd>tabonly<CR>", "Only tab" },
+        n = { "<cmd>tabn<CR>", "Next tab" },
+        p = { "<cmd>tabp<CR>", "Previous tab" },
+        mp = { "<cmd>tabmove -1<CR>", "Move tab to previous position" },
+        mn = { "<cmd>tabmove +1<CR>", "Next tab to next position" },
+    },
+
+    ["<Leader>/"] = { ":nohlsearch<CR>", "clear highlight" },
+    gh = { "<cmd>Lspsaga finder<CR><cr>", "LSP finder" },
+    gD = { "<cmd>Lspsaga peek_definition<CR>", "LSP definition" },
+    gd = { vim.lsp.buf.definition, "LSP go to definition" },
+    K = { "<cmd>Lspsaga hover_doc<CR>", "LSP hover doc" },
+    gi = { require('telescope.builtin').lsp_implementations, "Go to implementation" },
+    gr = { require('telescope.builtin').lsp_references, "Go to references" },
+    rn = { "<cmd>Lspsaga rename<CR>", "LSP rename" },
+    ca = { "<cmd>Lspsaga code_action<CR>", "LSP code action" },
+
+    ["[d"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Previous diagnostic" },
+    ["]d"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Next diagnostic" },
+    ["[e"] = { function() require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, "Previous error" },
+    ["]e"] = { function() require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR }) end, "Next error" },
 })
-
--- Dap
-vim.keymap.set('n', '<Leader>bb', require('dap').toggle_breakpoint, noremap)
-vim.keymap.set('n', '<Leader>bn', require('dap').continue, noremap)
-vim.keymap.set('n', '<Leader>bs', require('dap').step_over, noremap)
-vim.keymap.set('n', '<Leader>bi', require('dap').step_into, noremap)
-vim.keymap.set('n', '<Leader>bo', require('dap').step_out, noremap)
-
--- Dap UI
-vim.keymap.set('n', '<Leader>bus', require("dapui").close, noremap)
-vim.keymap.set('n', '<Leader>buo', require("dapui").open, noremap)
-
--- Lsp
-vim.keymap.set('n', '<Leader>lr', '<cmd>LspRestart<CR>', noremapsilent)
-
-vim.keymap.set('n', "gh", "<cmd>Lspsaga finder<CR>", noremapsilent)
-vim.keymap.set('n', 'gD', "<cmd>Lspsaga peek_definition<CR>", noremapsilent)
-vim.keymap.set('n', 'gd', vim.lsp.buf.definition, noremapsilent)
-vim.keymap.set('n', "K", "<cmd>Lspsaga hover_doc<CR>", noremapsilent)
-vim.keymap.set('n', 'gi', require('telescope.builtin').lsp_implementations, noremapsilent)
-vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, noremapsilent)
-
-vim.keymap.set({ 'n', 'v' }, '<Leader>ca', "<cmd>Lspsaga code_action<CR>", noremapsilent)
-vim.keymap.set('n', "gr", "<cmd>Lspsaga rename<CR>", noremapsilent)
-
-vim.keymap.set('n', '<Leader>fd', '<cmd>lua vim.lsp.buf.formatting()<CR>', noremapsilent)
-
-vim.keymap.set('n', '<Leader>e', vim.diagnostic.open_float, noremapsilent)
-vim.keymap.set('n', '[d', "<cmd>Lspsaga diagnostic_jump_prev<CR>", noremapsilent)
-vim.keymap.set('n', ']d', "<cmd>Lspsaga diagnostic_jump_next<CR>", noremapsilent)
-vim.keymap.set('n', '[e', function()
-    require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
-end, noremapsilent)
-vim.keymap.set('n', ']e', function()
-    require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
-end, noremapsilent)
-
--- ToggleTerm
--- 'n','t', '<A-d>', '<cmd>Lspsaga term_toggle'
-vim.keymap.set('n', '<Leader>to', '<cmd>Lspsaga term_toggle<CR>', noremapsilent)
-
-function _G.set_terminal_keymaps()
-    local opts = { buffer = 0 }
-    vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
-    vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
-    vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
-    vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
-    vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
-end
-
--- if you only want these mappings for toggle term use term://*toggleterm#* instead
-vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
-
-vim.api.nvim_set_keymap("n", "<leader>ta", ":$tabnew<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>tc", ":tabclose<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>to", ":tabonly<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>tn", ":tabn<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>tp", ":tabp<CR>", { noremap = true })
--- move current tab to previous position
-vim.api.nvim_set_keymap("n", "<leader>tmp", ":-tabmove<CR>", { noremap = true })
--- move current tab to next position
-vim.api.nvim_set_keymap("n", "<leader>tmn", ":+tabmove<CR>", { noremap = true })
-
-
-vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
-    { silent = true, noremap = true }
-)
-vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>",
-    { silent = true, noremap = true }
-)
