@@ -310,16 +310,16 @@ require("lazy").setup({
     'ayu-theme/ayu-vim',
     'joshdick/onedark.vim',
     'dracula/vim',
-
+    'RRethy/nvim-base16',
     'rebelot/kanagawa.nvim',
     'ellisonleao/gruvbox.nvim',
-    'sam4llis/nvim-tundra'
+    'sam4llis/nvim-tundra',
 })
 
 -- clear sign column highlights, see more: https://stackoverflow.com/questions/15277241/changing-vim-gutter-color
 vim.cmd('highlight clear SignColumn')
 
-vim.cmd('colorscheme gruvbox')
+vim.cmd('colorscheme base16-gruvbox-dark-hard')
 
 
 -- Auto Format
@@ -419,7 +419,7 @@ wk.register({
     gi = { require('telescope.builtin').lsp_implementations, "Go to implementation" },
     gr = { require('telescope.builtin').lsp_references, "Go to references" },
     rn = { "<cmd>Lspsaga rename<CR>", "LSP rename" },
-    ca = { "<cmd>Lspsaga code_action<CR>", "LSP code action" },
+    -- ca = { "<cmd>Lspsaga code_action<CR>", "LSP code action" },
 
     ["[d"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Previous diagnostic" },
     ["]d"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Next diagnostic" },
