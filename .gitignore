@@ -1,2 +1,3 @@
 .DS_Store
 .config/nvim/lua/.luarc.json
+.luarc.json
