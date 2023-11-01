@@ -296,6 +296,16 @@ require("lazy").setup({
                         n = { ["<C-t>"] = trouble.open_with_trouble },
                     },
                 },
+                pickers = {
+                    find_files = {
+                        find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix', '--exclude', '.git', '--hidden' },
+                    }
+                },
+                extensions = {
+                    fzf = {
+                        case_mode = "ignore_case",
+                    }
+                }
             }
 
             telescope.load_extension('fzf')
@@ -387,11 +397,7 @@ wk.register({
         name = "find",
         c = { require('telescope.builtin').current_buffer_fuzzy_find, "Find in current file" },
         g = { require('telescope').extensions.live_grep_args.live_grep_args, "Find in project" },
-        f = { function() require('telescope.builtin').find_files({ follow = true }) end, "List files" },
-    },
-
-    ["<Leader>l"] = {
-        name = "list",
+        f = { require('telescope.builtin').find_files, "List files" },
         b = { require('telescope.builtin').buffers, "List buffers" },
         v = { require('telescope.builtin').registers, "List registers" },
         m = { require('telescope.builtin').marks, "List marks" },
@@ -412,14 +418,14 @@ wk.register({
     },
 
     ["<Leader>/"] = { ":nohlsearch<CR>", "clear highlight" },
+    ['<Leader>ca'] = { "<cmd>Lspsaga code_action<CR>", "LSP code action" },
+    ['<Leader>rn'] = { "<cmd>Lspsaga rename<CR>", "LSP rename" },
     gh = { "<cmd>Lspsaga finder<CR><cr>", "LSP finder" },
     gD = { "<cmd>Lspsaga peek_definition<CR>", "LSP definition" },
     gd = { vim.lsp.buf.definition, "LSP go to definition" },
     K = { "<cmd>Lspsaga hover_doc<CR>", "LSP hover doc" },
     gi = { require('telescope.builtin').lsp_implementations, "Go to implementation" },
     gr = { require('telescope.builtin').lsp_references, "Go to references" },
-    rn = { "<cmd>Lspsaga rename<CR>", "LSP rename" },
-    -- ca = { "<cmd>Lspsaga code_action<CR>", "LSP code action" },
 
     ["[d"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Previous diagnostic" },
     ["]d"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Next diagnostic" },
