@@ -267,11 +267,7 @@ require("lazy").setup({
         end
     },
 
-    'junegunn/fzf',
-    'junegunn/fzf.vim',
     'nvim-telescope/telescope-fzf-native.nvim',
-    'nvim-telescope/telescope-rg.nvim',
-    'nvim-telescope/telescope-frecency.nvim',
     'nvim-telescope/telescope-live-grep-args.nvim',
 
     {
