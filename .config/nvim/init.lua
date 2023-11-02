@@ -46,6 +46,10 @@ vim.opt.splitright = true -- boolean: Place new window to right of current one
 vim.opt.splitbelow = true -- boolean: Place new window below the current one
 
 require("lazy").setup({
+    -- System
+    'ayu-theme/ayu-vim',
+    'RRethy/nvim-base16',
+    'ellisonleao/gruvbox.nvim',
     'nvim-lua/plenary.nvim',
     'christoomey/vim-tmux-navigator',
     'djoshea/vim-autoread',
@@ -55,7 +59,6 @@ require("lazy").setup({
     'akinsho/nvim-toggleterm.lua',
     'vincent178/nvim-github-linker',
     'wakatime/vim-wakatime',
-
     {
         'nvimdev/dashboard-nvim',
         event = 'VimEnter',
@@ -64,26 +67,23 @@ require("lazy").setup({
         end,
         dependencies = { {'nvim-tree/nvim-web-devicons'}}
     },
-
     {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
-
     {
         'nvim-treesitter/nvim-treesitter',
         cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
         build = ":TSUpdate",
         config = function()
             require('nvim-treesitter.configs').setup({
-                ensure_installed = { "go", "rust", "ruby", "javascript", "json", "toml", "markdown", "markdown_inline" }, -- A list of parser names
-                auto_install = true,                                                       -- Automatically install missing parsers when entering buffer
-                sync_install = true,                                                       -- Install parsers synchronously (only applied to `ensure_installed`)
-                highlight = true
+                ensure_installed = { "go", "rust", "ruby", "javascript", "json", "toml", "markdown", "markdown_inline" },
+                auto_install = true,
+                sync_install = true,
+                highlight = true,
             })
         end
     },
-
     {
          "folke/which-key.nvim",
           event = "VeryLazy",
@@ -92,12 +92,10 @@ require("lazy").setup({
             vim.o.timeoutlen = 300
           end
     },
-
     {
          "folke/trouble.nvim",
          dependencies = { "nvim-tree/nvim-web-devicons" },
     },
-
     {
         'nvim-tree/nvim-tree.lua',
         cmd = { 'NvimTreeToggle', 'NvimTreeFocus' },
@@ -113,17 +111,16 @@ require("lazy").setup({
             require('nvim-tree').setup(opts)
         end
     },
-
     {
         'nvim-tree/nvim-web-devicons',
         lazy = true
     },
-
     {
         'Exafunction/codeium.vim',
          event = 'BufEnter'
     },
 
+    -- LSP
     'williamboman/mason.nvim',
     {
         'williamboman/mason-lspconfig.nvim',
@@ -178,13 +175,34 @@ require("lazy").setup({
             }
         end
     },
+    {
+        'glepnir/lspsaga.nvim',
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter',
+            'nvim-tree/nvim-web-devicons'
+        },
+        config = function()
+            require('lspsaga').setup({})
+        end
+    },
+    {
+        'j-hui/fidget.nvim',
+        tag = "legacy",
+        event = "LspAttach",
+        config = function()
+            require('fidget').setup({})
+        end
+    },
+    'mfussenegger/nvim-dap',
+    'rcarriga/nvim-dap-ui',
 
+    -- Autocomplete
     'hrsh7th/vim-vsnip',
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-cmdline',
-
+    'delphinus/cmp-ctags',
     {
         'hrsh7th/nvim-cmp',
         dependencies = {
@@ -193,6 +211,7 @@ require("lazy").setup({
             'hrsh7th/cmp-buffer',
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-cmdline',
+            'delphinus/cmp-ctags',
         },
         config = function()
             local cmp = require('cmp')
@@ -205,15 +224,23 @@ require("lazy").setup({
                 mapping = cmp.mapping.preset.insert({
                     ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
                 }),
-                sources = {
+                sources = cmp.config.sources({
                     { name = 'path' },                                       -- file paths
                     { name = 'nvim_lsp' },                                   -- from language server
                     { name = 'nvim_lsp_signature_help' },                    -- display function signatures with current parameter emphasized
-                    { name = 'nvim_lua',               keyword_length = 2 }, -- complete neovim's Lua runtime API such vim.lsp.*
-                    { name = 'buffer',                 keyword_length = 2 }, -- source current buffer
+                    { name = 'nvim_lua', keyword_length = 2 },               -- complete neovim's Lua runtime API such vim.lsp.*
+                    { name = 'buffer', keyword_length = 2 },                 -- source current buffer
                     { name = 'calc' },                                       -- source for math calculation
-                    { name = 'vsnip' },                                      -- For vsnip users.
-                },
+                    { name = 'vsnip' },                                      -- For vsnip
+                    {
+                        name = 'ctags',                                      -- For universal ctags
+                        option = {
+                            trigger_characters_ft = {
+                                ruby = {'.', '::'}
+                            },
+                        }
+                    },
+                }),
                 window = {
                     completion = cmp.config.window.bordered(),
                     documentation = cmp.config.window.bordered(),
@@ -221,11 +248,13 @@ require("lazy").setup({
                 formatting = {
                     fields = { 'menu', 'abbr', 'kind' },
                     format = function(entry, item)
+                        print(entry, item)
                         local menu_icon = {
                             nvim_lsp = 'λ',
                             vsnip = '⋗',
                             buffer = 'Ω',
                             path = 'Þ',
+                            ctags = '',
                         }
                         item.menu = menu_icon[entry.source.name]
                         return item
@@ -235,29 +264,7 @@ require("lazy").setup({
         end
     },
 
-    {
-        'glepnir/lspsaga.nvim',
-        dependencies = {
-            'nvim-treesitter/nvim-treesitter',
-            'nvim-tree/nvim-web-devicons'
-        },
-        config = function()
-            require('lspsaga').setup({})
-        end
-    },
-
-    {
-        'j-hui/fidget.nvim',
-        tag = "legacy",
-        event = "LspAttach",
-        config = function()
-            require('fidget').setup({})
-        end
-    },
-
-    'mfussenegger/nvim-dap',
-    'rcarriga/nvim-dap-ui',
-
+    -- Git
     'tpope/vim-fugitive',
     'tpope/vim-rhubarb',
     {
@@ -267,9 +274,9 @@ require("lazy").setup({
         end
     },
 
+    -- Fuzzy Finder
     'nvim-telescope/telescope-fzf-native.nvim',
     'nvim-telescope/telescope-live-grep-args.nvim',
-
     {
         'nvim-telescope/telescope.nvim',
         dependencies = {
@@ -303,23 +310,10 @@ require("lazy").setup({
                     }
                 }
             }
-
             telescope.load_extension('fzf')
             telescope.load_extension('live_grep_args')
         end
     },
-
-    'tami5/sqlite.lua',
-
-    'junegunn/seoul256.vim',
-    'mhartington/oceanic-next',
-    'ayu-theme/ayu-vim',
-    'joshdick/onedark.vim',
-    'dracula/vim',
-    'RRethy/nvim-base16',
-    'rebelot/kanagawa.nvim',
-    'ellisonleao/gruvbox.nvim',
-    'sam4llis/nvim-tundra',
 })
 
 -- clear sign column highlights, see more: https://stackoverflow.com/questions/15277241/changing-vim-gutter-color
@@ -427,4 +421,5 @@ wk.register({
     ["]d"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Next diagnostic" },
     ["[e"] = { function() require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, "Previous error" },
     ["]e"] = { function() require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR }) end, "Next error" },
+    ['<c-]>'] = { "g<c-]>", "Jump to definition" },
 })
