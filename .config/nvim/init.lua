@@ -327,18 +327,11 @@ vim.cmd('colorscheme base16-gruvbox-dark-hard')
 -- autocmd BufWritePre * lua vim.lsp.buf.format()
 -- ]])
 
-local sign = function(opts)
-    vim.fn.sign_define(opts.name, {
-        texthl = opts.name,
-        text = opts.text,
-        numhl = ''
-    })
+local signs = {Error = '', Warn = '', Hint = '', Info = ''}
+for type, icon in pairs(signs) do
+    local hl = 'DiagnosticSign' .. type
+    vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = ''})
 end
-
-sign({ name = 'DiagnosticSignError', text = '' })
-sign({ name = 'DiagnosticSignWarn', text = '' })
-sign({ name = 'DiagnosticSignHint', text = '' })
-sign({ name = 'DiagnosticSignInfo', text = '' })
 
 vim.diagnostic.config({
     virtual_text = false,
@@ -373,9 +366,7 @@ vim.keymap.set('n', '<Leader>P', '"+P', noremap)
 vim.keymap.set('v', '<Leader>p', '"+p', noremap)
 vim.keymap.set('v', '<Leader>P', '"+P', noremap)
 
-local wk = require("which-key")
-
-wk.register({
+require("which-key").register({
     ["<Leader>n"] = {
         name = "file tree",
         t = { "<cmd>NvimTreeToggle<CR>", "Toggle file tree" },
