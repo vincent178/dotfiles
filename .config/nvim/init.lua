@@ -349,6 +349,9 @@ vim.diagnostic.config({
 
 local noremap = { noremap = true }
 
+-- This unsets the "last search pattern" register by hitting return
+vim.keymap.set('n', "<CR>", ":noh<CR><CR>", noremap)
+
 -- Move cursor when insert mode
 vim.keymap.set('i', "<C-a>", "<Home>", noremap)
 vim.keymap.set('i', "<C-e>", "<End>", noremap)
@@ -367,13 +370,6 @@ vim.keymap.set('v', '<Leader>p', '"+p', noremap)
 vim.keymap.set('v', '<Leader>P', '"+P', noremap)
 
 require("which-key").register({
-    ["<Leader>n"] = {
-        name = "file tree",
-        t = { "<cmd>NvimTreeToggle<CR>", "Toggle file tree" },
-        c = { "<cmd>NvimTreeFocus<CR>", "Focus current buffer in file tree" },
-        f = { "<cmd>NvimTreeFindFile<CR>", "Move cursor for current buffer" },
-    },
-
     ["<Leader>f"] = {
         name = "find",
         c = { require('telescope.builtin').current_buffer_fuzzy_find, "Find in current file" },
@@ -398,9 +394,13 @@ require("which-key").register({
         mn = { "<cmd>tabmove +1<CR>", "Next tab to next position" },
     },
 
-    ["<Leader>/"] = { ":nohlsearch<CR>", "clear highlight" },
-    ['<Leader>ca'] = { "<cmd>Lspsaga code_action<CR>", "LSP code action" },
-    ['<Leader>rn'] = { "<cmd>Lspsaga rename<CR>", "LSP rename" },
+    ["<Leader>m"] = {
+        name = "menu",
+        a = { "<cmd>Lspsaga code_action<CR>", "LSP code action" },
+        r = { "<cmd>Lspsaga rename<CR>", "LSP rename" },
+        f = { "<cmd>NvimTreeToggle<CR>", "Toggle file tree" },
+    },
+
     gh = { "<cmd>Lspsaga finder<CR><cr>", "LSP finder" },
     gD = { "<cmd>Lspsaga peek_definition<CR>", "LSP definition" },
     gd = { vim.lsp.buf.definition, "LSP go to definition" },
