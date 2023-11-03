@@ -316,11 +316,11 @@ require("lazy").setup({
     },
 })
 
--- clear sign column highlights, see more: https://stackoverflow.com/questions/15277241/changing-vim-gutter-color
+-- clear sign column highlights so that sign column is the same color as where your line numbers show up
+-- see more: https://stackoverflow.com/questions/15277241/changing-vim-gutter-color
 vim.cmd('highlight clear SignColumn')
 
 vim.cmd('colorscheme base16-gruvbox-dark-hard')
-
 
 -- Auto Format
 -- cmd([[
@@ -347,21 +347,9 @@ vim.diagnostic.config({
     },
 })
 
-local noremap = { noremap = true }
-
--- Unsets the "last search pattern" register
-vim.keymap.set('n', "<CR>", ":noh<CR><CR>", noremap)
-
--- Clipboard
-vim.keymap.set('v', '<Leader>y', '"+y', noremap)
-vim.keymap.set('n', '<Leader>Y', '"+yg_', noremap)
-vim.keymap.set('n', '<Leader>y', '"+y', noremap)
-vim.keymap.set('n', '<Leader>yy', '"+yy', noremap)
-
 require("which-key").register({
     ["<Leader>f"] = {
         name = "find",
-        c = { require('telescope.builtin').current_buffer_fuzzy_find, "Find in current file" },
         g = { require('telescope').extensions.live_grep_args.live_grep_args, "Find in project" },
         f = { require('telescope.builtin').find_files, "List files" },
         b = { require('telescope.builtin').buffers, "List buffers" },
@@ -379,8 +367,6 @@ require("which-key").register({
         o = { "<cmd>tabonly<CR>", "Only tab" },
         n = { "<cmd>tabn<CR>", "Next tab" },
         p = { "<cmd>tabp<CR>", "Previous tab" },
-        mp = { "<cmd>tabmove -1<CR>", "Move tab to previous position" },
-        mn = { "<cmd>tabmove +1<CR>", "Next tab to next position" },
     },
 
     ["<Leader>m"] = {
@@ -390,12 +376,14 @@ require("which-key").register({
         f = { "<cmd>NvimTreeToggle<CR>", "Toggle file tree" },
     },
 
+    K = { "<cmd>Lspsaga hover_doc<CR>", "LSP hover doc" },
     gh = { "<cmd>Lspsaga finder<CR><cr>", "LSP finder" },
     gD = { "<cmd>Lspsaga peek_definition<CR>", "LSP definition" },
     gd = { vim.lsp.buf.definition, "LSP go to definition" },
-    K = { "<cmd>Lspsaga hover_doc<CR>", "LSP hover doc" },
     gi = { require('telescope.builtin').lsp_implementations, "Go to implementation" },
     gr = { require('telescope.builtin').lsp_references, "Go to references" },
+    ['<Leader>/'] = { require('telescope.builtin').current_buffer_fuzzy_find, "Find in current file" },
+    ['<CR>'] = { "<cmd>noh<CR><CR>", "Clear search highlight" },
 
     ["[d"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Previous diagnostic" },
     ["]d"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Next diagnostic" },
