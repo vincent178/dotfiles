@@ -90,7 +90,7 @@ require("lazy").setup({
           init = function()
             vim.o.timeout = true
             vim.o.timeoutlen = 300
-          end
+          end,
     },
     {
          "folke/trouble.nvim",
@@ -349,25 +349,14 @@ vim.diagnostic.config({
 
 local noremap = { noremap = true }
 
--- This unsets the "last search pattern" register by hitting return
+-- Unsets the "last search pattern" register
 vim.keymap.set('n', "<CR>", ":noh<CR><CR>", noremap)
-
--- Move cursor when insert mode
-vim.keymap.set('i', "<C-a>", "<Home>", noremap)
-vim.keymap.set('i', "<C-e>", "<End>", noremap)
-vim.keymap.set('i', "<C-b>", "<Left>", noremap)
-vim.keymap.set('i', "<C-f>", "<Right>", noremap)
 
 -- Clipboard
 vim.keymap.set('v', '<Leader>y', '"+y', noremap)
 vim.keymap.set('n', '<Leader>Y', '"+yg_', noremap)
 vim.keymap.set('n', '<Leader>y', '"+y', noremap)
 vim.keymap.set('n', '<Leader>yy', '"+yy', noremap)
-
-vim.keymap.set('n', '<Leader>p', '"+p', noremap)
-vim.keymap.set('n', '<Leader>P', '"+P', noremap)
-vim.keymap.set('v', '<Leader>p', '"+p', noremap)
-vim.keymap.set('v', '<Leader>P', '"+P', noremap)
 
 require("which-key").register({
     ["<Leader>f"] = {
@@ -414,3 +403,10 @@ require("which-key").register({
     ["]e"] = { function() require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR }) end, "Next error" },
     ['<c-]>'] = { "g<c-]>", "Jump to definition" },
 })
+
+require('which-key').register({
+    ['<C-a>'] = { "<Home>", "Move cursor to start of line" },
+    ['<C-e>'] = { "<End>", "Move cursor to end of line" },
+    ['<C-b>'] = { "<Left>", "Move cursor left" },
+    ['<C-f>'] = { "<Right>", "Move cursor right" },
+}, { mode = 'i' })
