@@ -197,7 +197,6 @@ require("lazy").setup({
     'rcarriga/nvim-dap-ui',
 
     -- Autocomplete
-    'hrsh7th/vim-vsnip',
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-path',
@@ -206,7 +205,6 @@ require("lazy").setup({
     {
         'hrsh7th/nvim-cmp',
         dependencies = {
-            'hrsh7th/vim-vsnip',
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-buffer',
             'hrsh7th/cmp-path',
@@ -216,11 +214,6 @@ require("lazy").setup({
         config = function()
             local cmp = require('cmp')
             cmp.setup({
-                snippet = {
-                    expand = function(args)
-                        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-                    end,
-                },
                 mapping = cmp.mapping.preset.insert({
                     ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
                 }),
@@ -228,10 +221,8 @@ require("lazy").setup({
                     { name = 'path' },                                       -- file paths
                     { name = 'nvim_lsp' },                                   -- from language server
                     { name = 'nvim_lsp_signature_help' },                    -- display function signatures with current parameter emphasized
-                    { name = 'nvim_lua', keyword_length = 2 },               -- complete neovim's Lua runtime API such vim.lsp.*
                     { name = 'buffer', keyword_length = 2 },                 -- source current buffer
                     { name = 'calc' },                                       -- source for math calculation
-                    { name = 'vsnip' },                                      -- For vsnip
                     {
                         name = 'ctags',                                      -- For universal ctags
                         option = {
