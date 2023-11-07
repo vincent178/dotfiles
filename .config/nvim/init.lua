@@ -310,7 +310,7 @@ require("lazy").setup({
 vim.cmd('colorscheme base16-gruvbox-dark-hard')
 
 -- clear sign column highlights so that sign column is the same color as where your line numbers show up
--- see more: https://stackoverflow.com/questions/15277241/changing-vim-gutter-color
+-- https://stackoverflow.com/questions/15277241/changing-vim-gutter-color
 vim.cmd('highlight clear SignColumn')
 
 -- remove ':' from the characters list considered being possibly part of a file name and path name
