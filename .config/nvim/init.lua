@@ -12,36 +12,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.mapleader          = " "
-
-vim.opt.background       = "dark" -- or "light" for light mode
-vim.opt.swapfile         = false  -- boolean: use a swapfile for the buffer
-vim.opt.mouse            = 'a'    -- string, global: Enable mouse support, 'a' for all previous modes
-vim.opt.number           = true   -- boolean: show line numbers
-vim.opt.relativenumber   = true   -- boolean: show relative line numbers
-vim.opt.cursorline       = true   -- boolean: highlight the text line of the cursor
-vim.opt.signcolumn       = "yes"  -- string: show the sign column
-
--- Encoding
-vim.opt.encoding         = 'utf8' -- string: string encoding to use
-vim.opt.fileencoding     = 'utf8' -- string: file encoding to use
-
--- Search
-vim.opt.incsearch        = true   -- boolean
-vim.opt.hlsearch         = true   -- boolean
-vim.opt.smartcase        = true   -- boolean: override the 'ignorecase' option if the search pattern contains upper case characters.
-vim.opt.ignorecase       = true   -- boolean: ignore case in search patterns
-
--- Whitespace
-vim.opt.expandtab        = true   -- boolean: use spaces instead of tabs
-vim.opt.shiftwidth       = 4      -- number:  size of an indent
-vim.opt.softtabstop      = 4      -- number:  number of spaces tabs count for in insert mode
-vim.opt.tabstop          = 4      -- number:  number of spaces tabs count for
-
--- Splits
-vim.opt.splitright       = true   -- boolean: place new window to right of current one
-vim.opt.splitbelow       = true   -- boolean: place new window below the current one
-
 require("lazy").setup({
     -- System
     'ayu-theme/ayu-vim',
@@ -306,6 +276,36 @@ require("lazy").setup({
         end
     },
 })
+
+vim.g.mapleader          = " "
+
+vim.opt.background       = "dark" -- or "light" for light mode
+vim.opt.swapfile         = false  -- boolean: use a swapfile for the buffer
+vim.opt.mouse            = 'a'    -- string, global: Enable mouse support, 'a' for all previous modes
+vim.opt.number           = true   -- boolean: show line numbers
+vim.opt.relativenumber   = true   -- boolean: show relative line numbers
+vim.opt.cursorline       = true   -- boolean: highlight the text line of the cursor
+vim.opt.signcolumn       = "yes"  -- string: show the sign column
+
+-- Encoding
+vim.opt.encoding         = 'utf8' -- string: string encoding to use
+vim.opt.fileencoding     = 'utf8' -- string: file encoding to use
+
+-- Search
+vim.opt.incsearch        = true   -- boolean
+vim.opt.hlsearch         = true   -- boolean
+vim.opt.smartcase        = true   -- boolean: override the 'ignorecase' option if the search pattern contains upper case characters.
+vim.opt.ignorecase       = true   -- boolean: ignore case in search patterns
+
+-- Whitespace
+vim.opt.expandtab        = true   -- boolean: use spaces instead of tabs
+vim.opt.shiftwidth       = 4      -- number:  size of an indent
+vim.opt.softtabstop      = 4      -- number:  number of spaces tabs count for in insert mode
+vim.opt.tabstop          = 4      -- number:  number of spaces tabs count for
+
+-- Splits
+vim.opt.splitright       = true   -- boolean: place new window to right of current one
+vim.opt.splitbelow       = true   -- boolean: place new window below the current one
 
 vim.cmd('colorscheme base16-gruvbox-dark-hard')
 
