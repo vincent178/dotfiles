@@ -13,8 +13,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader          = " "
-vim.g.loaded_netrw       = 1
-vim.g.loaded_netrwPlugin = 1
 
 vim.opt.background       = "dark" -- or "light" for light mode
 vim.opt.swapfile         = false  -- boolean: use a swapfile for the buffer
