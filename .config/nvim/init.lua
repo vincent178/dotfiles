@@ -12,38 +12,37 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.mapleader = " "
+vim.g.mapleader          = " "
 vim.g.loaded_netrw       = 1
 vim.g.loaded_netrwPlugin = 1
 
-vim.opt.background = "dark"   -- or "light" for light mode
-
-vim.opt.swapfile = false      -- boolean: use a swapfile for the buffer
-vim.opt.mouse = 'a'           -- string, global: Enable mouse support, 'a' for all previous modes
-vim.opt.number = true         -- boolean: show line numbers
-vim.opt.relativenumber = true -- boolean: show relative line numbers
-vim.opt.cursorline = true     -- boolean: highlight the text line of the cursor
-vim.opt.signcolumn = "yes"    -- string: show the sign column
+vim.opt.background       = "dark" -- or "light" for light mode
+vim.opt.swapfile         = false  -- boolean: use a swapfile for the buffer
+vim.opt.mouse            = 'a'    -- string, global: Enable mouse support, 'a' for all previous modes
+vim.opt.number           = true   -- boolean: show line numbers
+vim.opt.relativenumber   = true   -- boolean: show relative line numbers
+vim.opt.cursorline       = true   -- boolean: highlight the text line of the cursor
+vim.opt.signcolumn       = "yes"  -- string: show the sign column
 
 -- Encoding
-vim.opt.encoding = 'utf8'     -- string: string encoding to use
-vim.opt.fileencoding = 'utf8' -- string: file encoding to use
+vim.opt.encoding         = 'utf8' -- string: string encoding to use
+vim.opt.fileencoding     = 'utf8' -- string: file encoding to use
 
 -- Search
-vim.opt.incsearch = true  -- boolean
-vim.opt.hlsearch = true   -- boolean
-vim.opt.smartcase = true  -- boolean: override the 'ignorecase' option if the search pattern contains upper case characters.
-vim.opt.ignorecase = true -- boolean: ignore case in search patterns
+vim.opt.incsearch        = true   -- boolean
+vim.opt.hlsearch         = true   -- boolean
+vim.opt.smartcase        = true   -- boolean: override the 'ignorecase' option if the search pattern contains upper case characters.
+vim.opt.ignorecase       = true   -- boolean: ignore case in search patterns
 
 -- Whitespace
-vim.opt.expandtab = true -- boolean: use spaces instead of tabs
-vim.opt.shiftwidth = 4   -- number:  size of an indent
-vim.opt.softtabstop = 4  -- number:  number of spaces tabs count for in insert mode
-vim.opt.tabstop = 4      -- number:  number of spaces tabs count for
+vim.opt.expandtab        = true   -- boolean: use spaces instead of tabs
+vim.opt.shiftwidth       = 4      -- number:  size of an indent
+vim.opt.softtabstop      = 4      -- number:  number of spaces tabs count for in insert mode
+vim.opt.tabstop          = 4      -- number:  number of spaces tabs count for
 
 -- Splits
-vim.opt.splitright = true -- boolean: place new window to right of current one
-vim.opt.splitbelow = true -- boolean: place new window below the current one
+vim.opt.splitright       = true   -- boolean: place new window to right of current one
+vim.opt.splitbelow       = true   -- boolean: place new window below the current one
 
 require("lazy").setup({
     -- System
@@ -63,9 +62,9 @@ require("lazy").setup({
         'nvimdev/dashboard-nvim',
         event = 'VimEnter',
         config = function()
-          require('dashboard').setup({})
+            require('dashboard').setup({})
         end,
-        dependencies = { {'nvim-tree/nvim-web-devicons'}}
+        dependencies = { { 'nvim-tree/nvim-web-devicons' } }
     },
     {
         'nvim-lualine/lualine.nvim',
@@ -85,16 +84,16 @@ require("lazy").setup({
         end
     },
     {
-         "folke/which-key.nvim",
-          event = "VeryLazy",
-          init = function()
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        init = function()
             vim.o.timeout = true
             vim.o.timeoutlen = 300
-          end,
+        end,
     },
     {
-         "folke/trouble.nvim",
-         dependencies = { "nvim-tree/nvim-web-devicons" },
+        "folke/trouble.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
     },
     {
         'nvim-tree/nvim-tree.lua',
@@ -117,7 +116,7 @@ require("lazy").setup({
     },
     {
         'Exafunction/codeium.vim',
-         event = 'BufEnter'
+        event = 'BufEnter'
     },
 
     -- LSP
@@ -221,13 +220,13 @@ require("lazy").setup({
                     { name = 'path' },                                       -- file paths
                     { name = 'nvim_lsp' },                                   -- from language server
                     { name = 'nvim_lsp_signature_help' },                    -- display function signatures with current parameter emphasized
-                    { name = 'buffer', keyword_length = 2 },                 -- source current buffer
+                    { name = 'buffer',                 keyword_length = 2 }, -- source current buffer
                     { name = 'calc' },                                       -- source for math calculation
                     {
                         name = 'ctags',                                      -- For universal ctags
                         option = {
                             trigger_characters_ft = {
-                                ruby = {'.', '::'}
+                                ruby = { '.', '::' }
                             },
                         }
                     },
@@ -251,7 +250,7 @@ require("lazy").setup({
                         return item
                     end,
                 }
-        })
+            })
         end
     },
 
@@ -313,15 +312,10 @@ vim.cmd('highlight clear SignColumn')
 
 vim.cmd('colorscheme base16-gruvbox-dark-hard')
 
--- Auto Format
--- cmd([[
--- autocmd BufWritePre * lua vim.lsp.buf.format()
--- ]])
-
-local signs = {Error = '', Warn = '', Hint = '', Info = ''}
+local signs = { Error = '', Warn = '', Hint = '', Info = '' }
 for type, icon in pairs(signs) do
     local hl = 'DiagnosticSign' .. type
-    vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = ''})
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
 end
 
 vim.diagnostic.config({
@@ -364,7 +358,8 @@ require("which-key").register({
         name = "menu",
         a = { "<cmd>Lspsaga code_action<CR>", "LSP code action" },
         r = { "<cmd>Lspsaga rename<CR>", "LSP rename" },
-        f = { "<cmd>NvimTreeToggle<CR>", "Toggle file tree" },
+        f = { vim.lsp.buf.format, "LSP format" },
+        n = { "<cmd>NvimTreeToggle<CR>", "Toggle file tree" },
     },
 
     K = { "<cmd>Lspsaga hover_doc<CR>", "LSP hover doc" },
@@ -378,8 +373,10 @@ require("which-key").register({
 
     ["[d"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Previous diagnostic" },
     ["]d"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Next diagnostic" },
-    ["[e"] = { function() require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, "Previous error" },
-    ["]e"] = { function() require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR }) end, "Next error" },
+    ["[e"] = { function() require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR }) end,
+        "Previous error" },
+    ["]e"] = { function() require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR }) end,
+        "Next error" },
     ['<c-]>'] = { "g<c-]>", "Jump to definition" },
 })
 
