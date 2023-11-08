@@ -38,7 +38,11 @@ require("lazy").setup({
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
         config = function()
-            require('lualine').setup()
+            require('lualine').setup({
+                options = {
+                    globalstatus = true,
+                },
+            })
         end
     },
     {
@@ -338,7 +342,7 @@ vim.diagnostic.config({
 })
 
 require("which-key").register({
-    ["<Leader>f"] = {
+    ['<Leader>f'] = {
         name = "find",
         g = { require('telescope').extensions.live_grep_args.live_grep_args, "Find in project" },
         f = { require('telescope.builtin').find_files, "List files" },
@@ -350,7 +354,7 @@ require("which-key").register({
         w = { require('telescope.builtin').lsp_workspace_diagnostics, "Workspace diagnostics" },
     },
 
-    ["<Leader>t"] = {
+    ['<Leader>t'] = {
         name = "tab",
         a = { "<cmd>tabnew<CR>", "New tab" },
         c = { "<cmd>tabclose<CR>", "Close tab" },
@@ -359,13 +363,10 @@ require("which-key").register({
         p = { "<cmd>tabp<CR>", "Previous tab" },
     },
 
-    ["<Leader>m"] = {
-        name = "menu",
-        a = { "<cmd>Lspsaga code_action<CR>", "LSP code action" },
-        r = { "<cmd>Lspsaga rename<CR>", "LSP rename" },
-        f = { vim.lsp.buf.format, "LSP format" },
-        n = { "<cmd>NvimTreeToggle<CR>", "Toggle file tree" },
-    },
+    ['<Leader>/'] = { require('telescope.builtin').current_buffer_fuzzy_find, "Find in current file" },
+    ['<Leader>a'] = { "<cmd>Lspsaga code_action<CR>", "LSP code action" },
+    ['<Leader>r'] = { "<cmd>Lspsaga rename<CR>", "LSP rename" },
+    ['<Leader>n'] = { "<cmd>NvimTreeToggle<CR>", "Toggle file tree" },
 
     K = { "<cmd>Lspsaga hover_doc<CR>", "LSP hover doc" },
     gh = { "<cmd>Lspsaga finder<CR><cr>", "LSP finder" },
@@ -373,15 +374,12 @@ require("which-key").register({
     gd = { vim.lsp.buf.definition, "LSP go to definition" },
     gi = { require('telescope.builtin').lsp_implementations, "Go to implementation" },
     gr = { require('telescope.builtin').lsp_references, "Go to references" },
-    ['<Leader>/'] = { require('telescope.builtin').current_buffer_fuzzy_find, "Find in current file" },
     ['<CR>'] = { "<cmd>noh<CR><CR>", "Clear search highlight" },
 
     ["[d"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Previous diagnostic" },
     ["]d"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Next diagnostic" },
-    ["[e"] = { function() require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR }) end,
-        "Previous error" },
-    ["]e"] = { function() require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR }) end,
-        "Next error" },
+    ["[e"] = { function() require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, "Previous error" },
+    ["]e"] = { function() require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR }) end, "Next error" },
     ['<c-]>'] = { "g<c-]>", "Jump to definition" },
 })
 
