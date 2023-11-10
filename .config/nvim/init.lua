@@ -23,6 +23,7 @@ require("lazy").setup({
     'tpope/vim-commentary',
     'jiangmiao/auto-pairs',
     'tpope/vim-surround',
+    'tpope/vim-repeat',
     'akinsho/nvim-toggleterm.lua',
     'vincent178/nvim-github-linker',
     'wakatime/vim-wakatime',
