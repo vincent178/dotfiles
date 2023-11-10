@@ -52,7 +52,7 @@ require("lazy").setup({
         build = ":TSUpdate",
         config = function()
             require('nvim-treesitter.configs').setup({
-                ensure_installed = { "go", "rust", "ruby", "javascript", "json", "toml", "markdown", "markdown_inline" },
+                ensure_installed = { "go", "rust", "ruby", "javascript", "json", "toml", "markdown", "markdown_inline", "lua" },
                 auto_install = true,
                 sync_install = true,
                 highlight = true,
