@@ -33,7 +33,7 @@ require("lazy").setup({
         config = function()
             require('dashboard').setup({})
         end,
-        dependencies = { { 'nvim-tree/nvim-web-devicons' } }
+        dependencies = { 'nvim-tree/nvim-web-devicons' }
     },
     {
         'nvim-lualine/lualine.nvim',
