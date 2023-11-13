@@ -122,7 +122,7 @@ require("lazy").setup({
             local config_lsp_servers = { "gopls", "pyright", "jsonls", "tsserver", "ruby_ls" }
 
             for _, lsp in ipairs(config_lsp_servers) do
-                require('lspconfig')[lsp].setup()
+                require('lspconfig')[lsp].setup({})
             end
 
             -- Custom Lua LSP config
