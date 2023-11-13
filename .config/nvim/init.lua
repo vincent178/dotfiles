@@ -31,7 +31,7 @@ require("lazy").setup({
         'nvimdev/dashboard-nvim',
         event = 'VimEnter',
         config = function()
-            require('dashboard').setup({})
+            require('dashboard').setup()
         end,
         dependencies = { { 'nvim-tree/nvim-web-devicons' } }
     },
@@ -122,11 +122,11 @@ require("lazy").setup({
             local config_lsp_servers = { "gopls", "pyright", "jsonls", "tsserver", "ruby_ls" }
 
             for _, lsp in ipairs(config_lsp_servers) do
-                require('lspconfig')[lsp].setup({})
+                require('lspconfig')[lsp].setup()
             end
 
             -- Custom Lua LSP config
-            require('lspconfig').lua_ls.setup {
+            require('lspconfig').lua_ls.setup({
                 settings = {
                     Lua = {
                         runtime = {
@@ -147,7 +147,7 @@ require("lazy").setup({
                         },
                     },
                 },
-            }
+            })
         end
     },
     {
@@ -157,7 +157,7 @@ require("lazy").setup({
             'nvim-tree/nvim-web-devicons'
         },
         config = function()
-            require('lspsaga').setup({})
+            require('lspsaga').setup()
         end
     },
     {
@@ -165,7 +165,7 @@ require("lazy").setup({
         tag = "legacy",
         event = "LspAttach",
         config = function()
-            require('fidget').setup({})
+            require('fidget').setup()
         end
     },
     'mfussenegger/nvim-dap',
@@ -236,7 +236,7 @@ require("lazy").setup({
     {
         'lewis6991/gitsigns.nvim',
         config = function()
-            require('gitsigns').setup({})
+            require('gitsigns').setup()
         end
     },
 
@@ -259,9 +259,9 @@ require("lazy").setup({
             local telescope = require("telescope")
             local trouble = require("trouble.providers.telescope")
             local actions = require("telescope.actions")
-            local action_state = require("telescope.actions.state") 
+            local action_state = require("telescope.actions.state")
 
-            telescope.setup {
+            telescope.setup({
                 defaults = {
                     cache_picker = {
                         num_pickers = -1,
@@ -313,7 +313,7 @@ require("lazy").setup({
                         case_mode = "ignore_case",
                     }
                 }
-            }
+            })
             telescope.load_extension('fzf')
             telescope.load_extension('live_grep_args')
         end
