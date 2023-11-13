@@ -31,7 +31,7 @@ require("lazy").setup({
         'nvimdev/dashboard-nvim',
         event = 'VimEnter',
         config = function()
-            require('dashboard').setup()
+            require('dashboard').setup({})
         end,
         dependencies = { { 'nvim-tree/nvim-web-devicons' } }
     },
@@ -101,7 +101,7 @@ require("lazy").setup({
         'williamboman/mason-lspconfig.nvim',
         dependencies = { 'williamboman/mason.nvim', 'neovim/nvim-lspconfig' },
         config = function(_, _)
-            require('mason').setup()
+            require('mason').setup({})
             require("mason-lspconfig").setup({
                 ensure_installed = {
                     "rust_analyzer",
@@ -157,7 +157,7 @@ require("lazy").setup({
             'nvim-tree/nvim-web-devicons'
         },
         config = function()
-            require('lspsaga').setup()
+            require('lspsaga').setup({})
         end
     },
     {
@@ -165,7 +165,7 @@ require("lazy").setup({
         tag = "legacy",
         event = "LspAttach",
         config = function()
-            require('fidget').setup()
+            require('fidget').setup({})
         end
     },
     'mfussenegger/nvim-dap',
@@ -236,7 +236,7 @@ require("lazy").setup({
     {
         'lewis6991/gitsigns.nvim',
         config = function()
-            require('gitsigns').setup()
+            require('gitsigns').setup({})
         end
     },
 
