@@ -34,8 +34,8 @@ if [ "$(uname)" = "Darwin" ]; then
   alias brew='/opt/homebrew/bin/brew'
   alias abrew='/opt/homebrew/bin/brew'
   alias ibrew='arch -x86_64 /usr/local/bin/brew'
-  alias npm="arch -x86_64 npm"
-  alias pnpm="arch -x86_64 pnpm"
+  # alias npm="arch -x86_64 npm"
+  # alias pnpm="arch -x86_64 pnpm"
   alias pbcopy="LANG=zh-CN.UTF-8 pbcopy"
 fi
 
