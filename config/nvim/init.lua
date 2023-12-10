@@ -25,7 +25,7 @@ require("lazy").setup({
     'tpope/vim-surround',
     'tpope/vim-repeat',
     'akinsho/nvim-toggleterm.lua',
-    'vincent178/nvim-github-linker',
+    'vincent178/copy.nvim',
     'wakatime/vim-wakatime',
     {
         'nvimdev/dashboard-nvim',
@@ -73,6 +73,14 @@ require("lazy").setup({
         init = function()
             vim.o.timeout = true
             vim.o.timeoutlen = 300
+
+            require("which-key").setup({
+                plugins = {
+                    presets = {
+                        operators = false
+                    }
+                }
+            })
         end,
     },
     {
