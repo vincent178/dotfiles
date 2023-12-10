@@ -6,7 +6,7 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 echo "install packages"
 
-packages=('ranger' 'fzf' 'neovim' 'zsh' 'alacritty' 'golang' 'tmux' 'ranger' 'tig' 'rg')
+packages=('ranger' 'fzf' 'neovim' 'zsh' 'alacritty' 'golang' 'tmux' 'ranger' 'tig' 'rg' 'stow')
 mac_packages=("${packages[@]}" 'gh')
 linux_packages=("${packages[@]}" 'rofi' 'waybar')
 cask_packages=('iterm2' 'raycask' 'wechat' 'visual-studio-code' 'keepingyouawake' 'amethyst')
