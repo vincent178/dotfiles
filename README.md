@@ -15,14 +15,20 @@ $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/
 
 ## Linux
 
-![arch.png](./img/arch.png)
+![Wayland](./img/arch_system.png)
+
+![Wayland](./img/arch_desktop_empty.png)
+
+![Wayland](./img/arch_rofi.png)
+
+**Wayland** is Awesome!!!
 
 I use Arch, other distro might be a bit different in terms of package managers.
 
 Before hit `./install.sh`, install yay first:
 
 ```bash
-$ pacman -S yay
+$ pacman -Syu yay
 ```
 
 ## Programming Languages
