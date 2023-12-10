@@ -10,6 +10,9 @@ packages=('ranger' 'fzf' 'neovim' 'zsh' 'alacritty' 'golang' 'tmux' 'ranger' 'ti
 mac_packages=("${packages[@]}" 'gh')
 linux_packages=("${packages[@]}" 'rofi' 'waybar')
 cask_packages=('iterm2' 'raycask' 'wechat' 'visual-studio-code' 'keepingyouawake' 'amethyst')
+
+# install tpm, tmux plugin manager
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
   
 if [ "$(uname)" = "Darwin" ]; then
     brew install "${mac_packages[@]}"
