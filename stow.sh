@@ -1,3 +1,4 @@
+#!/bin/bash
 
 stow zsh -t $HOME
 stow tmux -t $HOME
