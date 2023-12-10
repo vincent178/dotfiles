@@ -25,8 +25,14 @@ require("lazy").setup({
     'tpope/vim-surround',
     'tpope/vim-repeat',
     'akinsho/nvim-toggleterm.lua',
-    'vincent178/copy.nvim',
     'wakatime/vim-wakatime',
+
+    {
+        'vincent178/copy.nvim',
+        config = function()
+            require('copy').setup()
+        end
+    },
     {
         'nvimdev/dashboard-nvim',
         event = 'VimEnter',
