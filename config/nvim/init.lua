@@ -134,11 +134,23 @@ require("lazy").setup({
 
     {
         'neovim/nvim-lspconfig',
+        dependencies = { 'folke/which-key.nvim' },
         config = function(_, _)
             local config_lsp_servers = { "gopls", "pyright", "jsonls", "tsserver", "ruby_ls" }
 
             for _, lsp in ipairs(config_lsp_servers) do
-                require('lspconfig')[lsp].setup({})
+                require('lspconfig')[lsp].setup({
+                    on_attach = function(client, bufnr)
+                        require('which-key').register({
+                            K = { "<cmd>Lspsaga hover_doc<CR>", "LSP hover doc" },
+                            gh = { "<cmd>Lspsaga finder<CR><cr>", "LSP finder" },
+                            gD = { "<cmd>Lspsaga peek_definition<CR>", "LSP definition" },
+                            gd = { vim.lsp.buf.definition, "LSP go to definition" },
+                            gi = { require('telescope.builtin').lsp_implementations, "Go to implementation" },
+                            gr = { require('telescope.builtin').lsp_references, "Go to references" },
+                        })
+                    end
+                })
             end
 
             -- Custom Lua LSP config
@@ -146,18 +158,14 @@ require("lazy").setup({
                 settings = {
                     Lua = {
                         runtime = {
-                            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
                             version = 'LuaJIT',
                         },
                         diagnostics = {
-                            -- Get the language server to recognize the `vim` global
                             globals = { 'vim' },
                         },
                         workspace = {
-                            -- Make the server aware of Neovim runtime files
                             library = vim.api.nvim_get_runtime_file("", true),
                         },
-                        -- Do not send telemetry data containing a randomized but unique identifier
                         telemetry = {
                             enable = false,
                         },
@@ -423,12 +431,6 @@ require("which-key").register({
     ['<Leader>r'] = { "<cmd>Lspsaga rename<CR>", "LSP rename" },
     ['<Leader>n'] = { "<cmd>NvimTreeToggle<CR>", "Toggle file tree" },
 
-    K = { "<cmd>Lspsaga hover_doc<CR>", "LSP hover doc" },
-    gh = { "<cmd>Lspsaga finder<CR><cr>", "LSP finder" },
-    gD = { "<cmd>Lspsaga peek_definition<CR>", "LSP definition" },
-    gd = { vim.lsp.buf.definition, "LSP go to definition" },
-    gi = { require('telescope.builtin').lsp_implementations, "Go to implementation" },
-    gr = { require('telescope.builtin').lsp_references, "Go to references" },
     ['<CR>'] = { "<cmd>noh<CR><CR>", "Clear search highlight" },
 
     ["[d"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Previous diagnostic" },
