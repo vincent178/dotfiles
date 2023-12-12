@@ -132,7 +132,8 @@ require("lazy").setup({
                     "pyright",
                     "jsonls",
                     "tsserver",
-                    "ruby_ls"
+                    "ruby_ls",
+                    "clangd"
                 }
             })
         end
@@ -142,7 +143,7 @@ require("lazy").setup({
         'neovim/nvim-lspconfig',
         dependencies = { 'folke/which-key.nvim' },
         config = function(_, _)
-            local config_lsp_servers = { "gopls", "pyright", "jsonls", "tsserver", "ruby_ls" }
+            local config_lsp_servers = { "gopls", "pyright", "jsonls", "tsserver", "ruby_ls", "clangd" }
 
             for _, lsp in ipairs(config_lsp_servers) do
                 require('lspconfig')[lsp].setup({
