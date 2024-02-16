@@ -6,14 +6,14 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 echo "install packages"
 
-packages=('ranger' 'fzf' 'neovim' 'zsh' 'alacritty' 'golang' 'tmux' 'ranger' 'tig' 'ripgrep' 'stow' 'gh')
+packages=('ranger' 'fzf' 'neovim' 'zsh' 'alacritty' 'tmux' 'ranger' 'tig' 'ripgrep' 'stow' 'gh' 'node')
 
 # packages for MacOS
-mac_packages=("${packages[@]}" 'gh')
+mac_packages=("${packages[@]}" 'gh' 'antigen' 'go')
 cask_packages=('iterm2' 'raycask' 'wechat' 'visual-studio-code' 'keepingyouawake' 'amethyst')
 
 # packages for Arch Linux
-linux_packages=("${packages[@]}" 'rofi' 'waybar' 'hyprcwd')
+arch_packages=("${packages[@]}" 'rofi' 'waybar' 'hyprcwd' 'antigen-git' 'golang')
 
 if [ "$(uname)" = "Darwin" ]; then
     brew install "${mac_packages[@]}"
@@ -24,12 +24,14 @@ if [ "$(uname)" = "Darwin" ]; then
     brew install --cask font-hack-nerd-font
 fi
 
-if [ "$(uname)" = "Linux" ]; then
+if [ -f "/etc/arch-release" ]; then
     # install yay first
-    yay -Syu "${linux_packages[@]}"
+    yay -Syu "${arch_packages[@]}"
 fi
 
-# install tpm, tmux plugin manager
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+    # install tpm, tmux plugin manager
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
  
 echo "done"

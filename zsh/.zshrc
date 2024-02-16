@@ -1,4 +1,4 @@
-source $HOME/.scripts/antigen.zsh
+source /opt/homebrew/share/antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
@@ -41,8 +41,6 @@ if [ "$(uname)" = "Darwin" ]; then
   alias brew='/opt/homebrew/bin/brew'
   alias abrew='/opt/homebrew/bin/brew'
   alias ibrew='arch -x86_64 /usr/local/bin/brew'
-  # alias npm="arch -x86_64 npm"
-  # alias pnpm="arch -x86_64 pnpm"
   alias pbcopy="LANG=zh-CN.UTF-8 pbcopy"
 
   export HOMEBREW_INSTALL_FROM_API=1
@@ -50,9 +48,41 @@ if [ "$(uname)" = "Darwin" ]; then
   export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
   export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
   export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
+  
+  export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
+  export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
+  export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig"
 fi
 
-# ruby:node:go:rust
-export PATH="$HOME/.rvm/bin:$HOME/.n/bin:$HOME/go/bin:$HOME/.cargo/bin:$PATH"
+__conda_setup="$("$HOME/Miniconda3/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "$HOME/Miniconda3/etc/profile.d/conda.sh" ]; then
+        . "$HOME/Miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="$HOME/Miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
 
+if [ -d "$HOME/go/bin" ]; then
+  export PATH=$HOME/go/bin:$PATH
+fi
+
+if [ -d "$HOME/.cargo/bin" ]; then
+  export PATH=$HOME/.cargo/bin:$PATH
+fi
+
+if [ -d "$HOME/.rvm/bin" ]; then
+    export PATH="$HOME/.rvm/bin:$PATH"
+fi
+
+if [ -f "$HOME/.nvm/nvm.sh" ]; then
+    source $HOME/.nvm/nvm.sh
+fi
+
+if [ -f "$HOME/.custom.sh" ]; then
+    source $HOME/.custom.sh
+fi
 
