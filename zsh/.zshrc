@@ -54,6 +54,15 @@ if [ "$(uname)" = "Darwin" ]; then
   export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig"
 fi
 
+if [ "$TERM_PROGRAM" = "iTerm.app" ]; then
+    tmux has -t hack &> /dev/null
+    if [ $? -ne 0 ]; then
+        tmux new -s hack
+    elif [ -z $TMUX ]; then
+        tmux attach -t hack
+    fi
+fi
+
 __conda_setup="$("$HOME/Miniconda3/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
