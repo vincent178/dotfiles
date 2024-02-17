@@ -50,7 +50,7 @@ require("lazy").setup({
           end
           return "Notes/" .. title
         end,
-        disable_frontmatter = false,
+        disable_frontmatter = true,
         attachments = {
             img_folder = "Assets",
         },
@@ -420,6 +420,16 @@ vim.cmd('highlight clear SignColumn')
 -- remove ':' from the characters list considered being possibly part of a file name and path name
 -- https://stackoverflow.com/questions/36500099/vim-gf-should-open-file-and-jump-to-line
 vim.cmd('set isfname-=:')
+
+
+vim.api.nvim_create_autocmd('TextYankPost', {
+  group = vim.api.nvim_create_augroup('highlight_yank', {}),
+  desc = 'Hightlight selection on yank',
+  pattern = '*',
+  callback = function()
+    vim.highlight.on_yank { higroup = 'IncSearch', timeout = 500 }
+  end,
+})
 
 local signs = { Error = '', Warn = '', Hint = '', Info = '' }
 for type, icon in pairs(signs) do
