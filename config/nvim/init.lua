@@ -389,7 +389,7 @@ vim.opt.number           = true   -- boolean: show line numbers
 vim.opt.relativenumber   = true   -- boolean: show relative line numbers
 vim.opt.cursorline       = true   -- boolean: highlight the text line of the cursor
 vim.opt.signcolumn       = "yes"  -- string: show the sign column
-vim.opt.conceallevel = 1
+vim.opt.conceallevel     = 1
 
 -- Encoding
 vim.opt.encoding         = 'utf8' -- string: string encoding to use
