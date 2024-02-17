@@ -12,7 +12,7 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle agkozak/zsh-z
 
 # Load the theme.
-antigen theme ys
+antigen theme robbyrussell
 
 antigen apply
 
