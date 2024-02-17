@@ -44,7 +44,13 @@ require("lazy").setup({
         daily_notes = {
             folder = "Daily"
         },
-        disable_frontmatter = true,
+        note_id_func = function(title)
+          if title:find("^@") ~= nil then
+            return "People/" .. title
+          end
+          return "Notes/" .. title
+        end,
+        disable_frontmatter = false,
         attachments = {
             img_folder = "Assets",
         },
