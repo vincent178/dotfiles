@@ -44,12 +44,15 @@ require("lazy").setup({
         daily_notes = {
             folder = "Daily"
         },
+        completion = {
+        },
         note_id_func = function(title)
           if title:find("^@") ~= nil then
             return "People/" .. title
           end
           return "Notes/" .. title
         end,
+        new_notes_location = "notes_subdir",
         disable_frontmatter = true,
         attachments = {
             img_folder = "Assets",
@@ -411,7 +414,7 @@ vim.opt.tabstop          = 4      -- number:  number of spaces tabs count for
 vim.opt.splitright       = true   -- boolean: place new window to right of current one
 vim.opt.splitbelow       = true   -- boolean: place new window below the current one
 
-vim.cmd('colorscheme base16-gruvbox-dark-hard')
+vim.cmd('colorscheme gruvbox')
 
 -- clear sign column highlights so that sign column is the same color as where your line numbers show up
 -- https://stackoverflow.com/questions/15277241/changing-vim-gutter-color
