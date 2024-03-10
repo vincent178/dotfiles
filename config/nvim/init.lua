@@ -24,7 +24,6 @@ require("lazy").setup({
     'jiangmiao/auto-pairs',
     'tpope/vim-surround',
     'tpope/vim-repeat',
-    'akinsho/nvim-toggleterm.lua',
     'wakatime/vim-wakatime',
     {
       "epwalsh/obsidian.nvim",
@@ -66,33 +65,6 @@ require("lazy").setup({
         end
     },
     {
-        'nvimdev/dashboard-nvim',
-        event = 'VimEnter',
-        config = function()
-            require('dashboard').setup({})
-        end,
-        dependencies = { 'nvim-tree/nvim-web-devicons' }
-    },
-    {
-        'nvim-lualine/lualine.nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
-        config = function()
-            require('lualine').setup({
-                options = {
-                    globalstatus = true,
-                },
-                sections = {
-                    lualine_c = {
-                        {
-                            'filename',
-                            path = 1,
-                        }
-                    }
-                }
-            })
-        end
-    },
-    {
         'nvim-treesitter/nvim-treesitter',
         cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
         build = ":TSUpdate",
@@ -120,10 +92,6 @@ require("lazy").setup({
                 }
             })
         end,
-    },
-    {
-        "folke/trouble.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
     },
     {
         'nvim-tree/nvim-tree.lua',
@@ -231,8 +199,6 @@ require("lazy").setup({
             require('fidget').setup({})
         end
     },
-    'mfussenegger/nvim-dap',
-    'rcarriga/nvim-dap-ui',
 
     -- Autocomplete
     'hrsh7th/cmp-nvim-lsp',
@@ -295,13 +261,6 @@ require("lazy").setup({
 
     -- Git
     'tpope/vim-fugitive',
-    'tpope/vim-rhubarb',
-    {
-        'lewis6991/gitsigns.nvim',
-        config = function()
-            require('gitsigns').setup({})
-        end
-    },
 
     -- Fuzzy Finder
     {
@@ -316,58 +275,18 @@ require("lazy").setup({
             'nvim-telescope/telescope-rg.nvim',
             'nvim-telescope/telescope-frecency.nvim',
             'nvim-telescope/telescope-live-grep-args.nvim',
-            'folke/trouble.nvim',
         },
         config = function()
             local telescope = require("telescope")
-            local trouble = require("trouble.providers.telescope")
-            local actions = require("telescope.actions")
-            local action_state = require("telescope.actions.state")
 
             telescope.setup({
                 defaults = {
                     cache_picker = {
                         num_pickers = -1,
                     },
-                    mappings = {
-                        i = { ["<C-t>"] = trouble.open_with_trouble },
-                        n = { ["<C-t>"] = trouble.open_with_trouble },
-                    },
                 },
                 pickers = {
                     find_files = {
-                        on_input_filter_cb = function(prompt)
-                            local find_colon = string.find(prompt, ":")
-                            if find_colon then
-                                local ret = string.sub(prompt, 1, find_colon - 1)
-                                vim.schedule(function()
-                                    local prompt_bufnr = vim.api.nvim_get_current_buf()
-                                    local picker = action_state.get_current_picker(prompt_bufnr)
-                                    local lnum = tonumber(prompt:sub(find_colon + 1))
-                                    if type(lnum) == "number" then
-                                        local win = picker.previewer.state.winid
-                                        local bufnr = picker.previewer.state.bufnr
-                                        local line_count = vim.api.nvim_buf_line_count(bufnr)
-                                        vim.api.nvim_win_set_cursor(win, { math.max(1, math.min(lnum, line_count)), 0 })
-                                    end
-                                end)
-                                return { prompt = ret }
-                            end
-                        end,
-                        attach_mappings = function()
-                            actions.select_default:enhance {
-                                post = function()
-                                    -- if we found something, go to line
-                                    local prompt = action_state.get_current_line()
-                                    local find_colon = string.find(prompt, ":")
-                                    if find_colon then
-                                        local lnum = tonumber(prompt:sub(find_colon + 1))
-                                        vim.api.nvim_win_set_cursor(0, { lnum, 0 })
-                                    end
-                                end,
-                            }
-                            return true
-                        end,
                         find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix', '--exclude', '.git', '--hidden' },
                     }
                 },
@@ -423,7 +342,6 @@ vim.cmd('highlight clear SignColumn')
 -- remove ':' from the characters list considered being possibly part of a file name and path name
 -- https://stackoverflow.com/questions/36500099/vim-gf-should-open-file-and-jump-to-line
 vim.cmd('set isfname-=:')
-
 
 vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('highlight_yank', {}),
@@ -487,6 +405,8 @@ require("which-key").register({
     ["]d"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Next diagnostic" },
     ["[e"] = { function() require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, "Previous error" },
     ["]e"] = { function() require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR }) end, "Next error" },
+    ["[p"] = { "<cmd>cprevious<CR>", "Previous quickfix item" },
+    ["]p"] = { "<cmd>cnext<CR>", "Next quickfix item" },
     ['<c-]>'] = { "g<c-]>", "Jump to definition" },
 })
 
