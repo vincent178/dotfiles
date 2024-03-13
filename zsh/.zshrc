@@ -75,6 +75,10 @@ else
 fi
 unset __conda_setup
 
+if [ -d "$HOME/.local/bin" ]; then
+  export PATH=$HOME/.local/bin:$PATH
+fi
+
 if [ -d "$HOME/go/bin" ]; then
   export PATH=$HOME/go/bin:$PATH
 fi
@@ -94,4 +98,3 @@ fi
 if [ -f "$HOME/.custom.sh" ]; then
     source $HOME/.custom.sh
 fi
-

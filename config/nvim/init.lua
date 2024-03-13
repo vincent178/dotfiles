@@ -143,7 +143,7 @@ require("lazy").setup({
         'neovim/nvim-lspconfig',
         dependencies = { 'folke/which-key.nvim' },
         config = function(_, _)
-            local config_lsp_servers = { "gopls", "pyright", "jsonls", "tsserver", "ruby_ls", "clangd" }
+            local config_lsp_servers = { "gopls", "pyright", "jsonls", "tsserver", "ruby_ls", "clangd", "lua_ls" }
 
             for _, lsp in ipairs(config_lsp_servers) do
                 require('lspconfig')[lsp].setup({
@@ -225,7 +225,7 @@ require("lazy").setup({
                     { name = 'path' },                                       -- file paths
                     { name = 'nvim_lsp' },                                   -- from language server
                     { name = 'nvim_lsp_signature_help' },                    -- display function signatures with current parameter emphasized
-                    { name = 'buffer',                 keyword_length = 2 }, -- source current buffer
+                    { name = 'buffer', keyword_length = 2 },                 -- source current buffer
                     { name = 'calc' },                                       -- source for math calculation
                     {
                         name = 'ctags',                                      -- For universal ctags
@@ -263,17 +263,11 @@ require("lazy").setup({
     'tpope/vim-fugitive',
 
     -- Fuzzy Finder
-    {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        build = 'make'
-    },
     'nvim-telescope/telescope-live-grep-args.nvim',
     {
         'nvim-telescope/telescope.nvim',
         dependencies = {
-            'nvim-telescope/telescope-fzf-native.nvim',
             'nvim-telescope/telescope-rg.nvim',
-            'nvim-telescope/telescope-frecency.nvim',
             'nvim-telescope/telescope-live-grep-args.nvim',
         },
         config = function()
@@ -290,13 +284,7 @@ require("lazy").setup({
                         find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix', '--exclude', '.git', '--hidden' },
                     }
                 },
-                extensions = {
-                    fzf = {
-                        case_mode = "ignore_case",
-                    }
-                }
             })
-            telescope.load_extension('fzf')
             telescope.load_extension('live_grep_args')
         end
     },
@@ -405,8 +393,8 @@ require("which-key").register({
     ["]d"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Next diagnostic" },
     ["[e"] = { function() require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, "Previous error" },
     ["]e"] = { function() require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR }) end, "Next error" },
-    ["[p"] = { "<cmd>cprevious<CR>", "Previous quickfix item" },
-    ["]p"] = { "<cmd>cnext<CR>", "Next quickfix item" },
+    ["[q"] = { "<cmd>cprevious<CR>", "Previous quickfix item" },
+    ["]q"] = { "<cmd>cnext<CR>", "Next quickfix item" },
     ['<c-]>'] = { "g<c-]>", "Jump to definition" },
 })
 
