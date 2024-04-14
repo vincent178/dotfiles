@@ -9,6 +9,7 @@ Plug('christoomey/vim-tmux-navigator')
 Plug('djoshea/vim-autoread')
 Plug('wakatime/vim-wakatime')
 Plug('folke/which-key.nvim')
+Plug('jiangmiao/auto-pairs')
 
 -- theme
 Plug('ellisonleao/gruvbox.nvim')
