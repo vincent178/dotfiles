@@ -39,9 +39,7 @@ vim.opt.swapfile         = false  -- boolean: use a swapfile for the buffer
 vim.opt.mouse            = 'a'    -- string, global: Enable mouse support, 'a' for all previous modes
 vim.opt.number           = true   -- boolean: show line numbers
 vim.opt.relativenumber   = true   -- boolean: show relative line numbers
-vim.opt.cursorline       = true   -- boolean: highlight the text line of the cursor
 vim.opt.signcolumn       = "yes"  -- string: show the sign column
-vim.opt.conceallevel     = 1
 
 -- Encoding
 vim.opt.encoding         = 'utf8' -- string: string encoding to use
@@ -93,7 +91,7 @@ vim.diagnostic.config({
 
 require('mason').setup({})
 require("mason-lspconfig").setup({
-    ensure_installed = {"rust_analyzer", "gopls", "pyright", "jsonls", "tsserver", "ruby_ls", "clangd"},
+    ensure_installed = {"rust_analyzer", "gopls", "pyright", "tsserver", "ruby_ls", "clangd", "jsonls"},
     handlers = {
         function (server_name)
             require("lspconfig")[server_name].setup({})
@@ -151,8 +149,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
     vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set({ 'n', 'v' }, '<Leader>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set({ 'n', 'v' }, '<Leader>=', function()
-      vim.lsp.buf.format { async = true }
-    end, opts)
+    vim.keymap.set({ 'n', 'v' }, '<Leader>=', function() vim.lsp.buf.format { async = true } end, opts)
   end,
 })
