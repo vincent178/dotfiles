@@ -93,22 +93,13 @@ vim.diagnostic.config({
 
 require('mason').setup({})
 require("mason-lspconfig").setup({
-    ensure_installed = {
-        "rust_analyzer",
-        "gopls",
-        "pyright",
-        "jsonls",
-        "tsserver",
-        "ruby_ls",
-        "clangd"
-    }
+    ensure_installed = {"rust_analyzer", "gopls", "pyright", "jsonls", "tsserver", "ruby_ls", "clangd"},
+    handlers = {
+        function (server_name)
+            require("lspconfig")[server_name].setup({})
+        end,
+    },
 })
-
-local config_lsp_servers = { "gopls", "pyright", "jsonls", "tsserver", "ruby_lsp", "clangd" }
-
-for _, lsp in ipairs(config_lsp_servers) do
-    require('lspconfig')[lsp].setup({})
-end
 
 local cmp = require('cmp')
 cmp.setup({
@@ -119,6 +110,14 @@ cmp.setup({
         { name = 'nvim_lsp' },
         { name = 'buffer', keyword_length = 2 },
     })
+})
+
+require('fzf-lua').setup({
+  keymap = {
+    fzf = {
+      ["ctrl-q"] = "select-all+accept",
+    }
+  },
 })
 
 -- keymaps
