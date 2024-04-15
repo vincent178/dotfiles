@@ -10,6 +10,7 @@ Plug('djoshea/vim-autoread')
 Plug('wakatime/vim-wakatime')
 Plug('folke/which-key.nvim')
 Plug('jiangmiao/auto-pairs')
+Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 
 -- theme
 Plug('ellisonleao/gruvbox.nvim')
@@ -52,7 +53,7 @@ vim.opt.hlsearch         = true   -- boolean
 vim.opt.smartcase        = true   -- boolean: override the 'ignorecase' option if the search pattern contains upper case characters.
 vim.opt.ignorecase       = true   -- boolean: ignore case in search patterns
 
--- WhiteLeader
+-- Tab and Space
 vim.opt.expandtab        = true   -- boolean: use Leaders instead of tabs
 vim.opt.shiftwidth       = 4      -- number:  size of an indent
 vim.opt.softtabstop      = 4      -- number:  number of Leaders tabs count for in insert mode
@@ -61,6 +62,12 @@ vim.opt.tabstop          = 4      -- number:  number of Leaders tabs count for
 -- Splits
 vim.opt.splitright       = true   -- boolean: place new window to right of current one
 vim.opt.splitbelow       = true   -- boolean: place new window below the current one
+
+-- Folding
+vim.opt.foldmethod       = 'expr'
+vim.opt.foldexpr         = 'nvim_treesitter#foldexpr()'
+vim.opt.foldenable       = false  -- boolean: disable folding at startup
+
 
 vim.cmd('colorscheme gruvbox')
 
@@ -88,6 +95,10 @@ vim.diagnostic.config({
     underline = false,
     severity_sort = true,
     float = false,
+})
+
+require('nvim-treesitter.configs').setup({
+    ensure_installed = {"c", "cpp", "go", "lua", "rust", "python", "typescript", "javascript", "ruby"},
 })
 
 require('mason').setup({})
