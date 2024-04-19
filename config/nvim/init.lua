@@ -8,7 +8,6 @@ Plug('nvim-lua/plenary.nvim')
 Plug('christoomey/vim-tmux-navigator')
 Plug('djoshea/vim-autoread')
 Plug('wakatime/vim-wakatime')
-Plug('folke/which-key.nvim')
 Plug('jiangmiao/auto-pairs')
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 
