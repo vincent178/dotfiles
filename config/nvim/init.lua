@@ -10,6 +10,7 @@ Plug('djoshea/vim-autoread')
 Plug('wakatime/vim-wakatime')
 Plug('jiangmiao/auto-pairs')
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
+Plug('nvim-treesitter/nvim-treesitter-textobjects')
 Plug('quarto-dev/quarto-nvim')
 Plug('jmbuhr/otter.nvim')
 Plug('preservim/nerdtree')
@@ -101,11 +102,30 @@ vim.diagnostic.config({
 
 require('nvim-treesitter.configs').setup({
     ensure_installed = {"c", "cpp", "go", "lua", "rust", "python", "typescript", "javascript", "ruby", "markdown"},
+    highlight = {
+        enable = true,
+    },
+    indent = {
+        enable = true,
+    },
+    textobjects = {
+        select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+                -- You can use the capture groups defined in textobjects.scm
+                ['af'] = '@function.outer',
+                ['if'] = '@function.inner',
+                ['ac'] = '@class.outer',
+                ['ic'] = '@class.inner',
+            },
+        }
+    }
 })
 
 require('mason').setup({})
 require("mason-lspconfig").setup({
-    ensure_installed = {"rust_analyzer", "gopls", "pyright", "tsserver", "ruby_ls", "clangd", "jsonls"},
+    ensure_installed = {"rust_analyzer", "gopls", "pyright", "tsserver", "ruby_ls", "clangd", "jsonls", "sorbet"},
     handlers = {
         function (server_name)
             require("lspconfig")[server_name].setup({})
