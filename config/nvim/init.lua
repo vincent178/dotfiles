@@ -12,6 +12,7 @@ Plug('jiangmiao/auto-pairs')
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 Plug('quarto-dev/quarto-nvim')
 Plug('jmbuhr/otter.nvim')
+Plug('preservim/nerdtree')
 
 -- theme
 Plug('ellisonleao/gruvbox.nvim')
@@ -140,6 +141,9 @@ vim.keymap.set('i', '<C-e>', '<End>')
 vim.keymap.set('i', '<C-b>', '<Left>')
 vim.keymap.set('i', '<C-f>', '<Right>')
 
+vim.keymap.set('n', '<Leader>q', '<cmd>QuartoPreview<CR>')
+vim.keymap.set('n', '<Leader>n', '<cmd>NERDTreeToggle<CR>')
+
 vim.keymap.set('n', '<Leader>g', require('fzf-lua').live_grep)
 vim.keymap.set('n', '<Leader>f', require('fzf-lua').files)
 vim.keymap.set('n', '<Leader>b', require('fzf-lua').buffers)
@@ -153,7 +157,6 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '[e', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end)
 vim.keymap.set('n', ']e', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end)
 vim.keymap.set('n', '<Leader>l', vim.diagnostic.setloclist)
-vim.keymap.set('n', '<Leader>q', '<cmd>QuartoPreview<CR>')
  
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
