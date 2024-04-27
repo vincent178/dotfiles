@@ -10,6 +10,8 @@ Plug('djoshea/vim-autoread')
 Plug('wakatime/vim-wakatime')
 Plug('jiangmiao/auto-pairs')
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
+Plug('quarto-dev/quarto-nvim')
+Plug('jmbuhr/otter.nvim')
 
 -- theme
 Plug('ellisonleao/gruvbox.nvim')
@@ -97,7 +99,7 @@ vim.diagnostic.config({
 })
 
 require('nvim-treesitter.configs').setup({
-    ensure_installed = {"c", "cpp", "go", "lua", "rust", "python", "typescript", "javascript", "ruby"},
+    ensure_installed = {"c", "cpp", "go", "lua", "rust", "python", "typescript", "javascript", "ruby", "markdown"},
 })
 
 require('mason').setup({})
@@ -118,6 +120,7 @@ cmp.setup({
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'buffer', keyword_length = 2 },
+        { name = 'otter' }
     })
 })
 
@@ -128,6 +131,8 @@ require('fzf-lua').setup({
     }
   },
 })
+
+require('quarto').setup()
 
 -- keymaps
 vim.keymap.set('i', '<C-a>', '<Home>')
@@ -147,7 +152,8 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '[e', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end)
 vim.keymap.set('n', ']e', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end)
-vim.keymap.set('n', '<Leader>q', vim.diagnostic.setloclist)
+vim.keymap.set('n', '<Leader>l', vim.diagnostic.setloclist)
+vim.keymap.set('n', '<Leader>q', '<cmd>QuartoPreview<CR>')
  
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
