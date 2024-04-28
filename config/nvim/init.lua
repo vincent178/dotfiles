@@ -2,7 +2,6 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin')
 
-Plug('tpope/vim-commentary')
 Plug('tpope/vim-surround')
 Plug('nvim-lua/plenary.nvim')
 Plug('christoomey/vim-tmux-navigator')
@@ -11,12 +10,16 @@ Plug('wakatime/vim-wakatime')
 Plug('jiangmiao/auto-pairs')
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 Plug('nvim-treesitter/nvim-treesitter-textobjects')
-Plug('quarto-dev/quarto-nvim')
-Plug('jmbuhr/otter.nvim')
 Plug('preservim/nerdtree')
+Plug('numToStr/Comment.nvim')
 
 -- theme
 Plug('ellisonleao/gruvbox.nvim')
+
+-- juypter
+Plug('quarto-dev/quarto-nvim')
+Plug('jmbuhr/otter.nvim')
+Plug('benlubas/molten-nvim', { ['do'] = ':UpdateRemotePlugins', ['version'] = '^1.0.0' })   
 
 -- lsp
 Plug('williamboman/mason.nvim')
@@ -155,7 +158,16 @@ require('fzf-lua').setup({
   },
 })
 
-require('quarto').setup()
+require('quarto').setup({
+    codeRunner = {
+        enabled = true,
+        default_method = 'molten'
+    },
+})
+
+require('Comment').setup({
+    ignore = '^$',
+})
 
 -- keymaps
 vim.keymap.set('i', '<C-a>', '<Home>')
@@ -163,7 +175,10 @@ vim.keymap.set('i', '<C-e>', '<End>')
 vim.keymap.set('i', '<C-b>', '<Left>')
 vim.keymap.set('i', '<C-f>', '<Right>')
 
+
 vim.keymap.set('n', '<Leader>q', '<cmd>QuartoPreview<CR>')
+vim.keymap.set('n', '<Leader>rc', require("quarto.runner").run_cell)
+vim.keymap.set('n', '<Leader>ra', require("quarto.runner").run_all)
 vim.keymap.set('n', '<Leader>n', '<cmd>NERDTreeToggle<CR>')
 
 vim.keymap.set('n', '<Leader>g', require('fzf-lua').live_grep)

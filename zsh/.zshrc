@@ -32,6 +32,7 @@ if [ -d "$HOME/.rvm" ]; then
 fi
 
 export GOPATH="$HOME/.go"
+export GOBIN="$GOPATH/bin"
 
 export NODE_MIRROR=https://mirrors.tuna.tsinghua.edu.cn/nodejs-release/
 
@@ -81,7 +82,6 @@ if [ -d "$HOME/.local/bin" ]; then
 fi
 
 if [ -d "$HOME/go/bin" ]; then
-  export PATH=$HOME/go/bin:$PATH
 fi
 
 if [ -d "$HOME/.cargo/bin" ]; then
@@ -99,3 +99,5 @@ fi
 if [ -f "$HOME/.custom.sh" ]; then
     source $HOME/.custom.sh
 fi
+
+export PATH=$GOBIN:$PATH
