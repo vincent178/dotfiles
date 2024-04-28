@@ -130,7 +130,7 @@ require('nvim-treesitter.configs').setup({
 
 require('mason').setup({})
 require("mason-lspconfig").setup({
-    ensure_installed = {"rust_analyzer", "gopls", "pyright", "tsserver", "ruby_ls", "clangd", "jsonls", "sorbet"},
+    ensure_installed = {"rust_analyzer", "gopls", "pyright", "tsserver", "ruby_lsp", "clangd", "jsonls", "sorbet"},
     handlers = {
         function (server_name)
             require("lspconfig")[server_name].setup({})
@@ -174,7 +174,6 @@ vim.keymap.set('i', '<C-a>', '<Home>')
 vim.keymap.set('i', '<C-e>', '<End>')
 vim.keymap.set('i', '<C-b>', '<Left>')
 vim.keymap.set('i', '<C-f>', '<Right>')
-
 
 vim.keymap.set('n', '<Leader>q', '<cmd>QuartoPreview<CR>')
 vim.keymap.set('n', '<Leader>rc', require("quarto.runner").run_cell)
