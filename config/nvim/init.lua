@@ -101,11 +101,14 @@ vim.diagnostic.config({
 })
 
 require('nvim-treesitter.configs').setup({
-    ensure_installed = {"c", "cpp", "go", "lua", "rust", "python", "typescript", "javascript", "ruby", "markdown"},
+    ensure_installed = {"c", "cpp", "go", "lua", "rust", "python", "typescript", "javascript", "ruby", "markdown", "markdown_inline"},
     highlight = {
         enable = true,
     },
     indent = {
+        enable = true,
+    },
+    incremental_selection = {
         enable = true,
     },
     textobjects = {
@@ -113,13 +116,12 @@ require('nvim-treesitter.configs').setup({
             enable = true,
             lookahead = true,
             keymaps = {
-                -- You can use the capture groups defined in textobjects.scm
                 ['af'] = '@function.outer',
                 ['if'] = '@function.inner',
                 ['ac'] = '@class.outer',
                 ['ic'] = '@class.inner',
             },
-        }
+        },
     }
 })
 
