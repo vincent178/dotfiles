@@ -175,9 +175,10 @@ vim.keymap.set('i', '<C-e>', '<End>')
 vim.keymap.set('i', '<C-b>', '<Left>')
 vim.keymap.set('i', '<C-f>', '<Right>')
 
-vim.keymap.set('n', '<Leader>q', '<cmd>QuartoPreview<CR>')
+vim.keymap.set('n', '<Leader>q', ':QuartoPreview<CR>')
 vim.keymap.set('n', '<Leader>rc', require("quarto.runner").run_cell)
 vim.keymap.set('n', '<Leader>ra', require("quarto.runner").run_all)
+vim.keymap.set('n', '<Leader>rd', ':MoltenDelete<CR>')
 vim.keymap.set('n', '<Leader>n', '<cmd>NERDTreeToggle<CR>')
 
 vim.keymap.set('n', '<Leader>g', require('fzf-lua').live_grep)

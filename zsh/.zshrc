@@ -54,6 +54,8 @@ if [ "$(uname)" = "Darwin" ]; then
   export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
   export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
   export PKG_CONFIG_PATH="/opt/homebrew/opt/openssl@3/lib/pkgconfig"
+
+  export DYLD_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_LIBRARY_PATH"
 fi
 
 if [ "$TERM_PROGRAM" = "iTerm.app" ]; then
