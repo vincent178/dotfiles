@@ -13,6 +13,8 @@ Plug('nvim-treesitter/nvim-treesitter-textobjects')
 Plug('preservim/nerdtree')
 Plug('numToStr/Comment.nvim')
 
+Plug('vimwiki/vimwiki')
+
 -- theme
 Plug('ellisonleao/gruvbox.nvim')
 
@@ -39,6 +41,10 @@ Plug('tpope/vim-fugitive')
 Plug('ibhagwan/fzf-lua', { ['branch'] = 'main' })
 
 vim.call('plug#end')
+
+vim.g.vimwiki_list = {
+    { path = '~/Workspace/notes' } 
+}
 
 vim.g.mapleader          = " "
 
@@ -181,7 +187,7 @@ vim.keymap.set('n', '<Leader>ra', require("quarto.runner").run_all)
 vim.keymap.set('n', '<Leader>rd', ':MoltenDelete<CR>')
 vim.keymap.set('n', '<Leader>n', '<cmd>NERDTreeToggle<CR>')
 
-vim.keymap.set('n', '<Leader>g', require('fzf-lua').live_grep)
+vim.keymap.set('n', '<Leader>g', require('fzf-lua').live_grep_glob)
 vim.keymap.set('n', '<Leader>f', require('fzf-lua').files)
 vim.keymap.set('n', '<Leader>b', require('fzf-lua').buffers)
 
