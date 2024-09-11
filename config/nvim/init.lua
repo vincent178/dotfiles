@@ -12,6 +12,7 @@ Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 Plug('nvim-treesitter/nvim-treesitter-textobjects')
 Plug('preservim/nerdtree')
 Plug('numToStr/Comment.nvim')
+Plug('stevearc/oil.nvim')
 
 Plug('vimwiki/vimwiki')
 
@@ -36,6 +37,7 @@ Plug('Exafunction/codeium.vim')
 
 -- git
 Plug('tpope/vim-fugitive')
+Plug('vincent178/nvim-github-linker')
 
 -- fuzzy finder
 Plug('ibhagwan/fzf-lua', { ['branch'] = 'main' })
@@ -134,9 +136,11 @@ require('nvim-treesitter.configs').setup({
     }
 })
 
+require("oil").setup()
+
 require('mason').setup({})
 require("mason-lspconfig").setup({
-    ensure_installed = {"rust_analyzer", "gopls", "pyright", "tsserver", "ruby_lsp", "clangd", "jsonls", "sorbet"},
+    ensure_installed = {"rust_analyzer", "gopls", "pyright", "ts_ls", "ruby_lsp", "clangd", "jsonls"},
     handlers = {
         function (server_name)
             require("lspconfig")[server_name].setup({})
@@ -175,11 +179,17 @@ require('Comment').setup({
     ignore = '^$',
 })
 
+require("nvim-github-linker").setup()
+
 -- keymaps
 vim.keymap.set('i', '<C-a>', '<Home>')
 vim.keymap.set('i', '<C-e>', '<End>')
 vim.keymap.set('i', '<C-b>', '<Left>')
 vim.keymap.set('i', '<C-f>', '<Right>')
+
+vim.keymap.set('c', '<C-a>', '<Home>')
+vim.keymap.set('c', '<C-b>', '<Left>')
+vim.keymap.set('c', '<C-f>', '<Right>')
 
 vim.keymap.set('n', '<Leader>q', ':QuartoPreview<CR>')
 vim.keymap.set('n', '<Leader>rc', require("quarto.runner").run_cell)
