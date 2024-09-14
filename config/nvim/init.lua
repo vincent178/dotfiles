@@ -2,8 +2,8 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin')
 
-Plug('tpope/vim-surround')
 Plug('nvim-lua/plenary.nvim')
+Plug('tpope/vim-surround')
 Plug('christoomey/vim-tmux-navigator')
 Plug('djoshea/vim-autoread')
 Plug('wakatime/vim-wakatime')
@@ -13,8 +13,6 @@ Plug('nvim-treesitter/nvim-treesitter-textobjects')
 Plug('preservim/nerdtree')
 Plug('numToStr/Comment.nvim')
 Plug('stevearc/oil.nvim')
-
-Plug('vimwiki/vimwiki')
 
 -- theme
 Plug('ellisonleao/gruvbox.nvim')
@@ -43,10 +41,6 @@ Plug('vincent178/nvim-github-linker')
 Plug('ibhagwan/fzf-lua', { ['branch'] = 'main' })
 
 vim.call('plug#end')
-
-vim.g.vimwiki_list = {
-    { path = '~/Workspace/notes' } 
-}
 
 vim.g.mapleader          = " "
 
