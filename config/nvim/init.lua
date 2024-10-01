@@ -72,7 +72,6 @@ vim.opt.foldmethod       = 'expr'
 vim.opt.foldexpr         = 'nvim_treesitter#foldexpr()'
 vim.opt.foldenable       = false  -- boolean: disable folding at startup
 
-
 vim.cmd('colorscheme gruvbox')
 
 -- clear sign column highlights so that sign column is the same color as where your line numbers show up
