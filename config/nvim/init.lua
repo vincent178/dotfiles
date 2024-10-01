@@ -13,14 +13,10 @@ Plug('nvim-treesitter/nvim-treesitter-textobjects')
 Plug('preservim/nerdtree')
 Plug('numToStr/Comment.nvim')
 Plug('stevearc/oil.nvim')
+Plug('dhruvasagar/vim-table-mode')
 
 -- theme
 Plug('ellisonleao/gruvbox.nvim')
-
--- juypter
-Plug('quarto-dev/quarto-nvim')
-Plug('jmbuhr/otter.nvim')
-Plug('benlubas/molten-nvim', { ['do'] = ':UpdateRemotePlugins', ['version'] = '^1.0.0' })   
 
 -- lsp
 Plug('williamboman/mason.nvim')
@@ -150,7 +146,6 @@ cmp.setup({
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'buffer', keyword_length = 2 },
-        { name = 'otter' }
     })
 })
 
@@ -160,13 +155,6 @@ require('fzf-lua').setup({
       ["ctrl-q"] = "select-all+accept",
     }
   },
-})
-
-require('quarto').setup({
-    codeRunner = {
-        enabled = true,
-        default_method = 'molten'
-    },
 })
 
 require('Comment').setup({
@@ -180,21 +168,13 @@ vim.keymap.set('i', '<C-a>', '<Home>')
 vim.keymap.set('i', '<C-e>', '<End>')
 vim.keymap.set('i', '<C-b>', '<Left>')
 vim.keymap.set('i', '<C-f>', '<Right>')
-
 vim.keymap.set('c', '<C-a>', '<Home>')
 vim.keymap.set('c', '<C-b>', '<Left>')
 vim.keymap.set('c', '<C-f>', '<Right>')
-
-vim.keymap.set('n', '<Leader>q', ':QuartoPreview<CR>')
-vim.keymap.set('n', '<Leader>rc', require("quarto.runner").run_cell)
-vim.keymap.set('n', '<Leader>ra', require("quarto.runner").run_all)
-vim.keymap.set('n', '<Leader>rd', ':MoltenDelete<CR>')
 vim.keymap.set('n', '<Leader>n', '<cmd>NERDTreeToggle<CR>')
-
 vim.keymap.set('n', '<Leader>g', require('fzf-lua').live_grep_glob)
 vim.keymap.set('n', '<Leader>f', require('fzf-lua').files)
 vim.keymap.set('n', '<Leader>b', require('fzf-lua').buffers)
-
 vim.keymap.set('n', '<CR>', '<cmd>noh<CR><CR>')
 vim.keymap.set('n', '[q', '<cmd>cprevious<CR>')
 vim.keymap.set('n', ']q', '<cmd>cnext<CR>')
