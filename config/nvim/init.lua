@@ -67,11 +67,6 @@ vim.opt.tabstop          = 4      -- number:  number of Leaders tabs count for
 vim.opt.splitright       = true   -- boolean: place new window to right of current one
 vim.opt.splitbelow       = true   -- boolean: place new window below the current one
 
--- Folding
-vim.opt.foldmethod       = 'expr'
-vim.opt.foldexpr         = 'nvim_treesitter#foldexpr()'
-vim.opt.foldenable       = false  -- boolean: disable folding at startup
-
 vim.cmd('colorscheme gruvbox')
 
 -- clear sign column highlights so that sign column is the same color as where your line numbers show up
