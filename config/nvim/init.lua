@@ -120,7 +120,14 @@ require('nvim-treesitter.configs').setup({
     }
 })
 
-require("oil").setup()
+require("oil").setup({
+    keymaps = {
+        ["<C-s>"] = { "actions.select", opts = { vertical = false, horizontal = true } },
+        ["<C-v>"] = { "actions.select", opts = { vertical = true, horizontal = false } },
+        ["<C-l>"] = false, 
+        ["<C-h>"] = false, 
+    },
+})
 
 require('mason').setup({})
 require("mason-lspconfig").setup({
@@ -169,6 +176,7 @@ vim.keymap.set('n', '<Leader>n', '<cmd>NERDTreeToggle<CR>')
 vim.keymap.set('n', '<Leader>g', require('fzf-lua').live_grep_glob)
 vim.keymap.set('n', '<Leader>f', require('fzf-lua').files)
 vim.keymap.set('n', '<Leader>b', require('fzf-lua').buffers)
+vim.keymap.set('n', '<Leader>o', '<cmd>Oil<CR>')
 vim.keymap.set('n', '<CR>', '<cmd>noh<CR><CR>')
 vim.keymap.set('n', '[q', '<cmd>cprevious<CR>')
 vim.keymap.set('n', ']q', '<cmd>cnext<CR>')
