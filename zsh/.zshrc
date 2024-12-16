@@ -74,7 +74,7 @@ else
     if [ -f "$HOME/Miniconda3/etc/profile.d/conda.sh" ]; then
         . "$HOME/Miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="$HOME/Miniconda3/bin:$PATH"
+        export PATH="$PATH:$HOME/Miniconda3/bin"
     fi
 fi
 unset __conda_setup
