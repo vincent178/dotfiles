@@ -14,6 +14,10 @@ Plug('preservim/nerdtree')
 Plug('numToStr/Comment.nvim')
 Plug('stevearc/oil.nvim')
 Plug('dhruvasagar/vim-table-mode')
+Plug('stevearc/dressing.nvim')
+Plug('MunifTanjim/nui.nvim')
+Plug('MeanderingProgrammer/render-markdown.nvim')
+Plug('HakonHarnes/img-clip.nvim')
 
 -- theme
 Plug('ellisonleao/gruvbox.nvim')
@@ -27,7 +31,7 @@ Plug('neovim/nvim-lspconfig')
 Plug('hrsh7th/nvim-cmp')
 Plug('hrsh7th/cmp-nvim-lsp')
 Plug('hrsh7th/cmp-buffer')
-Plug('Exafunction/codeium.vim')
+Plug('yetone/avante.nvim', { ['branch'] = 'main', ['do'] = 'make' })
 
 -- git
 Plug('tpope/vim-fugitive')
@@ -164,7 +168,17 @@ require('Comment').setup({
     ignore = '^$',
 })
 
-require("nvim-github-linker").setup()
+require('nvim-github-linker').setup()
+
+require('avante').setup({
+    provider = 'openai',
+    openai = {
+        endpoint = 'https://api.deepseek.com/v1',
+        model = 'deepseek-chat',
+        temperature = 0,
+        max_tokens = 4096,
+    }
+})
 
 -- keymaps
 vim.keymap.set('i', '<C-a>', '<Home>')
