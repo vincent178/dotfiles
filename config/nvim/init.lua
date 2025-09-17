@@ -16,8 +16,9 @@ Plug('stevearc/oil.nvim')
 Plug('dhruvasagar/vim-table-mode')
 Plug('stevearc/dressing.nvim')
 Plug('MunifTanjim/nui.nvim')
-Plug('MeanderingProgrammer/render-markdown.nvim')
+Plug('OXY2DEV/markview.nvim')
 Plug('HakonHarnes/img-clip.nvim')
+Plug('folke/which-key.nvim')
 
 -- theme
 Plug('ellisonleao/gruvbox.nvim')
@@ -171,13 +172,29 @@ require('Comment').setup({
 require('nvim-github-linker').setup()
 
 require('avante').setup({
-    provider = 'openai',
-    openai = {
-        endpoint = 'https://api.deepseek.com/v1',
-        model = 'deepseek-chat',
-        temperature = 0,
-        max_tokens = 4096,
-    }
+    provider = 'deepseek',
+    auto_suggestions_provider = 'siliconflow',
+    behaviour = {
+        auto_suggestions = false,
+    },
+    vendors = {
+        ["deepseek"] = {
+            __inherited_from = "openai",
+            api_key_name = "DEEPSEEK_API_KEY",
+            endpoint = 'https://api.deepseek.com/v1',
+            model = 'deepseek-chat',
+            temperature = 0,
+            max_tokens = 4096,
+        },
+        ["siliconflow"] = {
+            __inherited_from = "openai",
+            endpoint = 'https://api.siliconflow.cn/v1',
+            api_key_name = "SILICONFLOW_API_KEY",
+            model = "Qwen/Qwen2.5-Coder-32B-Instruct",
+            temperature = 0,
+            max_tokens = 4096,
+        },
+    },
 })
 
 -- keymaps

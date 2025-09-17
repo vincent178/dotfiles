@@ -27,15 +27,6 @@ alias v="nvim"
 alias f="fzf"
 alias r="ranger"
 
-if [ -d "$HOME/.rvm" ]; then
-    source $HOME/.rvm/scripts/rvm
-fi
-
-export GOPATH="$HOME/.go"
-export GOBIN="$GOPATH/bin"
-
-export NODE_MIRROR=https://mirrors.tuna.tsinghua.edu.cn/nodejs-release/
-
 # MacOS arm only
 if [ "$(uname)" = "Darwin" ]; then
   eval $(/opt/homebrew/bin/brew shellenv)
@@ -79,27 +70,38 @@ else
 fi
 unset __conda_setup
 
-if [ -d "$HOME/.local/bin" ]; then
-  export PATH=$HOME/.local/bin:$PATH
+# setup rvm & ruby
+if [ -d "$HOME/.rvm" ]; then
+    source $HOME/.rvm/scripts/rvm
 fi
 
-if [ -d "$HOME/go/bin" ]; then
+# setup golang
+export GOPATH="$HOME/.go"
+
+# setup node
+export NODE_MIRROR=https://mirrors.tuna.tsinghua.edu.cn/nodejs-release/
+if [ -f "$HOME/.nvm/nvm.sh" ]; then
+    source $HOME/.nvm/nvm.sh
+fi
+
+# setup PATH
+if [ -d "$HOME/.local/bin" ]; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+
+if [ -d "$GOPATH/bin" ]; then
+    export PATH="$GOPATH/bin:$PATH"
 fi
 
 if [ -d "$HOME/.cargo/bin" ]; then
-  export PATH=$HOME/.cargo/bin:$PATH
+    export PATH=$HOME/.cargo/bin:$PATH
 fi
 
 if [ -d "$HOME/.rvm/bin" ]; then
     export PATH="$HOME/.rvm/bin:$PATH"
 fi
 
-if [ -f "$HOME/.nvm/nvm.sh" ]; then
-    source $HOME/.nvm/nvm.sh
-fi
-
 if [ -f "$HOME/.custom.sh" ]; then
     source $HOME/.custom.sh
 fi
 
-export PATH=$GOBIN:$PATH
