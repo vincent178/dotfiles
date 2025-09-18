@@ -16,7 +16,6 @@ Plug('stevearc/oil.nvim')
 Plug('dhruvasagar/vim-table-mode')
 Plug('stevearc/dressing.nvim')
 Plug('MunifTanjim/nui.nvim')
-Plug('OXY2DEV/markview.nvim')
 Plug('HakonHarnes/img-clip.nvim')
 Plug('folke/which-key.nvim')
 
@@ -136,14 +135,9 @@ require("oil").setup({
     },
 })
 
-require('mason').setup({})
-require("mason-lspconfig").setup({
+require('mason').setup()
+require('mason-lspconfig').setup({
     ensure_installed = {"rust_analyzer", "gopls", "pyright", "ts_ls", "ruby_lsp", "clangd", "jsonls"},
-    handlers = {
-        function (server_name)
-            require("lspconfig")[server_name].setup({})
-        end,
-    },
 })
 
 local cmp = require('cmp')
@@ -177,22 +171,27 @@ require('avante').setup({
     behaviour = {
         auto_suggestions = false,
     },
-    vendors = {
-        ["deepseek"] = {
+    providers = {
+        deepseek = {
             __inherited_from = "openai",
             api_key_name = "DEEPSEEK_API_KEY",
             endpoint = 'https://api.deepseek.com/v1',
             model = 'deepseek-chat',
-            temperature = 0,
             max_tokens = 4096,
+            extra_request_body = {
+                temperature = 0,
+            }
         },
-        ["siliconflow"] = {
+        siliconflow = {
             __inherited_from = "openai",
             endpoint = 'https://api.siliconflow.cn/v1',
             api_key_name = "SILICONFLOW_API_KEY",
             model = "Qwen/Qwen2.5-Coder-32B-Instruct",
-            temperature = 0,
             max_tokens = 4096,
+            extra_request_body = {
+                temperature = 0,
+            }
+
         },
     },
 })
