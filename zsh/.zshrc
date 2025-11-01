@@ -1,18 +1,21 @@
 source /opt/homebrew/share/antigen/antigen.zsh
 
-autoload -U promptinit; promptinit
-prompt pure
 
 # # Bundles from the default repo (robbyrussell's oh-my-zsh).
-# antigen bundle git
-# antigen bundle command-not-found
-#
-# antigen bundle zsh-users/zsh-syntax-highlighting
-# antigen bundle agkozak/zsh-z
+antigen use oh-my-zsh
+antigen bundle git
+antigen bundle command-not-found
+
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle agkozak/zsh-z
 
 # Load the theme.
 
-# antigen apply
+antigen apply
+
+autoload -U promptinit; promptinit
+prompt pure
 
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
@@ -27,8 +30,6 @@ alias r="ranger"
 
 # MacOS arm only
 if [ "$(uname)" = "Darwin" ]; then
-  eval $(/opt/homebrew/bin/brew shellenv)
-
   alias brew='/opt/homebrew/bin/brew'
   alias abrew='/opt/homebrew/bin/brew'
   alias ibrew='arch -x86_64 /usr/local/bin/brew'
@@ -54,3 +55,5 @@ if [ -d "$HOME/.local/bin" ]; then
 fi
 
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(mise activate zsh)"

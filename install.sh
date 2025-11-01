@@ -6,7 +6,8 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 echo "install packages"
 
-packages=('ranger' 'fzf' 'neovim' 'zsh' 'kitty' 'tmux' 'ranger' 'tig' 'ripgrep' 'stow' 'gh' 'mise' 'syncthing' 'antigen' 'pure')
+# libyaml: https://github.com/asdf-vm/asdf-ruby/issues/386
+packages=('ranger' 'fzf' 'neovim' 'zsh' 'kitty' 'tmux' 'ranger' 'tig' 'ripgrep' 'stow' 'gh' 'mise' 'syncthing' 'antigen' 'pure' 'libyaml')
 
 # initial installation of homebrew
 if ! command -v brew &> /dev/null
