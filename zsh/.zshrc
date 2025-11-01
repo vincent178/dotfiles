@@ -1,20 +1,18 @@
 source /opt/homebrew/share/antigen/antigen.zsh
 
-# Load the oh-my-zsh's library.
-antigen use oh-my-zsh
+autoload -U promptinit; promptinit
+prompt pure
 
-# Bundles from the default repo (robbyrussell's oh-my-zsh).
-antigen bundle git
-antigen bundle command-not-found
-
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle agkozak/zsh-z
+# # Bundles from the default repo (robbyrussell's oh-my-zsh).
+# antigen bundle git
+# antigen bundle command-not-found
+#
+# antigen bundle zsh-users/zsh-syntax-highlighting
+# antigen bundle agkozak/zsh-z
 
 # Load the theme.
-antigen theme robbyrussell
 
-antigen apply
+# antigen apply
 
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
@@ -49,59 +47,10 @@ if [ "$(uname)" = "Darwin" ]; then
   export DYLD_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_LIBRARY_PATH"
 fi
 
-if [ "$TERM_PROGRAM" = "iTerm.app" ]; then
-    tmux has -t hack &> /dev/null
-    if [ $? -ne 0 ]; then
-        tmux new -s hack
-    elif [ -z $TMUX ]; then
-        tmux attach -t hack
-    fi
-fi
-
-__conda_setup="$("$HOME/Miniconda3/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "$HOME/Miniconda3/etc/profile.d/conda.sh" ]; then
-        . "$HOME/Miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="$PATH:$HOME/Miniconda3/bin"
-    fi
-fi
-unset __conda_setup
-
-# setup rvm & ruby
-if [ -d "$HOME/.rvm" ]; then
-    source $HOME/.rvm/scripts/rvm
-fi
-
-# setup golang
-export GOPATH="$HOME/.go"
-
-# setup node
-export NODE_MIRROR=https://mirrors.tuna.tsinghua.edu.cn/nodejs-release/
-if [ -f "$HOME/.nvm/nvm.sh" ]; then
-    source $HOME/.nvm/nvm.sh
-fi
 
 # setup PATH
 if [ -d "$HOME/.local/bin" ]; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
 
-if [ -d "$GOPATH/bin" ]; then
-    export PATH="$GOPATH/bin:$PATH"
-fi
-
-if [ -d "$HOME/.cargo/bin" ]; then
-    export PATH=$HOME/.cargo/bin:$PATH
-fi
-
-if [ -d "$HOME/.rvm/bin" ]; then
-    export PATH="$HOME/.rvm/bin:$PATH"
-fi
-
-if [ -f "$HOME/.custom.sh" ]; then
-    source $HOME/.custom.sh
-fi
 
