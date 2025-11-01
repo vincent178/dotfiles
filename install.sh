@@ -9,10 +9,9 @@ echo "install packages"
 # libyaml: https://github.com/asdf-vm/asdf-ruby/issues/386
 packages=('ranger' 'fzf' 'neovim' 'zsh' 'kitty' 'tmux' 'ranger' 'tig' 'ripgrep' 'stow' 'gh' 'mise' 'syncthing' 'antigen' 'pure' 'libyaml')
 
-# initial installation of homebrew
-if ! command -v brew &> /dev/null
-then
-curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
+if ! command -v brew &> /dev/null; then
+    # initial installation of homebrew
+    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
 fi
 
 brew install "${packages[@]}"
