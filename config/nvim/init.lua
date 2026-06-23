@@ -6,9 +6,8 @@ Plug('nvim-lua/plenary.nvim')
 Plug('tpope/vim-surround')
 Plug('christoomey/vim-tmux-navigator')
 Plug('djoshea/vim-autoread')
-Plug('wakatime/vim-wakatime')
 Plug('jiangmiao/auto-pairs')
-Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
+Plug('nvim-treesitter/nvim-treesitter', { ['branch'] = 'master', ['do'] = ':TSUpdate' })
 Plug('nvim-treesitter/nvim-treesitter-textobjects')
 Plug('preservim/nerdtree')
 Plug('numToStr/Comment.nvim')
@@ -31,7 +30,6 @@ Plug('neovim/nvim-lspconfig')
 Plug('hrsh7th/nvim-cmp')
 Plug('hrsh7th/cmp-nvim-lsp')
 Plug('hrsh7th/cmp-buffer')
-Plug('yetone/avante.nvim', { ['branch'] = 'main', ['do'] = 'make' })
 
 -- git
 Plug('tpope/vim-fugitive')
@@ -164,37 +162,6 @@ require('Comment').setup({
 })
 
 require('nvim-github-linker').setup()
-
-require('avante').setup({
-    provider = 'deepseek',
-    auto_suggestions_provider = 'siliconflow',
-    behaviour = {
-        auto_suggestions = false,
-    },
-    providers = {
-        deepseek = {
-            __inherited_from = "openai",
-            api_key_name = "DEEPSEEK_API_KEY",
-            endpoint = 'https://api.deepseek.com/v1',
-            model = 'deepseek-chat',
-            max_tokens = 4096,
-            extra_request_body = {
-                temperature = 0,
-            }
-        },
-        siliconflow = {
-            __inherited_from = "openai",
-            endpoint = 'https://api.siliconflow.cn/v1',
-            api_key_name = "SILICONFLOW_API_KEY",
-            model = "Qwen/Qwen2.5-Coder-32B-Instruct",
-            max_tokens = 4096,
-            extra_request_body = {
-                temperature = 0,
-            }
-
-        },
-    },
-})
 
 -- keymaps
 vim.keymap.set('i', '<C-a>', '<Home>')
