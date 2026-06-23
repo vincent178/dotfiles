@@ -31,7 +31,7 @@ vim.pack.add({
   plug('christoomey/vim-tmux-navigator'),
   plug('djoshea/vim-autoread'),
   plug('jiangmiao/auto-pairs'),
-  { src = plug('nvim-treesitter/nvim-treesitter'), version = 'master' },
+  { src = plug('nvim-treesitter/nvim-treesitter'), version = 'main' },
   plug('nvim-treesitter/nvim-treesitter-textobjects'),
   plug('preservim/nerdtree'),
   plug('numToStr/Comment.nvim'),
@@ -122,30 +122,44 @@ vim.diagnostic.config({
     float = false,
 })
 
-require('nvim-treesitter.configs').setup({
-    ensure_installed = {"c", "cpp", "go", "lua", "rust", "python", "typescript", "javascript", "ruby", "markdown", "markdown_inline"},
-    highlight = {
-        enable = true,
-    },
-    indent = {
-        enable = true,
-    },
-    incremental_selection = {
-        enable = true,
-    },
-    textobjects = {
-        select = {
-            enable = true,
-            lookahead = true,
-            keymaps = {
-                ['af'] = '@function.outer',
-                ['if'] = '@function.inner',
-                ['ac'] = '@class.outer',
-                ['ic'] = '@class.inner',
-            },
-        },
-    }
+-- nvim-treesitter (main branch): parsers + queries only. Highlight/indent are
+-- enabled per-buffer via FileType, the supported modern pattern (:h nvim-treesitter).
+-- The legacy nvim-treesitter.configs module was removed on `main`; ensure_installed
+-- is replaced by an explicit install() call.
+local ts_parsers = {
+    "c", "cpp", "go", "lua", "rust", "python", "typescript", "javascript",
+    "ruby", "markdown", "markdown_inline",
+}
+
+require('nvim-treesitter').setup({
+    install_dir = vim.fn.stdpath('data') .. '/site',
 })
+
+-- Install any missing parsers (async; no-op when already installed).
+require('nvim-treesitter.install').install(ts_parsers)
+
+-- Enable treesitter highlight + indent for buffers whose language has a parser.
+vim.api.nvim_create_autocmd('FileType', {
+    group = vim.api.nvim_create_augroup('treesitter_start', {}),
+    callback = function(args)
+        local lang = vim.treesitter.language.get_lang(args.match) or vim.bo[args.buf].filetype
+        if pcall(vim.treesitter.start, args.buf, lang) and vim.bo[args.buf].filetype ~= '' then
+            vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
+    end,
+})
+
+-- nvim-treesitter-textobjects: select keymaps bound explicitly via its public
+-- select_textobject() (the legacy configs.select.keymaps table is gone on `main`).
+require('nvim-treesitter-textobjects').setup({
+    select = { lookahead = true },
+    move = { set_jumps = true },
+})
+local ts_select = require('nvim-treesitter-textobjects.select').select_textobject
+vim.keymap.set({ 'n', 'x', 'o' }, 'af', function() ts_select('@function.outer') end)
+vim.keymap.set({ 'n', 'x', 'o' }, 'if', function() ts_select('@function.inner') end)
+vim.keymap.set({ 'n', 'x', 'o' }, 'ac', function() ts_select('@class.outer') end)
+vim.keymap.set({ 'n', 'x', 'o' }, 'ic', function() ts_select('@class.inner') end)
 
 require("oil").setup({
     keymaps = {
