@@ -1,44 +1,67 @@
-local Plug = vim.fn['plug#']
+-- vim.pack: Neovim's built-in plugin manager (replaces vim-plug).
+-- Requires full git-cloneable URIs, so this helper keeps specs terse.
+local function plug(repo) return 'https://github.com/' .. repo end
 
-vim.call('plug#begin')
+-- Run a plugin's build step after install/update. Registered BEFORE
+-- vim.pack.add() so it also fires for installs served from the lockfile.
+-- The plugin isn't loaded yet when this fires mid-install, so packadd it
+-- first (per :h vim.pack-events) before invoking its command.
+vim.api.nvim_create_autocmd('PackChanged', {
+  group = vim.api.nvim_create_augroup('pack_hooks', {}),
+  callback = function(ev)
+    local name, kind = ev.data.spec.name, ev.data.kind
+    if name == 'nvim-treesitter' and (kind == 'install' or kind == 'update') then
+      if not ev.data.active then
+        vim.cmd.packadd('nvim-treesitter')
+      end
+      -- treesitter parsers are built via :TSUpdate (was vim-plug's `do`)
+      vim.cmd('TSUpdate')
+    end
+  end,
+})
 
-Plug('nvim-lua/plenary.nvim')
-Plug('tpope/vim-surround')
-Plug('christoomey/vim-tmux-navigator')
-Plug('djoshea/vim-autoread')
-Plug('jiangmiao/auto-pairs')
-Plug('nvim-treesitter/nvim-treesitter', { ['branch'] = 'master', ['do'] = ':TSUpdate' })
-Plug('nvim-treesitter/nvim-treesitter-textobjects')
-Plug('preservim/nerdtree')
-Plug('numToStr/Comment.nvim')
-Plug('stevearc/oil.nvim')
-Plug('dhruvasagar/vim-table-mode')
-Plug('stevearc/dressing.nvim')
-Plug('MunifTanjim/nui.nvim')
-Plug('HakonHarnes/img-clip.nvim')
-Plug('folke/which-key.nvim')
+-- load = true is required when calling add() from init.lua: without it
+-- plugin/*.vim files are NOT sourced (only rtp is set), so vim-script
+-- plugins (surround, fugitive, NERDTree, table-mode, auto-pairs, autoread,
+-- tmux-navigator) and the gruvbox colorscheme would silently define no
+-- commands/mappings.
+vim.pack.add({
+  plug('nvim-lua/plenary.nvim'),
+  plug('tpope/vim-surround'),
+  plug('christoomey/vim-tmux-navigator'),
+  plug('djoshea/vim-autoread'),
+  plug('jiangmiao/auto-pairs'),
+  { src = plug('nvim-treesitter/nvim-treesitter'), version = 'master' },
+  plug('nvim-treesitter/nvim-treesitter-textobjects'),
+  plug('preservim/nerdtree'),
+  plug('numToStr/Comment.nvim'),
+  plug('stevearc/oil.nvim'),
+  plug('dhruvasagar/vim-table-mode'),
+  plug('stevearc/dressing.nvim'),
+  plug('MunifTanjim/nui.nvim'),
+  plug('HakonHarnes/img-clip.nvim'),
+  plug('folke/which-key.nvim'),
 
--- theme
-Plug('ellisonleao/gruvbox.nvim')
+  -- theme
+  plug('ellisonleao/gruvbox.nvim'),
 
--- lsp
-Plug('williamboman/mason.nvim')
-Plug('williamboman/mason-lspconfig.nvim')
-Plug('neovim/nvim-lspconfig')
+  -- lsp
+  plug('williamboman/mason.nvim'),
+  plug('williamboman/mason-lspconfig.nvim'),
+  plug('neovim/nvim-lspconfig'),
 
--- autocomplete
-Plug('hrsh7th/nvim-cmp')
-Plug('hrsh7th/cmp-nvim-lsp')
-Plug('hrsh7th/cmp-buffer')
+  -- autocomplete
+  plug('hrsh7th/nvim-cmp'),
+  plug('hrsh7th/cmp-nvim-lsp'),
+  plug('hrsh7th/cmp-buffer'),
 
--- git
-Plug('tpope/vim-fugitive')
-Plug('vincent178/nvim-github-linker')
+  -- git
+  plug('tpope/vim-fugitive'),
+  plug('vincent178/nvim-github-linker'),
 
--- fuzzy finder
-Plug('ibhagwan/fzf-lua', { ['branch'] = 'main' })
-
-vim.call('plug#end')
+  -- fuzzy finder
+  { src = plug('ibhagwan/fzf-lua'), version = 'main' },
+}, { load = true })
 
 vim.g.mapleader          = " "
 
