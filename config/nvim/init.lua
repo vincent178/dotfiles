@@ -71,6 +71,7 @@ vim.opt.mouse            = 'a'    -- string, global: Enable mouse support, 'a' f
 vim.opt.number           = true   -- boolean: show line numbers
 vim.opt.relativenumber   = true   -- boolean: show relative line numbers
 vim.opt.signcolumn       = "yes"  -- string: show the sign column
+vim.opt.clipboard        = "unnamedplus" -- string: yank/paste to system clipboard (+ register)
 
 -- Encoding
 vim.opt.encoding         = 'utf8' -- string: string encoding to use

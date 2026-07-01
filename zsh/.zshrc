@@ -53,6 +53,10 @@ if [ -d "$HOME/.local/bin" ]; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
 
+if [ -f "$HOME/.env" ]; then
+    source "$HOME/.env"
+fi
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(mise activate zsh)"
+
