@@ -65,12 +65,13 @@ vim.pack.add({
 
 vim.g.mapleader          = " "
 
-vim.opt.background       = "dark" -- or "light" for light mode
-vim.opt.swapfile         = false  -- boolean: use a swapfile for the buffer
-vim.opt.mouse            = 'a'    -- string, global: Enable mouse support, 'a' for all previous modes
-vim.opt.number           = true   -- boolean: show line numbers
-vim.opt.relativenumber   = true   -- boolean: show relative line numbers
-vim.opt.signcolumn       = "yes"  -- string: show the sign column
+vim.opt.background       = "dark"        -- or "light" for light mode
+vim.opt.swapfile         = false         -- boolean: use a swapfile for the buffer
+vim.opt.mouse            = 'a'           -- string, global: Enable mouse support, 'a' for all previous modes
+vim.opt.number           = true          -- boolean: show line numbers
+vim.opt.relativenumber   = true          -- boolean: show relative line numbers
+vim.opt.signcolumn       = "yes"         -- string: show the sign column
+vim.opt.timeoutlen       = 300           -- number: max ms to wait for a mapped key sequence to complete (cp/cs/cS shadow bare `c`)
 vim.opt.clipboard        = "unnamedplus" -- string: yank/paste to system clipboard (+ register)
 
 -- Encoding
@@ -157,10 +158,13 @@ require('nvim-treesitter-textobjects').setup({
     move = { set_jumps = true },
 })
 local ts_select = require('nvim-treesitter-textobjects.select').select_textobject
-vim.keymap.set({ 'n', 'x', 'o' }, 'af', function() ts_select('@function.outer') end)
-vim.keymap.set({ 'n', 'x', 'o' }, 'if', function() ts_select('@function.inner') end)
-vim.keymap.set({ 'n', 'x', 'o' }, 'ac', function() ts_select('@class.outer') end)
-vim.keymap.set({ 'n', 'x', 'o' }, 'ic', function() ts_select('@class.inner') end)
+-- Bind only in x (visual) + o (operator-pending): binding in normal mode would
+-- make `i`/`a`/`c` prefixes of `if`/`af`/`cp` etc., so pressing `i`/`a`/`c` to
+-- enter insert would stall for `timeoutlen` waiting to disambiguate.
+vim.keymap.set({ 'x', 'o' }, 'af', function() ts_select('@function.outer') end)
+vim.keymap.set({ 'x', 'o' }, 'if', function() ts_select('@function.inner') end)
+vim.keymap.set({ 'x', 'o' }, 'ac', function() ts_select('@class.outer') end)
+vim.keymap.set({ 'x', 'o' }, 'ic', function() ts_select('@class.inner') end)
 
 require("oil").setup({
     keymaps = {
@@ -223,18 +227,25 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '[e', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end)
 vim.keymap.set('n', ']e', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end)
 vim.keymap.set('n', '<Leader>l', vim.diagnostic.setloclist)
- 
+
+vim.keymap.set('n', 'cp', function()
+  local path = vim.fn.expand('%')
+  vim.fn.setreg('+', path)
+  vim.fn.setreg('"', path)
+  vim.notify('copied path: ' .. path)
+end)
+
 vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-  callback = function(ev)
-    local opts = { buffer = ev.buf }
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<Leader>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set({ 'n', 'v' }, '<Leader>=', function() vim.lsp.buf.format { async = true } end, opts)
-  end,
+    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+    callback = function(ev)
+        local opts = { buffer = ev.buf }
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+        vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, opts)
+        vim.keymap.set({ 'n', 'v' }, '<Leader>ca', vim.lsp.buf.code_action, opts)
+        vim.keymap.set({ 'n', 'v' }, '<Leader>=', function() vim.lsp.buf.format { async = true } end, opts)
+    end,
 })
