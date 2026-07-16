@@ -1,5 +1,3 @@
--- vim.pack: Neovim's built-in plugin manager (replaces vim-plug).
--- Requires full git-cloneable URIs, so this helper keeps specs terse.
 local function plug(repo) return 'https://github.com/' .. repo end
 
 -- Run a plugin's build step after install/update. Registered BEFORE
@@ -71,7 +69,7 @@ vim.opt.mouse            = 'a'           -- string, global: Enable mouse support
 vim.opt.number           = true          -- boolean: show line numbers
 vim.opt.relativenumber   = true          -- boolean: show relative line numbers
 vim.opt.signcolumn       = "yes"         -- string: show the sign column
-vim.opt.timeoutlen       = 300           -- number: max ms to wait for a mapped key sequence to complete (cp/cs/cS shadow bare `c`)
+vim.opt.timeoutlen       = 300           -- number: max ms to wait for a mapped key sequence to complete
 vim.opt.clipboard        = "unnamedplus" -- string: yank/paste to system clipboard (+ register)
 
 -- Encoding
@@ -158,9 +156,6 @@ require('nvim-treesitter-textobjects').setup({
     move = { set_jumps = true },
 })
 local ts_select = require('nvim-treesitter-textobjects.select').select_textobject
--- Bind only in x (visual) + o (operator-pending): binding in normal mode would
--- make `i`/`a`/`c` prefixes of `if`/`af`/`cp` etc., so pressing `i`/`a`/`c` to
--- enter insert would stall for `timeoutlen` waiting to disambiguate.
 vim.keymap.set({ 'x', 'o' }, 'af', function() ts_select('@function.outer') end)
 vim.keymap.set({ 'x', 'o' }, 'if', function() ts_select('@function.inner') end)
 vim.keymap.set({ 'x', 'o' }, 'ac', function() ts_select('@class.outer') end)
