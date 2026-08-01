@@ -27,7 +27,6 @@ vim.pack.add({
   plug('nvim-lua/plenary.nvim'),
   plug('tpope/vim-surround'),
   plug('christoomey/vim-tmux-navigator'),
-  plug('djoshea/vim-autoread'),
   plug('jiangmiao/auto-pairs'),
   { src = plug('nvim-treesitter/nvim-treesitter'), version = 'main' },
   plug('nvim-treesitter/nvim-treesitter-textobjects'),
@@ -93,6 +92,18 @@ vim.opt.splitright       = true   -- boolean: place new window to right of curre
 vim.opt.splitbelow       = true   -- boolean: place new window below the current one
 
 vim.opt.jumpoptions      = 'stack'
+
+-- Auto-reload buffers changed externally (e.g. by Claude Code). vim's built-in
+-- 'autoread' only fires on a few events and misses terminal/tmux sessions, so
+-- force a :checktime on the events most likely to catch the change.
+vim.opt.autoread = true
+vim.api.nvim_create_autocmd(
+  { 'FocusGained', 'BufEnter', 'WinEnter', 'CursorHold', 'CursorHoldI' },
+  { group = vim.api.nvim_create_augroup('auto_read', {}), pattern = '*', command = 'checktime' }
+)
+-- In tmux, FocusGained only fires if `set -g focus-events on` is set, so keep
+-- CursorHold as the reliable fallback (fires after 'updatetime' of inactivity).
+vim.opt.updatetime = 250
 
 vim.cmd('colorscheme gruvbox')
 
