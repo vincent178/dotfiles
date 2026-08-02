@@ -53,13 +53,13 @@
       "rev": "a1d504892f2bc56c2e79b65c6faded2fd21f3eca",
       "src": "https://github.com/hrsh7th/nvim-cmp"
     },
-    "nvim-github-linker": {
-      "rev": "2fb457e96393f675681e17b1e0ef30329efcafdd",
-      "src": "https://github.com/vincent178/nvim-github-linker"
-    },
     "nvim-lspconfig": {
       "rev": "bfcc0171a43f22afa61d927ffe9fcb6cb85dc99e",
       "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "nvim-menu": {
+      "rev": "6bb36e7ab41e28b3c963a18e84bf362a7c6bcfdc",
+      "src": "https://github.com/vincent178/nvim-menu"
     },
     "nvim-treesitter": {
       "rev": "4916d6592ede8c07973490d9322f187e07dfefac",

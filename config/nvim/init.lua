@@ -54,7 +54,9 @@ vim.pack.add({
 
   -- git
   plug('tpope/vim-fugitive'),
-  plug('vincent178/nvim-github-linker'),
+
+  -- context menu (LSP actions + copy path/remote url)
+  plug('vincent178/nvim-menu'),
 
   -- fuzzy finder
   { src = plug('ibhagwan/fzf-lua'), version = 'main' },
@@ -172,10 +174,6 @@ vim.keymap.set({ 'x', 'o' }, 'if', function() ts_select('@function.inner') end)
 vim.keymap.set({ 'x', 'o' }, 'ac', function() ts_select('@class.outer') end)
 vim.keymap.set({ 'x', 'o' }, 'ic', function() ts_select('@class.inner') end)
 
-require('dressing').setup({
-  input = { relative = 'editor' }, -- center the vim.ui.input popup instead of at cursor
-})
-
 require("oil").setup({
     keymaps = {
         ["<C-s>"] = { "actions.select", opts = { vertical = false, horizontal = true } },
@@ -213,7 +211,10 @@ require('Comment').setup({
     ignore = '^$',
 })
 
-require('nvim-github-linker').setup()
+-- nvim-menu: VSCode-style context menu (:NvimMenu). nui.nvim (above) is its
+-- only dependency. No default keymap; bind your own, e.g. <Leader>m.
+require('nvim-menu').setup()
+vim.keymap.set({ 'n', 'v' }, '<Leader>m', '<cmd>NvimMenu<CR>', { desc = 'Context menu' })
 
 -- keymaps
 vim.keymap.set('i', '<C-a>', '<Home>')
