@@ -214,7 +214,6 @@ require('Comment').setup({
 -- nvim-menu: VSCode-style context menu (:NvimMenu). nui.nvim (above) is its
 -- only dependency. No default keymap; bind your own, e.g. <Leader>m.
 require('nvim-menu').setup()
-vim.keymap.set({ 'n', 'v' }, '<Leader>m', '<cmd>NvimMenu<CR>', { desc = 'Context menu' })
 
 -- keymaps
 vim.keymap.set('i', '<C-a>', '<Home>')
@@ -263,13 +262,7 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '[e', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end)
 vim.keymap.set('n', ']e', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end)
 vim.keymap.set('n', '<Leader>l', vim.diagnostic.setloclist)
-
-vim.keymap.set('n', 'cp', function()
-  local path = vim.fn.expand('%')
-  vim.fn.setreg('+', path)
-  vim.fn.setreg('"', path)
-  vim.notify('copied path: ' .. path)
-end)
+vim.keymap.set({ 'n', 'v' }, '<Leader>m', '<cmd>NvimMenu<CR>', { desc = 'Context menu' })
 
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
