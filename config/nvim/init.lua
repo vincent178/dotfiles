@@ -172,6 +172,10 @@ vim.keymap.set({ 'x', 'o' }, 'if', function() ts_select('@function.inner') end)
 vim.keymap.set({ 'x', 'o' }, 'ac', function() ts_select('@class.outer') end)
 vim.keymap.set({ 'x', 'o' }, 'ic', function() ts_select('@class.inner') end)
 
+require('dressing').setup({
+  input = { relative = 'editor' }, -- center the vim.ui.input popup instead of at cursor
+})
+
 require("oil").setup({
     keymaps = {
         ["<C-s>"] = { "actions.select", opts = { vertical = false, horizontal = true } },
@@ -221,6 +225,31 @@ vim.keymap.set('c', '<C-b>', '<Left>')
 vim.keymap.set('c', '<C-f>', '<Right>')
 vim.keymap.set('n', '<Leader>n', '<cmd>NERDTreeToggle<CR>')
 vim.keymap.set('n', '<Leader>g', require('fzf-lua').live_grep)
+-- Pick a directory via fzf-lua (fd -t d), then live_grep inside it.
+-- First entry is always '.' (cwd), so Enter immediately greps the current
+-- directory; pick any other entry to narrow the scope.
+vim.keymap.set('n', '<Leader>/', function()
+  local cwd = vim.fn.getcwd()
+  require('fzf-lua').files({
+    prompt = 'Grep in dir> ',
+    cwd = cwd,
+    -- prepend '.' so the default selection (first line) == current directory;
+    -- fd output is relative, so a leading '.' means "cwd" verbatim.
+    cmd = 'echo . && fd -t d --follow',
+    hidden = false,
+    file_icons = false,
+    git_icons = false,
+    fzf_opts = { ['--info'] = 'inline' },
+    actions = {
+      ['default'] = function(selected)
+        local dir = selected[1]
+        if not dir or #dir == 0 then return end
+        dir = dir == '.' and cwd or vim.fs.joinpath(cwd, dir)
+        require('fzf-lua').live_grep({ cwd = dir })
+      end,
+    },
+  })
+end)
 vim.keymap.set('n', '<Leader>f', require('fzf-lua').files)
 vim.keymap.set('n', '<Leader>b', require('fzf-lua').buffers)
 vim.keymap.set('n', '<Leader>o', '<cmd>Oil<CR>')
